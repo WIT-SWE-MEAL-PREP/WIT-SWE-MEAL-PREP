@@ -1,3 +1,11 @@
+# Build Docker Image
+
+` docker build -t mealprepapp . `
+
+# Run Docker Image
+
+` docker run -p 3000:3000 -d mealprepapp `
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
