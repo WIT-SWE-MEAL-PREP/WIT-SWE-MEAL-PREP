@@ -18,6 +18,8 @@ connection.connect((err) => {
     console.log('Connected!');
 });
 
+const PORT = process.env.PORT || 8080
+
 app.use(cors());
 
 app.post('/login', (req, res) => {
@@ -133,4 +135,4 @@ app.get('/getFood', (req, res) => {
     });
 });
 
-app.listen(8080, () => console.log('API is running on http://localhost:8080/login'));
+app.listen(PORT, () => console.log('API is running on http://localhost:8080/login'));
