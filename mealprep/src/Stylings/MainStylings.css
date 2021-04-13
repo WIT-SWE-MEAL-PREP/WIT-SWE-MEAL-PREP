@@ -1,3 +1,8 @@
 .pageWrapper {
     padding: 2px;
 }
+
+.tableDiv {
+    overflow: hidden;
+    margin-bottom: 75px;
+}

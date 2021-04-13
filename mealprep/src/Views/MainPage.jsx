@@ -118,6 +118,10 @@ class MainPage extends React.Component{
                       { title: 'Serving Size', field: 'Serving_Size'},
                       ]}
                   data={this.state.selectedFoods}
+                  style={{
+                    opacity:1,
+                    zIndex:1
+                  }}
               />
             </div>
         </div>

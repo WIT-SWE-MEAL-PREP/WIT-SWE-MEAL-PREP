@@ -32,9 +32,15 @@ class AppController extends React.Component {
     
         return (
             <div className="mainAppWrapper">
-                <Header/>
+                <div>
+                    <Header/>
+                </div>
+
                 <MainController/>
-                <Footer/>
+                
+                <div>
+                    <Footer/>
+                </div>
             </div>
         )
     }

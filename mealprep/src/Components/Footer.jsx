@@ -8,20 +8,15 @@ class Footer extends React.Component{
     render() {
         return(
             <div className="footerWrapper">
-                <div className="socialMediaWrapper">
-                    <h5>Check out the repo!</h5>
-                    <a href="https://github.com/connollyp/WIT-SWE-MEAL-PREP" className="imageLinks">
-                        <img alt="github logo" src={GitHubLogo} className="imageLinks" />
-                    </a>
-                </div>
-                <div className="memberWrapper">
-                    <h4>Patrick</h4> 
-                    <a href="https://github.com/connollyp/" className="imageLinks">
-                        <img alt="github logo" src={GitHubLogo} className="imageLinks" />
-                    </a>
-                    <a href="https://github.com/connollyp/" className="imageLinks">
-                        <img alt="github logo" src={GitHubLogo} className="imageLinks" />
-                    </a>
+                <div class="ft-social">
+                    <ul class="clearfix">		
+                    
+                        <li><a href="https://github.com/connollyp/WIT-SWE-MEAL-PREP"><img className="imageLink" alt="github" src={GitHubLogo}/></a></li>
+                        <li><a href="http://www.instagram.com"><img img className="imageLink" src={GitHubLogo}/></a></li>
+                        <li><a href="http://www.twitter.com"><img className="imageLink" src={GitHubLogo} /></a></li>
+                        <li><a href="http://www.facebook.com"><img className="imageLink" src={GitHubLogo} /></a></li>
+            
+                    </ul>
                 </div>
             </div>
         )

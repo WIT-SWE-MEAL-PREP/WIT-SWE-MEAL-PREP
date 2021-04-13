@@ -45,13 +45,10 @@ class FoodSearchController extends React.Component {
                     height: '100%',
                     width: '100%',
                     alignItems: 'center',
-                    display: 'flex', 
-                    justifyItems: 'center', 
-                    justifyContent: 'center', 
-                    textAlign: 'center',
-                    verticalAlign: 'center',
-                    margin: 'auto',
-                    position: 'absolute',
+                    justifyContent: 'center',
+                    display: 'flex',
+                    position: 'relative',
+                    paddingTop: '25%',
                     }}>
 
                     <Loader
