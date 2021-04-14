@@ -7,6 +7,7 @@ import Footer from '../Components/Footer.jsx'
 import Header from '../Components/Header.jsx'
 
 import '../Stylings/AppStylings.css'
+import useToken from '../useToken.js';
 
 class AppController extends React.Component {
 
