@@ -9,7 +9,7 @@ COPY . .
 #RUN npm install @material-ui/core
 #RUN npm install @material-ui/icons
 
-RUN npm cache clean
+#RUN npm cache clean
 
 RUN npm install
 # If you are building your code for production
