@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 // import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import AppController from './Controllers/AppController.jsx'
 
-// import './Stylings/AppStylings.css'
+import './Stylings/AppStylings.css'
 
 function App() {
-    return (
-        <AppController/>
+    return ( <
+        AppController / >
     )
 }
 
