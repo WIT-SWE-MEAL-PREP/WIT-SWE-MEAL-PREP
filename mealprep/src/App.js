@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 // import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import MainController from './Controllers/MainController.jsx'
@@ -10,11 +10,12 @@ import './Stylings/AppStylings.css'
 import useToken from './useToken.js';
 
 function App() {
-    const {loggedIn, isLoggedIn} = useToken();
+    const {success, isLoggedIn} = useToken();
 
-    console.log(loggedIn)
+    console.log(success);
+    console.log(isLoggedIn);
 
-    if (!loggedIn) {
+    if (!success) {
         return <AccountStatusController isLoggedIn = { isLoggedIn }
         />
     }

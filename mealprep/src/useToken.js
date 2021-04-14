@@ -1,23 +1,25 @@
 import { useState } from 'react';
 
 export default function useToken() {
-    const getToken = () => {
 
-        const tokenString = sessionStorage.getItem('loggedIn');
-        const userToken = JSON.parse(tokenString);
-        return userToken?.loggedIn
-    
-    }
-    
-    const [loggedIn, isLoggedIn] = useState(getToken());
+  const getToken = () => {
+    const tokenString = sessionStorage.getItem('token');
+    const userToken = JSON.parse(tokenString);
+    return userToken?.success
+  };
 
-    const saveToken = userToken => {
-        sessionStorage.setItem('token', JSON.stringify(userToken));
-        isLoggedIn(userToken.loggedIn)
-    };
+  const [success, isLoggedIn] = useState(getToken());
 
-    return {
-        isLoggedIn: saveToken,
-        loggedIn
-    }
+  console.log(success);
+
+  const saveToken = userToken => {
+    console.log(userToken)
+    sessionStorage.setItem('token', JSON.stringify(userToken));
+    return isLoggedIn(userToken.success);
+  };
+
+  return {
+    isLoggedIn: saveToken,
+    success
+  }
 }
