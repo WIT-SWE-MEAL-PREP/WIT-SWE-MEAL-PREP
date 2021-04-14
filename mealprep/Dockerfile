@@ -6,8 +6,8 @@ COPY package*.json ./
 
 COPY . .
 
-#RUN npm install @material-ui/core
-#RUN npm install @material-ui/icons
+RUN npm install @material-ui/core
+RUN npm install @material-ui/icons
 
 #RUN npm cache clean
 
