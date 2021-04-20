@@ -1,0 +1,17 @@
+CREATE TABLE Breakfast(
+Breakfast_Id INT NOT NULL,
+Name VARCHAR(255), 
+Ingredients LONGTEXT,  
+Vegan BOOLEAN, 
+Vegetarian BOOLEAN, 
+Keto BOOLEAN,
+Calories INT,
+Crabs INT, 
+Total Fat INT,
+Cholesterol INT, 
+Sodium INT, 
+Sugar INT, 
+Protein INT,
+User_Id INT NOT NULL, 
+CONSTRAINT Breakfast_PK PRIMARY KEY (Breakfast_Id)
+); 

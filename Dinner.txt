@@ -1,0 +1,17 @@
+CREATE TABLE Dinner(
+Dinner_Id INT,
+Name VARCHAR(255), 
+Ingredients LONGTEXT,  
+Vegan BOOLEAN, 
+Vegetarian BOOLEAN, 
+Keto BOOLEAN,
+Calories INT,
+Crabs INT, 
+TotalFat INT,
+Cholesterol INT, 
+Sodium INT, 
+Sugar INT, 
+Protein INT,
+User_Id INT NOT NULL, 
+CONSTRAINT Dinner_PK PRIMARY KEY (Dinner_Id)
+); 
