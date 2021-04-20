@@ -1,0 +1,116 @@
+CREATE TABLE Breakfast(
+Breakfast_Id INT NOT NULL,
+Name VARCHAR(255), 
+Ingredients LONGTEXT,  
+Vegan BOOLEAN, 
+Vegetarian BOOLEAN, 
+Keto BOOLEAN,
+Calories INT,
+Crabs INT, 
+Total Fat INT,
+Cholesterol INT, 
+Sodium INT, 
+Sugar INT, 
+Protein INT,
+User_Id INT NOT NULL, 
+CONSTRAINT Breakfast_PK PRIMARY KEY (Breakfast_Id)
+); 
+
+
+CREATE TABLE Dessert(
+Dessert_Id INT,
+Name VARCHAR(255), 
+Ingredients LONGTEXT,  
+Vegan BOOLEAN, 
+Vegetarian BOOLEAN, 
+Keto BOOLEAN,
+Calories INT,
+Crabs INT, 
+TotalFat INT,
+Cholesterol INT, 
+Sodium INT, 
+Sugar INT, 
+Protein INT,
+User_Id INT NOT NULL, 
+CONSTRAINT Dessert_PK PRIMARY KEY (Dessert_Id)
+); 
+
+
+
+CREATE TABLE Dinner(
+Dinner_Id INT,
+Name VARCHAR(255), 
+Ingredients LONGTEXT,  
+Vegan BOOLEAN, 
+Vegetarian BOOLEAN, 
+Keto BOOLEAN,
+Calories INT,
+Crabs INT, 
+TotalFat INT,
+Cholesterol INT, 
+Sodium INT, 
+Sugar INT, 
+Protein INT,
+User_Id INT NOT NULL, 
+CONSTRAINT Dinner_PK PRIMARY KEY (Dinner_Id)
+); 
+
+
+CREATE TABLE Lunch(
+Lunch_Id INT,
+Name VARCHAR(255), 
+Ingredients LONGTEXT,  
+Vegan BOOLEAN, 
+Vegetarian BOOLEAN, 
+Keto BOOLEAN,
+Calories INT,
+Crabs INT, 
+TotalFat INT,
+Cholesterol INT, 
+Sodium INT, 
+Sugar INT, 
+Protein INT,
+User_Id INT NOT NULL, 
+CONSTRAINT Lunch_PK PRIMARY KEY (Lunch_Id)
+); 
+
+CREATE TABLE Snack(
+Snack_Id INT,
+Name VARCHAR(255), 
+Ingredients LONGTEXT,  
+Vegan BOOLEAN, 
+Vegetarian BOOLEAN, 
+Keto BOOLEAN,
+Calories INT,
+Crabs INT, 
+TotalFat INT,
+Cholesterol INT, 
+Sodium INT, 
+Sugar INT, 
+Protein INT,
+User_Id INT NOT NULL, 
+CONSTRAINT Snack_PK PRIMARY KEY (Snack_Id)
+); 
+
+Create Table User(
+User_Id INT NOT NULL, 
+First_Name VARCHAR(255) NOT NULL,
+Last_Name VARCHAR(255) NOT NULL, 
+Age INT, 
+Weight INT,
+Height INT, 
+Vegan BOOLEAN, 
+Vegetarian BOOLEAN, 
+Keto BOOLEAN,
+Breakfast_Id INT, 
+Lunch_Id INT, 
+Dinner_Id INT, 
+Dessert_Id INT, 
+Snack_Id INT, 
+CONSTRAINT User_PK PRIMARY KEY (User_Id)
+);
+
+
+
+
+
