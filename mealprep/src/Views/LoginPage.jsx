@@ -35,15 +35,15 @@ class LogInPage extends React.Component{
             </label>
             <input type="password" onChange={e => this.setPassword(e.target.value)} />
           </div>
-          <section className="actions">
-            <div className="submit-button">
-              <button type="submit" className="submit-btn">Submit</button>
-            </div>
-            <div className="checkbox">
+          <div className="checkbox">
             <label>            
               <input type="checkbox" onChange={e => this.setStaySignedIn(e.target.checked)} />
               Keep Me Logged In
             </label>
+            </div>
+          <section className="actions">
+            <div className="submit-button">
+              <button type="submit" className="submit-btn">Submit</button>
             </div>
             <div className="links">
               <p>Need an account? <button className="accountButton" onClick={() => { this.setAccountStatus(false) }}> Click Here</button></p>
