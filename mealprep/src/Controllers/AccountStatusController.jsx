@@ -11,7 +11,6 @@ class AccountStatusController extends React.Component {
             staySignedIn: false
         }
 
-        this.setStaySignedIn = this.props.setStaySignedIn.bind(this);
         this.isLoggedIn = this.props.isLoggedIn.bind(this);
     }
 
@@ -30,7 +29,6 @@ class AccountStatusController extends React.Component {
                 LoginController 
                 setAccountStatus = { this.setAccountStatus }
                 isLoggedIn = { this.isLoggedIn }
-                setStaySignedIn = {this.setStaySignedIn}
                 />
             )
         }else {

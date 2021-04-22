@@ -12,27 +12,29 @@ import useToken from './useToken.js';
 
 function App() {
     const {success, isLoggedIn} = useToken();
-    var staySignedIn = false;
+    var signedIn = success;
 
-    function setStaySignedIn (status) {
-    
-        staySignedIn = status;
+    function setSignInStatus (status) {
+        signedIn = status
+
+        if(!signedIn){
+            sessionStorage.clear();
+            window.location.reload(false);
+        }
     }
 
-    if (!success) {
+    if (!signedIn) {
         return <
             AccountStatusController 
             isLoggedIn = { isLoggedIn }
-            setStaySignedIn = { setStaySignedIn }
-            
         />
     }
 
     return (
         <div className="mainAppWrapper">
             <Header/>
-            <MainController/>
-            <Footer/>
+            <MainController />
+            <Footer setSignInStatus = { setSignInStatus }/>
         </div>
     )
 }

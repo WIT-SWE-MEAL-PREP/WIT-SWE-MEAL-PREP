@@ -13,7 +13,6 @@ class LoginController extends React.Component {
         }
 
         this.isLoggedIn = this.props.isLoggedIn.bind(this);
-        this.setStaySignedIn = this.props.setStaySignedIn.bind(this);
         this.setAccountStatus = this.props.setAccountStatus.bind(this);
     }
 
@@ -32,9 +31,7 @@ class LoginController extends React.Component {
     getCheckedStatus = (status) => {
         this.setState({
             staySignedIn: status
-        })
-
-        this.setStaySignedIn(status)        
+        })     
     }
 
     handleSubmit = async e => {
