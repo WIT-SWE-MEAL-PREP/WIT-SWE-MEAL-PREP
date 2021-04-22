@@ -13,6 +13,7 @@ class LogInPage extends React.Component{
       this.handleSubmit = this.props.handleSubmit.bind(this);
       this.setUserName = this.props.setUserName.bind(this);
       this.setPassword = this.props.setPassword.bind(this);
+      this.setStaySignedIn = this.props.setStaySignedIn.bind(this);
       this.setAccountStatus = this.props.setAccountStatus.bind(this);
   }
 
@@ -37,6 +38,12 @@ class LogInPage extends React.Component{
           <section className="actions">
             <div className="submit-button">
               <button type="submit" className="submit-btn">Submit</button>
+            </div>
+            <div className="checkbox">
+            <label>            
+              <input type="checkbox" onChange={e => this.setStaySignedIn(e.target.checked)} />
+              Keep Me Logged In
+            </label>
             </div>
             <div className="links">
               <p>Need an account? <button className="accountButton" onClick={() => { this.setAccountStatus(false) }}> Click Here</button></p>
