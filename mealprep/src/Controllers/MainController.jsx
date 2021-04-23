@@ -1,6 +1,7 @@
 import React from 'react';
 import ConfigPage from '../Views/ConfigurationPage.jsx';
 import MainPage from '../Views/MainPage.jsx'
+import uploadUserConfig from '../Models/UploadUserConfig.js'
 
 class MainController extends React.Component{
 
@@ -12,7 +13,6 @@ class MainController extends React.Component{
             firstName: '',
             lastName: '',
             username: '',
-            password: '',
             constraints: {
                 numMeals: 0,
                 calories: 0,
@@ -25,6 +25,8 @@ class MainController extends React.Component{
                 vegetarian: false
             }
         }
+
+        this.configuredChangedListener(this.props.footerConfiguredStatus)
     }
 
     handleSubmit = () => {
@@ -42,6 +44,34 @@ class MainController extends React.Component{
                 fiber: document.getElementById("fiber").value,
             }
         })
+
+        this.uploadUserConfig();
+    }
+
+    configuredChangedListener(status){
+        this.setState({
+            configured: status
+        })
+    }
+
+    uploadUserConfig = async e => {
+
+        console.log(this.state.username);
+
+        var url = "http://localhost:8080/uploadUserConfig?username='" + String(this.state.username) + "'";
+        //  + this.state.firstName + "'&lastname='" + this.state.lastName;
+        var returnedResults = await uploadUserConfig(url);
+
+        this.setState({
+            results: returnedResults,
+            dataReturned: true
+        });
+    }
+
+    setConfigStatus(status){
+        this.setState({
+            configured: status
+        })
     }
    
     render() { 
@@ -51,6 +81,7 @@ class MainController extends React.Component{
                 <MainPage 
                 username={this.state.username} 
                 constraints={this.state.constraints}
+                getConfigStatus={this.getConfigStatus}
                 />
                 )
         }else{

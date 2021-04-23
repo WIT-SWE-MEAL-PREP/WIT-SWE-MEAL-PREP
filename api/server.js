@@ -135,4 +135,59 @@ app.get('/getFood', (req, res) => {
     });
 });
 
+app.post('/uploadUserConfig', (req, res) => {
+    var result = false;
+    var getDBInfo = function(callback) {
+
+        let sql = 'SELECT MAX(User_id) FROM gainsday.User';
+        connection.query(sql, (err, resp) => {
+            if (err) {
+                console.log("error: ", err);
+                return callback(err);
+            }
+
+            console.log(sql)
+
+            if (resp.length) {
+                console.log("Previous highest user id: ", resp);
+                result = resp;
+            }
+
+            callback(null, result);
+        });
+    }
+
+    var postDBInfo = function(callback) {
+
+        let sql = "INSERT INTO gainsday.User (User_id, Username, Password, Email) VALUES (" + maxUserID + "," + String(req.query.username) + ", " + String(req.query.password) + ", " + String(req.query.email) + ");";
+
+        connection.query(sql, (err, resp) => {
+            if (err) {
+                console.log("error: ", err);
+                return callback(err);
+            }
+
+            console.log(sql)
+
+            if (resp.length) {
+                maxUserID = resp[0];
+                result = true;
+            }
+
+            callback(null, result);
+        });
+    }
+
+    getDBInfo(function(err, result) {
+        maxUserID = result[0]["MAX(User_id)"] + 1;
+
+        postDBInfo(function(err, result) {
+            res.send({ success: true });
+        });
+
+        console.log({ success: result })
+            // res.send({ success: result });
+    });
+});
+
 app.listen(PORT, () => console.log('API is running on http://localhost:8080/login'));
