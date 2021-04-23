@@ -8,7 +8,8 @@ class LoginController extends React.Component {
 
         this.state = {
             username: "",
-            password: ""
+            password: "",
+            staySignedIn: false
         }
 
         this.isLoggedIn = this.props.isLoggedIn.bind(this);
@@ -27,13 +28,19 @@ class LoginController extends React.Component {
         })
     }
 
+    getCheckedStatus = (status) => {
+        this.setState({
+            staySignedIn: status
+        })     
+    }
+
     handleSubmit = async e => {
         e.preventDefault();
         var url = "http://localhost:8080/login?username='" + String(this.state.username) + "'&password='" + String(this.state.password) + "'";
         const token = await loginUser(url);
 
         if (token["success"] === true) {
-            this.isLoggedIn(token);
+            this.isLoggedIn(token, this.state.staySignedIn);
         }
     }
 
@@ -45,6 +52,7 @@ class LoginController extends React.Component {
             setUserName = { this.setUserName }
             setPassword = { this.setPassword }
             setAccountStatus = { this.setAccountStatus }
+            setStaySignedIn = {this.getCheckedStatus}
             />
         )
     }

@@ -7,13 +7,15 @@ import HeaderAndFooterController from './Controllers/headerAndFooterController.j
 import './Stylings/AppStylings.css'
 import useToken from './useToken.js';
 
+
 function App() {
     const {success, isLoggedIn} = useToken();
+    var signedIn = success;
 
-    if (!success) {
-        return <AccountStatusController 
-        isLoggedIn = { isLoggedIn }
-        />
+    if (!signedIn) {
+        return <
+            AccountStatusController 
+            isLoggedIn = { isLoggedIn }/>
     }else{
         return (
             <HeaderAndFooterController/>

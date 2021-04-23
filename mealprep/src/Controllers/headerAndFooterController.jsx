@@ -12,7 +12,20 @@ class HeaderAndFooterController extends React.Component {
         super(props)
 
         this.state = {
-            configured: false
+            configured: false,
+            signedIn: true
+        }
+    }
+
+    setSignInStatus (status) {
+
+        this.setState({
+            signedIn: status
+        }) 
+
+        if(!this.state.signedIn){
+            sessionStorage.clear();
+            window.location.reload(false);
         }
     }
 
@@ -27,7 +40,7 @@ class HeaderAndFooterController extends React.Component {
             <div className="mainAppWrapper">
                 <Header/>
                 <MainController footerConfiguredStatus={this.state.configured}/>
-                <Footer/>
+                <Footer setSignInStatus = { this.setSignInStatus }/>
             </div>
         )
     }

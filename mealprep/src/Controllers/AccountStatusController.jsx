@@ -7,7 +7,8 @@ class AccountStatusController extends React.Component {
         super(props)
 
         this.state = {
-            hasAccount: true
+            hasAccount: true,
+            staySignedIn: false
         }
 
         this.isLoggedIn = this.props.isLoggedIn.bind(this);

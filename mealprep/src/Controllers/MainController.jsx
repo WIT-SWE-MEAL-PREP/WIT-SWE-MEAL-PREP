@@ -26,7 +26,7 @@ class MainController extends React.Component{
             }
         }
 
-        this.configuredChangedListener(this.props.footerConfiguredStatus)
+        // this.configuredChangedListener(this.props.footerConfiguredStatus)
     }
 
     handleSubmit = () => {

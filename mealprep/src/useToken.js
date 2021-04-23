@@ -12,10 +12,16 @@ export default function useToken() {
 
   console.log(success);
 
-  const saveToken = userToken => {
-    console.log(userToken)
-    sessionStorage.setItem('token', JSON.stringify(userToken));
-    return isLoggedIn(userToken.success);
+  const saveToken = (userToken, shouldSave) => {
+
+    if(shouldSave){
+        console.log(userToken)
+        sessionStorage.setItem('token', JSON.stringify(userToken));
+        return isLoggedIn(userToken.success);
+    }else{
+        return isLoggedIn(userToken.success);
+    }
+
   };
 
   return {
