@@ -36,7 +36,7 @@ class AccountCreationController extends React.Component {
 
     handleSubmit = async e => {
         e.preventDefault();
-        var url = "http://gdpapibalancer-1707325388.us-east-2.elb.amazonaws.com/uploadNewUser?username='" + String(this.state.username) + "'&password='" + String(this.state.password) + "'&email='" + String(this.state.email) + "'";
+        var url = "http://http://localhost:8080/uploadNewUser?username='" + String(this.state.username) + "'&password='" + String(this.state.password) + "'&email='" + String(this.state.email) + "'";
         const token = await uploadNewUser(url);
 
         if (token["success"] === true) {

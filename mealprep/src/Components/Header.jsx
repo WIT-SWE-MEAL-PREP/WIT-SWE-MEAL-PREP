@@ -3,7 +3,6 @@ import '../Stylings/HeaderStylings.css'
 
 
 class Header extends React.Component{
-
     render() {
         return(
             <div className="headerWrapper">

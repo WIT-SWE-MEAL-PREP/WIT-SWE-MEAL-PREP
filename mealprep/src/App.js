@@ -9,22 +9,32 @@ import Header from './Components/Header.jsx'
 import './Stylings/AppStylings.css'
 import useToken from './useToken.js';
 
+
 function App() {
     const {success, isLoggedIn} = useToken();
+    var signedIn = success;
 
-    console.log(success);
-    console.log(isLoggedIn);
+    function setSignInStatus (status) {
+        signedIn = status
 
-    if (!success) {
-        return <AccountStatusController isLoggedIn = { isLoggedIn }
+        if(!signedIn){
+            sessionStorage.clear();
+            window.location.reload(false);
+        }
+    }
+
+    if (!signedIn) {
+        return <
+            AccountStatusController 
+            isLoggedIn = { isLoggedIn }
         />
     }
 
     return (
         <div className="mainAppWrapper">
             <Header/>
-            <MainController/>
-            <Footer/>
+            <MainController />
+            <Footer setSignInStatus = { setSignInStatus }/>
         </div>
     )
 }
