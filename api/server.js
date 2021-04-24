@@ -46,7 +46,7 @@ app.post('/login', (req, res) => {
 
     getDBInfo(function(err, result) {
         console.log({ success: result })
-        res.send({ success: result });
+        res.send({ loggedIn: result });
     });
 });
 

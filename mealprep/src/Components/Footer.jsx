@@ -1,5 +1,4 @@
 import React from 'react'
-import GitHubLogo from '../Images/GitHub-Mark-64px.png'
 import '../Stylings/FooterStylings.css'
 
 
@@ -8,31 +7,35 @@ class Footer extends React.Component{
         super(props);
 
         this.state = {
-            signedIn: true
+            signedIn: true,
+            configured: this.props.configured
         }
 
-        this.setSignInStatus= this.props.setSignInStatus.bind(this);
+        this.setSignInStatus= this.props.setSignInStatus.bind(this);    
     }
 
-    componentDidMount(){
-        console.log(this.setSignInStatus)
+    setConfigStatus(status, shouldRefresh){
+        this.props.setConfiguredStatus(status, shouldRefresh);
     }
+
+    // componentDidUpdate(){
+    //     if(this.props.shouldRefresh){
+    //         this.forceUpdate();
+    //     }
+    //  }
 
     render() {
         return(
             <div className="footerWrapper">
                 <div className="textCenter">
-                    <div className="centerDiv">
-                        <h5>Want to contribute? Check out the repo! </h5>
-                    </div>
-                    <div className="centerDiv">
-                        <a className="ft-social" href="https://github.com/WIT-SWE-MEAL-PREP/WIT-SWE-MEAL-PREP"><img className="imageLink" alt="github" src={GitHubLogo}/></a>
-                    </div>
                     <div className="centerDiv buttons">
                         <button className="signoutButton" onClick={() => { this.setSignInStatus(false) }}>Sign Out </button>
                     </div>
                     <div className="centerDiv">
-                        <button className="signoutButton">Configure </button>
+                        <button className="signoutButton" onClick={() => { this.setConfigStatus(false, true) }}>Configure </button>
+                    </div>
+                    <div className="centerDiv">
+                        <button className="signoutButton" onClick={() => { window.location.href="https://github.com/WIT-SWE-MEAL-PREP/WIT-SWE-MEAL-PREP" }}>Repository</button>
                     </div>
                 </div>
             </div>
