@@ -13,7 +13,6 @@ class LoginController extends React.Component {
         }
 
         this.setAccountStatus = this.props.setAccountStatus.bind(this);
-        this.getUsername = this.props.getUsername.bind(this);
     }
 
     setUserName = (username) => {
@@ -29,9 +28,6 @@ class LoginController extends React.Component {
     }
 
     setStaySignedIn = (status) => {
-        
-        console.log(status)
-
         this.setState({
             staySignedIn: status
         })     
@@ -43,8 +39,8 @@ class LoginController extends React.Component {
         var token = await loginUser(url);
 
         if (token["loggedIn"] === true) {
+            this.props.getUsername(this.state.username);
             this.props.setLogInStatus(token, this.state.staySignedIn);
-            this.getUsername(this.state.username);
         }
     }
 

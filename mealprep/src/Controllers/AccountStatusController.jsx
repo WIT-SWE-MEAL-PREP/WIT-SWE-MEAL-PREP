@@ -10,8 +10,6 @@ class AccountStatusController extends React.Component {
             hasAccount: true,
             staySignedIn: false
         }
-        
-        this.getUsername = this.props.getUsername.bind(this);
     }
 
     setAccountStatus = (val) => {
@@ -27,7 +25,7 @@ class AccountStatusController extends React.Component {
                 LoginController 
                 setAccountStatus = { this.setAccountStatus }
                 setLogInStatus = { this.props.setLogInStatus }
-                getUsername = { this.getUsername }
+                getUsername = { this.props.getUsername }
                 />
             )
         }else {
