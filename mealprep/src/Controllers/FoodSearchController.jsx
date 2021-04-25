@@ -21,7 +21,7 @@ class FoodSearchController extends React.Component {
     }
 
     getData = async e => {
-        var url = "http://localhost:8080/getFood?query='" + String(this.state.searchQuery) + "'";
+        var url = "http://http://localhost:8080/getFood?query='" + this.state.searchQuery + "'";
         var returnedResults = await getFood(url);
 
         this.setState({

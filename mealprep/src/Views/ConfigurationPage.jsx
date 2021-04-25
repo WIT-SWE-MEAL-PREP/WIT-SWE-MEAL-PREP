@@ -5,20 +5,20 @@ class ConfigPage extends React.Component {
     constructor(props) {
         super(props)
 
-        // this.handleSubmit = this.props.handleSubmit.bind(this);
+        this.handleSubmit = this.props.handleSubmit.bind(this);
     }
 
-    validate(e) {  
-        e.preventDefault();
-        
-        this.props.handleSubmit(true);
+    validate = () => {
+
+        this.props.handleSubmit();
+
     }
 
     render() {
         return (
             <div className="back">
                 <div className="config-wrapper">
-                    <form method="post" onSubmit={e => this.validate(e)} className="config-form">
+                    <form method="post" onSubmit={this.validate} className="config-form">
                         <fieldset>
                             <div className="legend">
                             <legend>User Information</legend>

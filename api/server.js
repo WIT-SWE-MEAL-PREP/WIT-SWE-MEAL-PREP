@@ -46,7 +46,7 @@ app.post('/login', (req, res) => {
 
     getDBInfo(function(err, result) {
         console.log({ success: result })
-        res.send({ loggedIn: result });
+        res.send({ success: result });
     });
 });
 
@@ -132,70 +132,6 @@ app.get('/getFood', (req, res) => {
     getDBInfo(function(err, result) {
         console.log({ success: result })
         res.send({ success: result });
-    });
-});
-
-app.post('/uploadUserConfig', (req, res) => {
-    var result = false;
-
-    console.log(req)
-
-    var postDBInfo = function(callback) {
-
-        let sql = "UPDATE gainsday.User SET First_Name = " + String(req.query.firstname) +
-            ", Last_Name = " + String(req.query.lastname) +
-            ", Age = " + String(req.query.age) +
-            ", Weight = " + String(req.query.weight) +
-            ", Height = " + String(req.query.height) +
-            "' WHERE Username = " + String(req.query.username);
-
-        connection.query(sql, (err, resp) => {
-            if (err) {
-                console.log("error: ", err);
-                return callback(err);
-            }
-
-            console.log(sql)
-
-            if (resp.length) {
-                maxUserID = resp[0];
-                result = true;
-            }
-
-            callback(null, result);
-        });
-    }
-
-    postDBInfo(function(err, result) {
-        res.send({ success: result });
-    });
-});
-
-app.get('/getConfig', (req, res) => {
-
-    var result = false;
-    var getDBInfo = function(callback) {
-        let sql = "SELECT * FROM gainsday.User WHERE Username = " + String(req.query.username)
-        connection.query(sql, (err, resp) => {
-            if (err) {
-                console.log("error: ", err);
-                return callback(err);
-            }
-
-            console.log(sql)
-
-            if (resp.length) {
-                console.log("found user: ", resp);
-                result = resp;
-            }
-
-            callback(null, result);
-        });
-    }
-
-    getDBInfo(function(err, result) {
-        console.log({ success: result })
-        res.send({ configData: result });
     });
 });
 
