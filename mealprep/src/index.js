@@ -5,7 +5,7 @@ import App from './App.js';
 import reportWebVitals from './reportWebVitals';
 
 // const PORT = process.env.PORT || 3000
-const PORT = 5000
+const PORT = 8888
 
 ReactDOM.render( <
     App / > ,
