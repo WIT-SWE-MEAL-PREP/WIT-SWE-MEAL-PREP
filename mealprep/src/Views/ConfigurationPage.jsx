@@ -2,12 +2,6 @@ import React from 'react';
 import '../Stylings/ConfigStyling.css'
 
 class ConfigPage extends React.Component {
-    constructor(props) {
-        super(props)
-
-        // this.handleSubmit = this.props.handleSubmit.bind(this);
-    }
-
     validate(e) {  
         e.preventDefault();
         

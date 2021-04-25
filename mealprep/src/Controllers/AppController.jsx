@@ -109,22 +109,23 @@ class AppController extends React.Component {
         var url = "http://localhost:8080/getConfig?username='" + String(this.state.username) + "'";
         var returnedResults = await getConfig(url);
 
-
         console.log(returnedResults.configData)
 
-        if(returnedResults.configData != false){
-            this.setState({
-                signedIn: this.state.signedIn,
-                staySignedIn: this.state.staySignedIn,
-                configured: true,
-                firstName: returnedResults.configData[0].First_Name,
-                lastName: returnedResults.configData[0].Last_Name,
-                username: this.state.username,
-                age: returnedResults.configData[0].Age,
-                weight: returnedResults.configData[0].Weight,
-                height: returnedResults.configData[0].Height,
-                constraints: this.state.constraints
-            })
+        if(returnedResults.configData !== false){
+            if(returnedResults.configData[0].First_Name !== ''){
+                this.setState({
+                    signedIn: this.state.signedIn,
+                    staySignedIn: this.state.staySignedIn,
+                    configured: true,
+                    firstName: returnedResults.configData[0].First_Name,
+                    lastName: returnedResults.configData[0].Last_Name,
+                    username: this.state.username,
+                    age: returnedResults.configData[0].Age,
+                    weight: returnedResults.configData[0].Weight,
+                    height: returnedResults.configData[0].Height,
+                    constraints: this.state.constraints
+                })
+            }
         }
     }
 
