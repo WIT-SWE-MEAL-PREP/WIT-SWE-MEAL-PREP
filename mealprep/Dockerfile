@@ -15,9 +15,7 @@ RUN npm install
 
 COPY . .
 
-CMD ["npm", "start"]
-
 EXPOSE 80
 
-#ENTRYPOINT PORT=80 npm start
+ENTRYPOINT PORT=80 npm start
 
