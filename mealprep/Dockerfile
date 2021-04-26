@@ -15,7 +15,7 @@ RUN npm install
 
 COPY . .
 
-EXPOSE 5000
+EXPOSE 80
 
-ENTRYPOINT PORT=5000 npm start
+ENTRYPOINT PORT=80 npm start
 
