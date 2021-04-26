@@ -10,7 +10,7 @@ This application
 1. Manager User Accounts
 	* Create a new account
 	* Log in with existing account credentials
-2.Query for data
+2. Query for data
 	* Search for foods stored in the database 
 
 ## Getting Started
