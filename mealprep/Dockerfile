@@ -13,9 +13,13 @@ RUN npm install
 # If you are building your code for production
 # RUN npm ci --only=production
 
+COPY index.js
+
 COPY . .
 
-EXPOSE 80
+CMD ["npm", "start"]
 
-ENTRYPOINT PORT=80 npm start
+//EXPOSE 80
+
+//ENTRYPOINT PORT=80 npm start
 
