@@ -21,6 +21,4 @@ ReactDOM.render( <
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
 
-//app.listen(PORT, () => console.log(`App running on port ${PORT}`))
-const server = app.listen(PORT);
-server.keepAliveTimeout = 65000
+app.listen(PORT, () => console.log(`App running on port ${PORT}`))
