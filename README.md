@@ -4,7 +4,7 @@
 
 ## Introduction
 
-This application 
+An online application to help you plan meals for the week
 
 ## Functions
 1. Manager User Accounts
