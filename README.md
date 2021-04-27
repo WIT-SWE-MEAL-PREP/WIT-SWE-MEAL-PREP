@@ -35,9 +35,6 @@ An online application to help you plan meals for the week
  
 		> node Server.js
 
-These are only necessary if you want to develop locally, if you just want to use the app simply go to our hosting service here: 
-
-##//TO-DO ADD LINK
 
 ## Demo video
 
