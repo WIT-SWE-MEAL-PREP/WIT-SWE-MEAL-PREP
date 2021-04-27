@@ -41,7 +41,7 @@ These are only necessary if you want to develop locally, if you just want to use
 
 ## Demo video
 
-##//TO-DO ADD LINK
+https://youtu.be/FjHnPdnKBsg
 
 ## Contributors
 
