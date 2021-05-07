@@ -13,16 +13,13 @@ class SearchBar extends React.Component{
       super(props)
 
       this.state = {
-        seach: ''
+        search: ''
       }
 
       this.handleSearchSubmit = this.props.handleSearchSubmit.bind(this);
     }
      
     handleInputChange = () => {
-
-      console.log(this.search.value)
-
       if(this.search.value && this.search.value.length > 1){
         this.setState({
           search: this.search.value
@@ -64,7 +61,7 @@ class SearchBar extends React.Component{
               if(this.state.results !== undefined && this.state.results.hints[0] !== undefined && this.state.search !== ''){
                   var options = this.state.results.hints.map(hint => (
                     <li key={hint.food.foodId}>
-                      <Link to="/food" onClick={() => { this.props.getSearchQuery(hint.food.foodId) }}>
+                      <Link to="/food" onClick={() => { this.props.getSearchQuery(hint.food) }}>
                       <img src={hint.food.image} className="suggestionImage" alt=""/>
                       {hint.food.label}
                       </Link>

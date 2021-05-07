@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import AccountStatusController from './AccountStatusController.jsx';
 import MainController from './MainController.jsx'
 import ConfigController from './ConfigurationController.jsx'
+import Food from '../Components/Food.jsx'
 
 import Footer from '../Components/Footer.jsx'
 import Header from '../Components/Header.jsx'
@@ -86,7 +87,7 @@ class AppController extends React.Component {
 
     getSearchQuery(searchQuery){
         this.setState({
-            foodId: searchQuery
+            food: searchQuery
         })
     }
 
@@ -108,9 +109,7 @@ class AppController extends React.Component {
                         </Route>
                         <Route path="/food">
                             <Header/>
-                            <h1>Food Page</h1>
-                            <br/>
-                            <h1>{this.state.foodId}</h1>
+                            <Food foodInfo={this.state.food}/>
                             <Footer setSignInStatus = { this.setSignInStatus }/>
                         </Route>
                         <Route path="/">
