@@ -18,6 +18,7 @@ class MainController extends React.Component{
             <MainPage 
             username={this.state.username} 
             constraints={this.state.constraints}
+            getSearchQuery={this.props.getSearchQuery}
             />
             )
     }

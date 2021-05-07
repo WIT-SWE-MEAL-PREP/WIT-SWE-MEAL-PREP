@@ -1,14 +1,13 @@
 import React from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-// import { BrowserRouter, Route, Switch } from 'react-router-dom';
+
 import AccountStatusController from './AccountStatusController.jsx';
 import MainController from './MainController.jsx'
-import ConfigPage from '../Views/ConfigurationPage.jsx';
+import ConfigController from './ConfigurationController.jsx'
+
 import Footer from '../Components/Footer.jsx'
 import Header from '../Components/Header.jsx'
-
-import uploadUserConfig from '../Models/UploadUserConfig.js'
-import getConfig from '../Models/GetConfig.js'
 
 import '../Stylings/AppStylings.css'
 
@@ -39,29 +38,12 @@ class AppController extends React.Component {
         }
 
         this.setLogInStatus = this.setLogInStatus.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.setConfiguredStatus = this.setConfiguredStatus.bind(this);
         this.getUsername = this.getUsername.bind(this);
+        this.getSearchQuery = this.getSearchQuery.bind(this);
     }
 
     componentDidMount(){
-        this.getUserConfig()
         this.getSignInStatus()
-    }
-
-    setConfiguredStatus(status){
-        this.setState({
-            signedIn: this.state.signedIn,
-            staySignedIn: this.state.staySignedIn,
-            configured: status,
-            firstName: this.state.firstName,
-            lastName: this.state.lastName,
-            username: this.state.username,
-            age: this.state.age,
-            weight: this.state.weight,
-            height: this.state.height,
-            constraints: this.state.constraints
-        })
     }
 
     getSignInStatus(){
@@ -72,76 +54,7 @@ class AppController extends React.Component {
             this.setState({
                 signedIn: userToken.loggedIn,
                 username: userToken.username
-            }, () => {
-                this.getUserConfig()
             })
-        }
-    }
-
-    handleSubmit(status){
-        this.setState({
-            signedIn: this.state.signedIn,
-            staySignedIn: this.state.staySignedIn,
-            configured: status,
-            firstName: document.getElementById("firstName").value,
-            lastName: document.getElementById("lastName").value,
-            age: document.getElementById("Age").value,
-            weight: document.getElementById("Weight").value,
-            height: document.getElementById("Height").value,
-            username: this.state.username,
-            constraints:{
-                numMeals: document.getElementById("numMeals").value,
-                calories: document.getElementById("calories").value,
-                protein: document.getElementById("protein").value,
-                carbs: document.getElementById("carbs").value,
-                fat: document.getElementById("fat").value,
-                sugar: document.getElementById("sugar").value,
-                fiber: document.getElementById("fiber").value,
-            }
-        }, () => {
-
-            this.uploadUserConfig()
-        })
-    }
-
-    getUserConfig = async e => {
-
-        var url = "http://localhost:8080/getConfig?username='" + String(this.state.username) + "'";
-        var returnedResults = await getConfig(url);
-
-        console.log(returnedResults.configData)
-
-        if(returnedResults.configData !== false){
-            if(returnedResults.configData[0].First_Name !== ''){
-                this.setState({
-                    signedIn: this.state.signedIn,
-                    staySignedIn: this.state.staySignedIn,
-                    configured: true,
-                    firstName: returnedResults.configData[0].First_Name,
-                    lastName: returnedResults.configData[0].Last_Name,
-                    username: this.state.username,
-                    age: returnedResults.configData[0].Age,
-                    weight: returnedResults.configData[0].Weight,
-                    height: returnedResults.configData[0].Height,
-                    constraints: this.state.constraints
-                })
-            }
-        }
-    }
-
-    uploadUserConfig = async e => {
-
-        var url = "http://localhost:8080/uploadUserConfig?username='" + 
-                                          String(this.state.username) 
-                                          + "'&firstname='" + String(this.state.firstName) 
-                                          + "'&lastname='" + String(this.state.lastName)
-                                          + "'&age='" + String(this.state.age)
-                                          + "'&weight='" + String(this.state.weight)
-                                          + "'&height='" + String(this.state.height);
-        var returnedResults = await uploadUserConfig(url);
-
-        if(!returnedResults.success){
-            //TO-DO add error handling for datbase failure here 
         }
     }
 
@@ -168,8 +81,12 @@ class AppController extends React.Component {
     getUsername(username) {
         this.setState({
             username: username
-        }, () =>{
-            this.getUserConfig()
+        })
+    }
+
+    getSearchQuery(searchQuery){
+        this.setState({
+            foodId: searchQuery
         })
     }
 
@@ -182,21 +99,29 @@ class AppController extends React.Component {
                 getUsername = { this.getUsername }/>
             );
         }else if(this.state.signedIn){
-            if(!this.state.configured){
-                return(
-                <ConfigPage 
-                handleSubmit={this.handleSubmit} 
-                />
-                )
-            }else if(this.state.configured){
-                return(
+            return(
                 <div className="mainAppWrapper">
-                    <Header/>
-                    <MainController />
-                    <Footer setSignInStatus = { this.setSignInStatus } setConfiguredStatus={ this.setConfiguredStatus } />
-                </div>
-                )
-            }
+                <BrowserRouter>
+                    <Switch>
+                        <Route path="/configure">
+                            <ConfigController username={this.state.username}/>
+                        </Route>
+                        <Route path="/food">
+                            <Header/>
+                            <h1>Food Page</h1>
+                            <br/>
+                            <h1>{this.state.foodId}</h1>
+                            <Footer setSignInStatus = { this.setSignInStatus }/>
+                        </Route>
+                        <Route path="/">
+                            <Header/>
+                            <MainController getSearchQuery={this.getSearchQuery}/>
+                            <Footer setSignInStatus = { this.setSignInStatus }/>
+                        </Route>
+                    </Switch>
+                </BrowserRouter>
+            </div>
+            )
         }
     }
 }

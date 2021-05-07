@@ -76,13 +76,13 @@ class SearchResults extends React.Component {
                         columns={[
                             { title: 'Name', field: 'Name' },
                             { title: 'Calories', field: 'Calories' },
-                            { title: 'Protein (g)', field: 'Protein' },
-                            { title: 'Carbs (g)', field: 'Carbs' },
-                            { title: 'Mono-Saturated Fat (g)', field: 'Mono_Sat_Fat'},
-                            { title: 'Poly-Saturated Fat (g)', field: 'Poly_Sat_Fat'},
-                            { title: 'Fiber (g)', field: 'Fiber'},
-                            { title: 'Sugar (g)', field: 'Sugar'},
-                            { title: 'Serving Size', field: 'Serving_Size'},
+                            // { title: 'Protein (g)', field: 'Protein' },
+                            // { title: 'Carbs (g)', field: 'Carbs' },
+                            // { title: 'Mono-Saturated Fat (g)', field: 'Mono_Sat_Fat'},
+                            // { title: 'Poly-Saturated Fat (g)', field: 'Poly_Sat_Fat'},
+                            // { title: 'Fiber (g)', field: 'Fiber'},
+                            // { title: 'Sugar (g)', field: 'Sugar'},
+                            // { title: 'Serving Size', field: 'Serving_Size'},
                             ]}
                             data={this.state.results}
                         options={{

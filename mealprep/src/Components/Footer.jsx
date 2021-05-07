@@ -1,4 +1,5 @@
 import React from 'react'
+import { withRouter } from 'react-router-dom';
 import '../Stylings/FooterStylings.css'
 
 
@@ -14,16 +15,6 @@ class Footer extends React.Component{
         this.setSignInStatus= this.props.setSignInStatus.bind(this);    
     }
 
-    setConfigStatus(status, shouldRefresh){
-        this.props.setConfiguredStatus(status, shouldRefresh);
-    }
-
-    // componentDidUpdate(){
-    //     if(this.props.shouldRefresh){
-    //         this.forceUpdate();
-    //     }
-    //  }
-
     render() {
         return(
             <div className="footerWrapper">
@@ -32,7 +23,7 @@ class Footer extends React.Component{
                         <button className="signoutButton" onClick={() => { this.setSignInStatus(false) }}>Sign Out </button>
                     </div>
                     <div className="centerDiv">
-                        <button className="signoutButton" onClick={() => { this.setConfigStatus(false, true) }}>Configure </button>
+                        <button className="signoutButton" onClick={() => { this.props.history.push("/configure")}}>Configure </button>
                     </div>
                     <div className="centerDiv">
                         <button className="signoutButton" onClick={() => { window.location.href="https://github.com/WIT-SWE-MEAL-PREP/WIT-SWE-MEAL-PREP" }}>Repository</button>
@@ -43,4 +34,4 @@ class Footer extends React.Component{
     }
 }   
 
-export default Footer;
+export default withRouter(Footer);

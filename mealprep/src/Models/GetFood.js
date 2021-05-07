@@ -1,5 +1,4 @@
 export default async function getFood(url) {
-
     return fetch(url, {
             method: 'GET',
             headers: {
