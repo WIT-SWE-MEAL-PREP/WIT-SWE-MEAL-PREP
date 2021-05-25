@@ -21,8 +21,19 @@ class FoodSearchController extends React.Component {
     }
 
     getData = async e => {
-        var url = "http://localhost:8080/getFood?query='" + String(this.state.searchQuery) + "'";
+        var url = "https://api.edamam.com/api/food-database/v2/parser?nutrition-type=logging&ingr=" + String(this.state.searchQuery) + "&app_id=36b7b45f&app_key=cb6dd0831871febd1d0ce5077a364182";
         var returnedResults = await getFood(url);
+
+        console.log(returnedResults)
+
+        returnedResults = returnedResults.hints.map(hint => {
+            return( {
+                Name: hint.food.label,
+                Calories: hint.food.nutrients.ENERC_KCAL
+            })
+        })
+
+        console.log(returnedResults)
 
         this.setState({
             results: returnedResults,
@@ -35,7 +46,7 @@ class FoodSearchController extends React.Component {
         if(this.state.dataReturned){
            return(
             <SearchResults 
-            results={this.state.results.success}
+            results={this.state.results}
             retrieveSearchSelections={this.props.retrieveSearchSelections}
             />
             ) 

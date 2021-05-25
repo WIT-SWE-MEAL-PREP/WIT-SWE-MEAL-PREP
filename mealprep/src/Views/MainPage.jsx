@@ -4,6 +4,8 @@ import { forwardRef } from 'react';
 import FoodSearchController from '../Controllers/FoodSearchController.jsx'
 import MaterialTable from 'material-table'
 
+import SearchBar from '../Components/SearchBar.jsx'
+
 import '../Stylings/MainStylings.css'
 import '../Stylings/SearchBarStylings.css'
 
@@ -65,9 +67,13 @@ class MainPage extends React.Component{
     })
   }
 
-  handleSearchSubmit = () => {
+  handleSearchSubmit = (search) => {
+
+    console.log(search)
+    
     this.setState({
-      renderSearchPage: true
+      renderSearchPage: true,
+      searchQuery: search
     })
   }
 
@@ -90,21 +96,16 @@ class MainPage extends React.Component{
     if(!this.state.renderSearchPage){
       return(
         <div className="pageWrapper">
-          <div className="wrapper">
-            <form onSubmit={this.handleSearchSubmit}>
-              <Search className="icon"/>
-              <input
-                placeholder="Look up food..."
-                ref={input => this.search = input}
-                onChange={this.handleInputChange}
-                className="searchBar"
-              />
-            </form>
+
+          <div className="wrapper" >
+            <SearchBar 
+              getSearchQuery={this.props.getSearchQuery}
+              handleSearchSubmit={this.handleSearchSubmit} />
           </div>
 
           <div className="tableDiv">
               <MaterialTable
-                  title="Selected foods"
+                  title="My Meals"
                   icons={tableIcons}
                   columns={[
                       { title: 'Name', field: 'Name' },

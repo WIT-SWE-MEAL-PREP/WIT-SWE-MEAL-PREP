@@ -94,8 +94,11 @@ CONSTRAINT Snack_PK PRIMARY KEY (Snack_Id)
 
 Create Table User(
 User_Id INT NOT NULL, 
-First_Name VARCHAR(255) NOT NULL,
-Last_Name VARCHAR(255) NOT NULL, 
+First_Name VARCHAR(255),
+Last_Name VARCHAR(255), 
+Username VARCHAR(255) NOT NULL, 
+Password VARCHAR(255) NOT NULL,
+Email VARCHAR(255) NOT NULL,
 Age INT, 
 Weight INT,
 Height INT, 

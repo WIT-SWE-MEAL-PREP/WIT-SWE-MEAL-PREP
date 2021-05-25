@@ -138,8 +138,6 @@ app.get('/getFood', (req, res) => {
 app.post('/uploadUserConfig', (req, res) => {
     var result = false;
 
-    console.log(req)
-
     var postDBInfo = function(callback) {
 
         let sql = "UPDATE gainsday.User SET First_Name = " + String(req.query.firstname) +
@@ -155,12 +153,7 @@ app.post('/uploadUserConfig', (req, res) => {
                 return callback(err);
             }
 
-            console.log(sql)
-
-            if (resp.length) {
-                maxUserID = resp[0];
-                result = true;
-            }
+            result = true
 
             callback(null, result);
         });
