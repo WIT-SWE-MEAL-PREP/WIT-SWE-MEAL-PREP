@@ -19,7 +19,7 @@ class Footer extends React.Component{
         return(
             <div className="footerWrapper">
                 <div className="textCenter">
-                    <div className="centerDiv buttons">
+                    <div className="centerDiv">
                         <button className="signoutButton" onClick={() => { this.setSignInStatus(false) }}>Sign Out </button>
                     </div>
                     <div className="centerDiv">

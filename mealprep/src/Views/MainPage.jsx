@@ -105,7 +105,7 @@ class MainPage extends React.Component{
 
           <div className="tableDiv">
               <MaterialTable
-                  title="Selected foods"
+                  title="My Meals"
                   icons={tableIcons}
                   columns={[
                       { title: 'Name', field: 'Name' },
