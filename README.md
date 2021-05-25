@@ -46,4 +46,7 @@ https://youtu.be/FjHnPdnKBsg
 * Jake Dickinson dickinsonj1@wit.edu, Dev Ops Engineer, Developer
 * Sean Crowley crowleys3@wit.edu, Dev Ops Engineer
 * Naishvi Patel pateln14@wit.edu, Database Engineer 
+* Elvis De Leone deleone2@wit.edu 
+* Colin Hennessey hennesseyc@wit.edu
+* Andy Dicarlo dicarloa@wit.edu
 
