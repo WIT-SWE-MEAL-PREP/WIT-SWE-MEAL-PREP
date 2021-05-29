@@ -39,7 +39,7 @@ class LoginController extends React.Component {
         var token = await loginUser(url);
 
         if (token["loggedIn"] === true) {
-            this.props.getUsername(this.state.username);
+            this.props.getUserId(token.userId);
             this.props.setLogInStatus(token, this.state.staySignedIn);
         }
     }

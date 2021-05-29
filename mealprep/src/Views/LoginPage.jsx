@@ -19,7 +19,7 @@ class LogInPage extends React.Component{
 
   render(){
     return(
-      <div className="modal">
+      <div className="logInModal">
         <div className="login-wrapper">
         <h1>Log In</h1>
         <form onSubmit={this.handleSubmit}>

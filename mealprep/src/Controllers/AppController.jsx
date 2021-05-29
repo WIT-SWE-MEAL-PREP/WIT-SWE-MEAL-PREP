@@ -26,7 +26,7 @@ class AppController extends React.Component {
             age: '',
             weight: '',
             height: '',
-            username: '',
+            userId: '',
             constraints: {
                 numMeals: 0,
                 calories: 0,
@@ -39,7 +39,7 @@ class AppController extends React.Component {
         }
 
         this.setLogInStatus = this.setLogInStatus.bind(this);
-        this.getUsername = this.getUsername.bind(this);
+        this.getUserId = this.getUserId.bind(this);
         this.getSearchQuery = this.getSearchQuery.bind(this);
     }
 
@@ -54,7 +54,7 @@ class AppController extends React.Component {
         if(userToken != null){
             this.setState({
                 signedIn: userToken.loggedIn,
-                username: userToken.username
+                userId: userToken.userId
             })
         }
     }
@@ -73,15 +73,15 @@ class AppController extends React.Component {
         }, () => {
             if(this.state.staySignedIn){
 
-                signedInStatus["username"] = this.state.username
+                signedInStatus["userId"] = this.state.userId
                 sessionStorage.setItem('token', JSON.stringify(signedInStatus));
             }
         })
     }
 
-    getUsername(username) {
+    getUserId(userid) {
         this.setState({
-            username: username
+            userId: userid
         })
     }
 
@@ -97,7 +97,7 @@ class AppController extends React.Component {
             return(
                 <AccountStatusController 
                 setLogInStatus = { this.setLogInStatus }
-                getUsername = { this.getUsername }/>
+                getUserId = { this.getUserId }/>
             );
         }else if(this.state.signedIn){
             return(
@@ -105,11 +105,11 @@ class AppController extends React.Component {
                 <BrowserRouter>
                     <Switch>
                         <Route path="/configure">
-                            <ConfigController username={this.state.username}/>
+                            <ConfigController userId={this.state.userId}/>
                         </Route>
                         <Route path="/food">
                             <Header/>
-                            <Food foodInfo={this.state.food}/>
+                            <Food foodInfo={this.state.food} userId={this.state.userId}/>
                             <Footer setSignInStatus = { this.setSignInStatus }/>
                         </Route>
                         <Route path="/">

@@ -40,13 +40,13 @@ app.post('/login', (req, res) => {
                 result = true;
             }
 
-            callback(null, result);
+            callback(null, result, resp);
         });
     }
 
-    getDBInfo(function(err, result) {
+    getDBInfo(function(err, result, resp) {
         console.log({ success: result })
-        res.send({ loggedIn: result });
+        res.send({ loggedIn: result, userId: resp[0].User_Id });
     });
 });
 
@@ -189,6 +189,35 @@ app.get('/getConfig', (req, res) => {
     getDBInfo(function(err, result) {
         console.log({ success: result })
         res.send({ configData: result });
+    });
+});
+
+app.get('/getMeals', (req, res) => {
+
+    var result = false;
+    var userId = req.query.userId
+    var getDBInfo = function(callback) {
+        let sql = "SELECT * FROM gainsday.Meals WHERE User_Id LIKE " + userId;
+        connection.query(sql, (err, resp) => {
+            if (err) {
+                console.log("error: ", err);
+                return callback(err);
+            }
+
+            console.log(sql)
+
+            if (resp.length) {
+                console.log("found foods: ", resp);
+                result = resp;
+            }
+
+            callback(null, result);
+        });
+    }
+
+    getDBInfo(function(err, result) {
+        console.log({ success: result })
+        res.send({ success: result });
     });
 });
 
