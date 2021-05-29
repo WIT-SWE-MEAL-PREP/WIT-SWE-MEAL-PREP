@@ -25,7 +25,7 @@ class AccountStatusController extends React.Component {
                 LoginController 
                 setAccountStatus = { this.setAccountStatus }
                 setLogInStatus = { this.props.setLogInStatus }
-                getUsername = { this.props.getUsername }
+                getUserId = { this.props.getUserId }
                 />
             )
         }else {

@@ -7,8 +7,7 @@ import reportWebVitals from './reportWebVitals';
 const PORT = process.env.PORT || 3000
 //const PORT = 8888
 
-ReactDOM.render( <
-    App / > ,
+ReactDOM.render( <App /> ,
 
     document.getElementById('root')
 );

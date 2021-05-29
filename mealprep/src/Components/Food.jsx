@@ -19,8 +19,10 @@ class Food extends React.Component{
 
       this.state = {
         foodInfo: {},
+        userId: this.props.userId,
         preliminaryInfo: this.props.foodInfo,
-        dataReturned: false
+        dataReturned: false,
+        showModal: false
       }
 
       this.onClose = this.onClose.bind(this);
@@ -88,6 +90,7 @@ class Food extends React.Component{
     }
     
     render() {
+        
         if(this.state.dataReturned){
             return(
                 <div className="foodWrapper">
@@ -131,7 +134,7 @@ class Food extends React.Component{
                     <div className="addFoodDiv">
                         <button type="submit" className="addFoodBtn" onClick={() => this.setState({showModal: true})}>Add</button>
                     </div>
-                    <AddFoodModal onClose={this.onClose} show={this.state.showModal} foodData={this.state.foodInfo} />
+                    <AddFoodModal onClose={this.onClose} show={this.state.showModal} foodId={this.state.foodInfo.ingredients[0].parsed[0].foodId} userId={this.state.userId} />
                 </div>
             )
         }else{

@@ -113,6 +113,15 @@ Snack_Id INT,
 CONSTRAINT User_PK PRIMARY KEY (User_Id)
 );
 
+Create Table Meals(
+Meal_Id INT NOT NULL, 
+User_Id INT,
+Name VARCHAR(1000),
+Ingredients VARCHAR(10000),
+CONSTRAINT Meals_PK PRIMARY KEY (Meal_Id),
+FOREIGN KEY (User_Id) REFERENCES User(User_Id)
+);
+
 
 
 
