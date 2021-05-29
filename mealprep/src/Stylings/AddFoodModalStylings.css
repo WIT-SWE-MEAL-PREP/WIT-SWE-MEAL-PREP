@@ -1,12 +1,59 @@
-.addMealModal {
+.addFoodModal {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     position: absolute;
     overflow: hidden;
     width: 40%;
-    height: 20%;
-    background-color: #afdaeb;
+    height: 25%;
+    background-color: #b7cfda;
     border: 2px solid #000;
     box-shadow: #000;
+}
+
+.addFoodModalText {
+    justify-self: center;
+}
+
+.addFoodModalSelectLabel {
+    margin-left: 5px;
+}
+
+.addFoodModalSelect {
+    float: right;
+    margin-right: 10px;
+    width: 70%;
+}
+
+.addFoodModalButton {
+    font-family: 'Raleway', sans-serif;
+    margin: auto;
+    margin-top: 15px;
+    border-radius: 50px;
+    cursor: pointer;
+    border: 1px solid #4d6f8a;
+    padding: 10px 50px;
+    background-color: #4d6f8a;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    font-size: 18px;
+    outline: none;
+}
+
+.addFoodModalButton:hover {
+    color: rgb(84, 143, 233);
+}
+
+.addFoodModalButton:active {
+    color: #2e3638;
+    border: 1px solid #ffffff;
+}
+
+.addFoodModalCentered {
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+    text-align: center;
 }

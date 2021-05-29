@@ -7,22 +7,26 @@ import getMeals from '../Models/GetMeals.js'
 
 export default class AddFoodModal extends React.Component {
 
+  componentDidUpdate() {
+
+    if(this.props.show){
+      this.createOptions();
+    }
+  }
+  
+
   createOptions = async e => {
     var url = "http://localhost:8080/getMeals?userId='" + String(this.props.userId) + "'";
     var returnedResults = await getMeals(url);
 
-    console.log(returnedResults)
+    if(returnedResults.success.length > 0) {
 
-    if(returnedResults.length > 0) {
+      var options = document.getElementById("mealSelect").options;
 
-      var dropdown = document.getElementById("mealSelect");
+      returnedResults.success.forEach(meal => options.add(
+        new Option(meal.Name, meal.Meal_Id, false)
+      ))
 
-      for(let i = 1; i < returnedResults.length; i++){
-        var meal = document.createElement('option');
-        meal.innerHTML = returnedResults[i].Name;
-        meal.value = returnedResults[i].Name;
-        dropdown.appendChild(meal)
-      }
     }
   }
 
@@ -35,18 +39,22 @@ export default class AddFoodModal extends React.Component {
           aria-labelledby="simple-modal-title"
           aria-describedby="simple-modal-description"
         >
-          <div className="addMealModal">
-            <h2>Add To:</h2>
+          <div className="addFoodModal">
 
-            <div>
-              <label>Meal:</label>
-              <select id="mealSelect"> 
-                <option value="newMeal">New Meal</option>
-                {/*TO-DO Get it to populate meal names as options */}
-              </select>
+            <div className="addFoodModalCentered">
+              <h2 className="addFoodModalText">Add To:</h2>
             </div>
 
-            <button>Add</button>
+            <div>
+              <label className="addFoodModalSelectLabel">Meal:</label>
+              <select className="addFoodModalSelect" id="mealSelect" onChange={() => console.log(document.getElementById("mealSelect").value)} > 
+                <option value="0">New Meal</option>
+              </select>
+            </div>
+            
+            <div className="addFoodModalCentered">
+              <button className="addFoodModalButton">Add</button>
+            </div>
           </div>
         </Modal>
       </div>
