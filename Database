@@ -82,7 +82,7 @@ Vegan BOOLEAN,
 Vegetarian BOOLEAN, 
 Keto BOOLEAN,
 Calories INT,
-Crabs INT, 
+Carbss INT, 
 TotalFat INT,
 Cholesterol INT, 
 Sodium INT, 
@@ -115,14 +115,22 @@ CONSTRAINT User_PK PRIMARY KEY (User_Id)
 
 Create Table Meals(
 Meal_Id INT NOT NULL, 
-User_Id INT,
+User_Id INT NOT NULL,
 Name VARCHAR(1000),
-Ingredients VARCHAR(10000),
+Calories INT,
+Protein INT,
+Carbs INT, 
+Total_Fat INT,
+Fiber INT, 
+Sugar INT, 
 CONSTRAINT Meals_PK PRIMARY KEY (Meal_Id),
 FOREIGN KEY (User_Id) REFERENCES User(User_Id)
 );
 
-
-
-
-
+Create Table FoodsInMeal(
+Meal_Id INT NOT NULL, 
+Food_Id VARCHAR(10000) NOT NULL,
+Serving INT,
+Unit VARCHAR(1000),
+FOREIGN KEY (Meal_Id) REFERENCES Meals(Meal_Id),
+);

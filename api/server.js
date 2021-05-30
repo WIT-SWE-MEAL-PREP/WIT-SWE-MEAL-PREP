@@ -221,4 +221,92 @@ app.get('/getMeals', (req, res) => {
     });
 });
 
-app.listen(PORT, () => console.log('API is running on http://localhost:8080/login'));
+app.get('/getMeal', (req, res) => {
+
+    var result = false;
+    var mealId = req.query.mealId
+    var getDBInfo = function(callback) {
+        let sql = "SELECT * FROM gainsday.Meals WHERE Meal_Id LIKE " + mealId;
+        connection.query(sql, (err, resp) => {
+            if (err) {
+                console.log("error: ", err);
+                return callback(err);
+            }
+
+            console.log(sql)
+
+            if (resp.length) {
+                console.log("found foods: ", resp);
+                result = resp;
+            }
+
+            callback(null, result);
+        });
+    }
+
+    getDBInfo(function(err, result) {
+        console.log({ success: result })
+        res.send({ success: result });
+    });
+});
+
+app.post('/updateFoodsInMeal', (req, res) => {
+    var result = false;
+
+    var postDBInfo = function(callback) {
+
+        let sql = "INSERT INTO gainsday.FoodsInMeal (Meal_Id, Food_Id, Serving, Unit) VALUES (" + String(req.query.mealId) +
+                                                                                            "," + String(req.query.foodId) +
+                                                                                            "," + String(req.query.serving) +
+                                                                                            "," + String(req.query.unit) + 
+                                                                                            ")";
+
+        connection.query(sql, (err, resp) => {
+            if (err) {
+                console.log("error: ", err);
+                return callback(err);
+            }
+
+            result = true
+
+            callback(null, result);
+        });
+    }
+
+    postDBInfo(function(err, result) {
+        res.send({ success: result });
+    });
+});
+
+app.post('/updateMealData', (req, res) => {
+    var result = false;
+
+    var postDBInfo = function(callback) {
+
+        let sql = "UPDATE gainsday.Meals SET Name = " + String(req.query.mealName) +
+            ", Calories = " + String(req.query.calories) +
+            ", Protein = " + String(req.query.protein) +
+            ", Carbs = " + String(req.query.carbs) +
+            ", Total_Fat = " + String(req.query.fat) +
+            ", Fiber = " + String(req.query.fiber) +
+            ", Sugar = " + String(req.query.sugar) +
+            "  WHERE Meal_Id = " + String(req.query.mealId);
+
+        connection.query(sql, (err, resp) => {
+            if (err) {
+                console.log("error: ", err);
+                return callback(err);
+            }
+
+            result = true
+
+            callback(null, result);
+        });
+    }
+
+    postDBInfo(function(err, result) {
+        res.send({ success: result });
+    });
+});
+
+app.listen(PORT, () => console.log('API is running on http://localhost:8080'));

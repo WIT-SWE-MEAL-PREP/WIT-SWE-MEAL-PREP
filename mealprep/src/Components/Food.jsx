@@ -65,6 +65,7 @@ class Food extends React.Component{
         this.setState({
             nutrients: {
                 name: this.state.preliminaryInfo.label,
+                id: this.state.preliminaryInfo.foodId,
                 calories: this.state.foodInfo.totalNutrients.ENERC_KCAL.quantity,
                 protein: this.state.foodInfo.totalNutrients.PROCNT.quantity,
                 carbs: this.state.foodInfo.totalNutrients.CHOCDF.quantity,
@@ -134,7 +135,7 @@ class Food extends React.Component{
                     <div className="addFoodDiv">
                         <button type="submit" className="addFoodBtn" onClick={() => this.setState({showModal: true})}>Add</button>
                     </div>
-                    <AddFoodModal onClose={this.onClose} show={this.state.showModal} foodId={this.state.foodInfo.ingredients[0].parsed[0].foodId} userId={this.state.userId} />
+                    <AddFoodModal onClose={this.onClose} show={this.state.showModal} foodId={this.state.foodInfo.ingredients[0].parsed[0].foodId} nutrients={ this.state.nutrients } userId={this.state.userId} getFoodToAdd={ this.props.getFoodToAdd } />
                 </div>
             )
         }else{

@@ -1,14 +1,18 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, useHistory } from 'react-router-dom';
 
 
 import AccountStatusController from './AccountStatusController.jsx';
 import MainController from './MainController.jsx'
 import ConfigController from './ConfigurationController.jsx'
+
 import Food from '../Components/Food.jsx'
+import Meal from '../Components/Meal.jsx'
 
 import Footer from '../Components/Footer.jsx'
 import Header from '../Components/Header.jsx'
+
+import updateMeal from '../Services/UpdateMeal.jsx'
 
 import '../Stylings/AppStylings.css'
 
@@ -35,12 +39,17 @@ class AppController extends React.Component {
                 fat: 0,
                 sugar: 0,
                 fiber: 0,
-            }
+            },
+            foodAndMealInfo: {
+                mealId: ''
+            },
+            mealDataUpdated: false
         }
 
         this.setLogInStatus = this.setLogInStatus.bind(this);
         this.getUserId = this.getUserId.bind(this);
         this.getSearchQuery = this.getSearchQuery.bind(this);
+        this.getFoodToAdd = this.getFoodToAdd.bind(this);
     }
 
     componentDidMount(){
@@ -91,6 +100,20 @@ class AppController extends React.Component {
         })
     }
 
+    getFoodToAdd(foodAndMealInfo){
+
+        console.log(foodAndMealInfo)
+
+        this.setState({
+            foodAndMealInfo: foodAndMealInfo
+        }, async () => {
+            await updateMeal(this.state.foodAndMealInfo);
+            this.setState({
+                mealDataUpdated: true
+            })
+        })
+    }
+
     render(){
 
         if(!this.state.signedIn){
@@ -109,7 +132,12 @@ class AppController extends React.Component {
                         </Route>
                         <Route path="/food">
                             <Header/>
-                            <Food foodInfo={this.state.food} userId={this.state.userId}/>
+                            <Food foodInfo={this.state.food} userId={this.state.userId} getFoodToAdd={ this.getFoodToAdd }/>
+                            <Footer setSignInStatus = { this.setSignInStatus }/>
+                        </Route>
+                        <Route path="/meal">
+                            <Header/>
+                            <Meal mealId={this.state.foodAndMealInfo.mealId} userId={this.state.userId} mealDataUpdated={this.state.mealDataUpdated}/>
                             <Footer setSignInStatus = { this.setSignInStatus }/>
                         </Route>
                         <Route path="/">

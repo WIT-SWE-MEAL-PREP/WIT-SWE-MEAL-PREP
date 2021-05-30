@@ -1,11 +1,14 @@
 import React from "react";
+import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
+
+
 import Modal from '@material-ui/core/Modal';
 
+import getMeals from '../Models/GetMeals.js'
 import "../Stylings/AddFoodModalStylings.css"
 
-import getMeals from '../Models/GetMeals.js'
-
-export default class AddFoodModal extends React.Component {
+class AddFoodModal extends React.Component {
 
   componentDidUpdate() {
 
@@ -53,7 +56,9 @@ export default class AddFoodModal extends React.Component {
             </div>
             
             <div className="addFoodModalCentered">
-              <button className="addFoodModalButton">Add</button>
+            <Link to="/meal" onClick={ () => this.props.getFoodToAdd({foodInfo: this.props.nutrients, mealId: document.getElementById("mealSelect").value })}>
+              <button className="addFoodModalButton" >Add</button>
+            </Link>
             </div>
           </div>
         </Modal>
@@ -61,3 +66,5 @@ export default class AddFoodModal extends React.Component {
     )
   }
 }
+
+export default withRouter(AddFoodModal)
