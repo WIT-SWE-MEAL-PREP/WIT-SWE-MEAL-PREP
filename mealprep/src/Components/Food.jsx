@@ -43,11 +43,14 @@ class Food extends React.Component{
 
         var returnedResults = await getNutrients(url, jsonBody);
 
+        console.log(this.state.preliminaryInfo)
+
         this.setState({
             foodInfo: returnedResults,
             dataReturned: true,
             nutrients: {
                 name: this.state.preliminaryInfo.label,
+                id: this.state.preliminaryInfo.foodId,
                 calories: returnedResults.totalNutrients.ENERC_KCAL.quantity,
                 protein: returnedResults.totalNutrients.PROCNT.quantity,
                 carbs: returnedResults.totalNutrients.CHOCDF.quantity,

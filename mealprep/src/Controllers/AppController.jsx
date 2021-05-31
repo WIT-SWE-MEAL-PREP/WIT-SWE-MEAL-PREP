@@ -107,7 +107,7 @@ class AppController extends React.Component {
         this.setState({
             foodAndMealInfo: foodAndMealInfo
         }, async () => {
-            await updateMeal(this.state.foodAndMealInfo);
+            await updateMeal(this.state.foodAndMealInfo, this.state.userId);
             this.setState({
                 mealDataUpdated: true
             })
@@ -137,7 +137,7 @@ class AppController extends React.Component {
                         </Route>
                         <Route path="/meal">
                             <Header/>
-                            <Meal mealId={this.state.foodAndMealInfo.mealId} userId={this.state.userId} mealDataUpdated={this.state.mealDataUpdated}/>
+                            <Meal mealId={this.state.foodAndMealInfo.mealId} userId={this.state.userId} mealDataUpdated={this.state.mealDataUpdated} getSearchQuery={this.getSearchQuery}/>
                             <Footer setSignInStatus = { this.setSignInStatus }/>
                         </Route>
                         <Route path="/">

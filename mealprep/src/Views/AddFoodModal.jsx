@@ -10,9 +10,21 @@ import "../Stylings/AddFoodModalStylings.css"
 
 class AddFoodModal extends React.Component {
 
+  constructor(props){
+    super(props)
+
+    this.state = {
+      mealId: 0,
+      selectedUpdated: this.props.show
+    }
+  }
+
   componentDidUpdate() {
 
-    if(this.props.show){
+    console.log(this.props.show)
+    console.log(this.state.selectedUpdated)
+
+    if(this.props.show && this.state.selectedUpdated){
       this.createOptions();
     }
   }
@@ -26,9 +38,12 @@ class AddFoodModal extends React.Component {
 
       var options = document.getElementById("mealSelect").options;
 
-      returnedResults.success.forEach(meal => options.add(
+      returnedResults.success.forEach(meal => 
+        options.add(
         new Option(meal.Name, meal.Meal_Id, false)
       ))
+
+      console.log(options);
 
     }
   }
@@ -50,13 +65,27 @@ class AddFoodModal extends React.Component {
 
             <div>
               <label className="addFoodModalSelectLabel">Meal:</label>
-              <select className="addFoodModalSelect" id="mealSelect" onChange={() => console.log(document.getElementById("mealSelect").value)} > 
+              <select className="addFoodModalSelect" id="mealSelect" onChange={() => this.setState({ mealId: document.getElementById("mealSelect").value, selectedUpdated: true })} defaultValue="0"> 
                 <option value="0">New Meal</option>
               </select>
+
+              {(() => {
+                      if(this.state.mealId == 0){
+                        console.log(this.state.mealId)
+                        return(
+                          <div className="mealNameDiv">
+                            <label className="mealNameInputLabel" >Meal Name:</label>
+                            <input className="mealNameInput" id="mealNameInput" type="string" placeholder="Meal Name" required={true} />   
+                          </div>                  
+                          )
+                      }else{
+                        return ""
+                      }
+              })()}
             </div>
             
             <div className="addFoodModalCentered">
-            <Link to="/meal" onClick={ () => this.props.getFoodToAdd({foodInfo: this.props.nutrients, mealId: document.getElementById("mealSelect").value })}>
+            <Link to="/meal" onClick={ () => this.props.getFoodToAdd({foodInfo: this.props.nutrients, mealId: document.getElementById("mealSelect").value, mealName: document.getElementById("mealNameInput").value})}>
               <button className="addFoodModalButton" >Add</button>
             </Link>
             </div>
