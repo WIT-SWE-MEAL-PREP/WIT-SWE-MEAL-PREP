@@ -437,5 +437,58 @@ app.post('/uploadNewMeal', (req, res) => {
     });
 });
 
+app.post('/deleteMeal', (req, res) => {
+
+    var result = false;
+    var mealId = req.query.mealId
+
+
+    var removeFromFoodsInMealMealTable = function(callback) {
+        let sql = "DELETE FROM gainsday.FoodsInMeal WHERE Meal_Id LIKE " + mealId;
+        connection.query(sql, (err, resp) => {
+            if (err) {
+                console.log("error: ", err);
+                return callback(err);
+            }
+
+            console.log(sql)
+
+            if (resp.length) {
+                result = true;
+            }
+
+            callback(null, result);
+        });
+    }
+
+    var removeFromMealTable = function(callback) {
+        let sql = "DELETE FROM gainsday.Meals WHERE Meal_Id LIKE " + mealId;
+        connection.query(sql, (err, resp) => {
+            if (err) {
+                console.log("error: ", err);
+                return callback(err);
+            }
+
+            console.log(sql)
+
+            if (resp.length) {
+                result = true;
+            }
+
+            callback(null, result);
+        });
+    }
+
+
+    removeFromFoodsInMealMealTable(function(err, result) {
+        console.log({ success: result })
+
+        removeFromMealTable(function(err, result) {
+            console.log({ success: result })
+            res.send({ success: true });
+        });
+    });
+});
+
 
 app.listen(PORT, () => console.log('API is running on http://localhost:8080'));

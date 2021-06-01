@@ -9,6 +9,7 @@ import MaterialTable from 'material-table'
 import SearchBar from '../Components/SearchBar.jsx'
 
 import getMeals from '../Models/GetMeal.js'
+import deleteMeal from '../Models/DeleteMeal.js'
 
 import '../Stylings/MainStylings.css'
 import '../Stylings/SearchBarStylings.css'
@@ -118,8 +119,13 @@ class MainPage extends React.Component{
     this.props.history.push("/meal")
   }
 
-  deleteMeal(mealId){
-    //TO-DO call API to delete meal from table and call getMeals again
+  deleteMeal = async e => {
+    var url = "http://localhost:8080/deleteMeal?mealId='" + String(e) + "'";
+    var mealDeleted = await deleteMeal(url);
+
+    if(mealDeleted.success){
+      this.getMeals();
+    }
   }
 
   render(){

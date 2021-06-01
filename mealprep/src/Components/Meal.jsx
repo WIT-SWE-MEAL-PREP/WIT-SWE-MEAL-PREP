@@ -33,8 +33,6 @@ class Food extends React.Component{
 
         var foodsInMeal = await getFoodsInMeal(url);
 
-        console.log(foodsInMeal)
-
         if(foodsInMeal.success !== false){
             foodsInMeal = foodsInMeal.success.map(food => {
                 food = food;
