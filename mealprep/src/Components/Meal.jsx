@@ -33,49 +33,53 @@ class Food extends React.Component{
 
         var foodsInMeal = await getFoodsInMeal(url);
 
-        foodsInMeal = foodsInMeal.success.map(food => {
-            food = food;
-            return food
-        });
+        console.log(foodsInMeal)
 
-        for(let i = 0; i < foodsInMeal.length; i++){
-            var foodId = foodsInMeal[i].Food_Id;
-
-            var url = "https://api.edamam.com/api/food-database/v2/nutrients?app_id=36b7b45f&app_key=cb6dd0831871febd1d0ce5077a364182";
-
-            var jsonBody = {
-                "ingredients": [
-                  {
-                    "quantity": 1,
-                    "measureURI": "http://www.edamam.com/ontologies/edamam.owl#Measure_gram",
-                    "foodId": foodId
-                  }
-                ]
-              }
+        if(foodsInMeal.success !== false){
+            foodsInMeal = foodsInMeal.success.map(food => {
+                food = food;
+                return food
+            });
     
-            var foodData = await getNutrients(url, jsonBody);
-
-            foodsInMeal[i]['Food_Info'] =  {
-                name: foodData.ingredients[0].parsed[0].food,
-                calories: foodData.totalNutrients.ENERC_KCAL.quantity,
-                protein: foodData.totalNutrients.PROCNT.quantity,
-                carbs: foodData.totalNutrients.CHOCDF.quantity,
-                fat: foodData.totalNutrients.FAT.quantity,
-                fiber: foodData.totalNutrients.FIBTG.quantity,
-                sugar: foodData.totalNutrients.SUGAR.quantity,
-                serving: 1,
-                unit: 'gram',
-            };
-
-            foodsInMeal[i]['Food_Info'] = calculateValues(foodsInMeal[i].Serving, foodsInMeal[i].Unit, foodsInMeal[i].Food_Info)
-
+            for(let i = 0; i < foodsInMeal.length; i++){
+                var foodId = foodsInMeal[i].Food_Id;
+    
+                var url = "https://api.edamam.com/api/food-database/v2/nutrients?app_id=36b7b45f&app_key=cb6dd0831871febd1d0ce5077a364182";
+    
+                var jsonBody = {
+                    "ingredients": [
+                      {
+                        "quantity": 1,
+                        "measureURI": "http://www.edamam.com/ontologies/edamam.owl#Measure_gram",
+                        "foodId": foodId
+                      }
+                    ]
+                  }
+        
+                var foodData = await getNutrients(url, jsonBody);
+    
+                foodsInMeal[i]['Food_Info'] =  {
+                    name: foodData.ingredients[0].parsed[0].food,
+                    calories: foodData.totalNutrients.ENERC_KCAL.quantity,
+                    protein: foodData.totalNutrients.PROCNT.quantity,
+                    carbs: foodData.totalNutrients.CHOCDF.quantity,
+                    fat: foodData.totalNutrients.FAT.quantity,
+                    fiber: foodData.totalNutrients.FIBTG.quantity,
+                    sugar: foodData.totalNutrients.SUGAR.quantity,
+                    serving: 1,
+                    unit: 'gram',
+                };
+    
+                foodsInMeal[i]['Food_Info'] = calculateValues(foodsInMeal[i].Serving, foodsInMeal[i].Unit, foodsInMeal[i].Food_Info)
+    
+            }
+    
+            this.setState({
+                mealInfo: mealInfo.success[0],
+                foodsInMeal: foodsInMeal,
+                dataReturned: true
+            });
         }
-
-        this.setState({
-            mealInfo: mealInfo.success[0],
-            foodsInMeal: foodsInMeal,
-            dataReturned: true
-        });
     }
 
     routeToFood = async e => {
