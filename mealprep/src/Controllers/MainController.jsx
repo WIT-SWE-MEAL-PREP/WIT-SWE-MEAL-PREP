@@ -19,6 +19,7 @@ class MainController extends React.Component{
             userId={this.state.userId} 
             constraints={this.state.constraints}
             getSearchQuery={this.props.getSearchQuery}
+            getMealId={this.props.getMealId}
             />
             )
     }

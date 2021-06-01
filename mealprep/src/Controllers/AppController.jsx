@@ -50,6 +50,7 @@ class AppController extends React.Component {
         this.getUserId = this.getUserId.bind(this);
         this.getSearchQuery = this.getSearchQuery.bind(this);
         this.getFoodToAdd = this.getFoodToAdd.bind(this);
+        this.getMealId = this.getMealId.bind(this);
     }
 
     componentDidMount(){
@@ -100,6 +101,13 @@ class AppController extends React.Component {
         })
     }
 
+    getMealId(mealId){
+        this.setState({
+            mealDataUpdated: true,
+            mealId: mealId
+        })
+    }
+
     getFoodToAdd(foodAndMealInfo){
 
         this.setState({
@@ -145,7 +153,7 @@ class AppController extends React.Component {
                         </Route>
                         <Route path="/">
                             <Header/>
-                            <MainController getSearchQuery={this.getSearchQuery} userId={this.state.userId}/>
+                            <MainController getSearchQuery={this.getSearchQuery} getMealId={this.getMealId} userId={this.state.userId}/>
                             <Footer setSignInStatus = { this.setSignInStatus }/>
                         </Route>
                     </Switch>

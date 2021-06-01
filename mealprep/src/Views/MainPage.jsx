@@ -1,5 +1,7 @@
 import React from 'react';
 import { forwardRef } from 'react';
+import { withRouter } from 'react-router-dom';
+
 
 import FoodSearchController from '../Controllers/FoodSearchController.jsx'
 import MaterialTable from 'material-table'
@@ -112,7 +114,8 @@ class MainPage extends React.Component{
   }
 
   editMeal(mealId){
-    //TO-DO pass in method from app controller to retreive meal id and route it to /meal
+    this.props.getMealId(mealId);
+    this.props.history.push("/meal")
   }
 
   deleteMeal(mealId){
@@ -179,4 +182,4 @@ class MainPage extends React.Component{
   }
 }
 
-export default MainPage; 
+export default withRouter(MainPage); 
