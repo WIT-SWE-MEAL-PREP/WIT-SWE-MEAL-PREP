@@ -6,6 +6,8 @@ import MaterialTable from 'material-table'
 
 import SearchBar from '../Components/SearchBar.jsx'
 
+import getMeals from '../Models/GetMeal.js'
+
 import '../Stylings/MainStylings.css'
 import '../Stylings/SearchBarStylings.css'
 
@@ -53,12 +55,16 @@ class MainPage extends React.Component{
       this.state = {
         renderSearchPage: false,
         searchQuery: "",
-        username: this.props.username,
+        userId: this.props.userId,
         constraints: this.props.constraints,
         selectedFoods: [{}]
       }
 
       this.retrieveSearchSelections = this.retrieveSearchSelections.bind(this)
+  }
+
+  componentDidMount(){
+    this.getMeals()
   }
 
   handleInputChange = () => {
@@ -68,8 +74,6 @@ class MainPage extends React.Component{
   }
 
   handleSearchSubmit = (search) => {
-
-    console.log(search)
     
     this.setState({
       renderSearchPage: true,
@@ -91,8 +95,31 @@ class MainPage extends React.Component{
     })
   }
 
-  render(){
+  getMeals = async e => {
 
+    var url = "http://localhost:8080/getMeals?userId='" + String(this.props.userId) + "'";
+    var returnedResults = await getMeals(url);
+
+    if(returnedResults.success.length > 0) {
+
+      this.setState({
+        data: returnedResults.success
+      })
+
+    }
+
+    return {}
+  }
+
+  editMeal(mealId){
+    //TO-DO pass in method from app controller to retreive meal id and route it to /meal
+  }
+
+  deleteMeal(mealId){
+    //TO-DO call API to delete meal from table and call getMeals again
+  }
+
+  render(){
     if(!this.state.renderSearchPage){
       return(
         <div className="pageWrapper">
@@ -112,13 +139,26 @@ class MainPage extends React.Component{
                       { title: 'Calories', field: 'Calories' },
                       { title: 'Protein (g)', field: 'Protein' },
                       { title: 'Carbs (g)', field: 'Carbs' },
-                      { title: 'Mono-Saturated Fat (g)', field: 'Mono_Sat_Fat'},
-                      { title: 'Poly-Saturated Fat (g)', field: 'Poly_Sat_Fat'},
+                      { title: 'Total Fat (g)', field: 'Total_Fat'},
                       { title: 'Fiber (g)', field: 'Fiber'},
                       { title: 'Sugar (g)', field: 'Sugar'},
-                      { title: 'Serving Size', field: 'Serving_Size'},
                       ]}
-                  data={this.state.selectedFoods}
+                  data={this.state.data}
+                  actions={[
+                    {
+                      icon: tableIcons.Edit,
+                      tooltip: 'Edit Meal',
+                      onClick: (event, rowData) => this.editMeal(rowData.Meal_Id)
+                    },
+                    rowData => ({
+                      icon: tableIcons.Delete,
+                      tooltip: 'Delete Meal',
+                      onClick: (event, rowData) => this.deleteMeal(rowData.Meal_Id),
+                    })
+                  ]}
+                  options={{
+                    actionsColumnIndex: -1
+                  }}
                   style={{
                     opacity:1,
                     zIndex:1

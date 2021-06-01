@@ -7,7 +7,7 @@ class MainController extends React.Component{
         super(props);
 
         this.state = {
-            username: this.props.username,
+            userId: this.props.userId,
             constraints: this.props.constraints
         }
     }
@@ -16,7 +16,7 @@ class MainController extends React.Component{
 
         return(
             <MainPage 
-            username={this.state.username} 
+            userId={this.state.userId} 
             constraints={this.state.constraints}
             getSearchQuery={this.props.getSearchQuery}
             />

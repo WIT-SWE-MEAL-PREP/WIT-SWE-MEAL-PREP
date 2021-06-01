@@ -62,8 +62,6 @@ class ConfigController extends React.Component{
         var url = "http://localhost:8080/getConfig?username='" + String(this.state.username) + "'";
         var returnedResults = await getConfig(url);
 
-        console.log(returnedResults.configData)
-
         if(returnedResults.configData !== false){
             if(returnedResults.configData[0].First_Name !== ''){
                 this.setState({
@@ -91,8 +89,6 @@ class ConfigController extends React.Component{
                                           + "'&weight='" + String(this.state.weight)
                                           + "'&height='" + String(this.state.height);
         var returnedResults = await uploadUserConfig(url);
-
-        console.log(returnedResults)
 
         if(!returnedResults.success){
             //TO-DO add error handling for datbase failure here 

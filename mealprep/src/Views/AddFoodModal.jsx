@@ -15,22 +15,12 @@ class AddFoodModal extends React.Component {
 
     this.state = {
       mealId: 0,
-      selectedUpdated: this.props.show
-    }
-  }
-
-  componentDidUpdate() {
-
-    console.log(this.props.show)
-    console.log(this.state.selectedUpdated)
-
-    if(this.props.show && this.state.selectedUpdated){
-      this.createOptions();
+      initalRender: this.props.initialModalRender
     }
   }
   
-
   createOptions = async e => {
+
     var url = "http://localhost:8080/getMeals?userId='" + String(this.props.userId) + "'";
     var returnedResults = await getMeals(url);
 
@@ -43,7 +33,9 @@ class AddFoodModal extends React.Component {
         new Option(meal.Name, meal.Meal_Id, false)
       ))
 
-      console.log(options);
+      this.setState({
+        initalRender: false
+      })
 
     }
   }
@@ -54,6 +46,7 @@ class AddFoodModal extends React.Component {
         <Modal
           open={this.props.show}
           onClose={this.props.onClose}
+          onRendered={this.createOptions}
           aria-labelledby="simple-modal-title"
           aria-describedby="simple-modal-description"
         >
@@ -65,27 +58,31 @@ class AddFoodModal extends React.Component {
 
             <div>
               <label className="addFoodModalSelectLabel">Meal:</label>
-              <select className="addFoodModalSelect" id="mealSelect" onChange={() => this.setState({ mealId: document.getElementById("mealSelect").value, selectedUpdated: true })} defaultValue="0"> 
+              <select className="addFoodModalSelect" id="mealSelect"  defaultValue="0" onChange={e => this.setState({mealId: e.target.value, initalRender: false})}> 
                 <option value="0">New Meal</option>
               </select>
 
               {(() => {
-                      if(this.state.mealId == 0){
-                        console.log(this.state.mealId)
-                        return(
-                          <div className="mealNameDiv">
-                            <label className="mealNameInputLabel" >Meal Name:</label>
-                            <input className="mealNameInput" id="mealNameInput" type="string" placeholder="Meal Name" required={true} />   
-                          </div>                  
-                          )
-                      }else{
-                        return ""
-                      }
+                if(this.props.show){
+                  if(this.state.mealId == 0){
+                    return(
+                      <div className="mealNameDiv">
+                        <label className="mealNameInputLabel" >Meal Name:</label>
+                        <input className="mealNameInput" id="mealNameInput" type="string" placeholder="Meal Name" required={true} />   
+                      </div>                  
+                      )
+                  }else{
+                    <div className="mealNameDiv" style={{display: "none"}}>
+                    <label className="mealNameInputLabel" >Meal Name:</label>
+                    <input className="mealNameInput" id="mealNameInput" type="string" placeholder="Meal Name" required={true} />   
+                  </div>       
+                  }
+                }
               })()}
             </div>
             
             <div className="addFoodModalCentered">
-            <Link to="/meal" onClick={ () => this.props.getFoodToAdd({foodInfo: this.props.nutrients, mealId: document.getElementById("mealSelect").value, mealName: document.getElementById("mealNameInput").value})}>
+            <Link to="/meal" onClick={ () => this.props.getFoodToAdd({foodInfo: this.props.nutrients, mealId: this.state.mealId, mealName: (document.getElementById("mealNameInput") != null) ? document.getElementById("mealNameInput").value : "" })}>
               <button className="addFoodModalButton" >Add</button>
             </Link>
             </div>

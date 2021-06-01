@@ -429,7 +429,7 @@ app.post('/uploadNewMeal', (req, res) => {
         });
 
         postNewDBInfo(function(err, result) {
-            res.send({ success: true });
+            res.send({ success: maxMealId });
         });
 
         console.log({ success: result })

@@ -6,12 +6,7 @@ import getMeal from '../Models/GetMeal.js'
 
 async function updateMeal(data, userId) {
 
-    console.log(data)
-
-    console.log(data.mealId != 0)
-
     if(data.mealId != 0){
-        console.log(data)
 
         var url = "http://localhost:8080/getMeal?mealId='" + String(data.mealId) + "'";
     
@@ -50,10 +45,8 @@ async function updateMeal(data, userId) {
             //TO-DO Add error handling here 
         }
     
-        return true
+        return data.mealId
     }else{
-
-        console.log("Meal ID = 0")
 
         var calories = data.foodInfo.calories;
         var protein = data.foodInfo.protein;
@@ -80,11 +73,11 @@ async function updateMeal(data, userId) {
     
         var mealUploaded = await uploadNewMeal(url);
         
-        if(!mealUploaded.success){
-            //TO-DO Add error handling here 
+        if(mealUploaded.success != 0){
+            return mealUploaded.success
+        }else{
+            return false
         }
-    
-        return true
     }
 
     

@@ -12,7 +12,7 @@ import calculateValues from '../Services/CalculateValues.jsx'
 import Loader from "react-loader-spinner";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
-import '../Stylings/FoodStylings.css'
+import '../Stylings/MealStylings.css'
 
 
 class Food extends React.Component{
@@ -25,11 +25,11 @@ class Food extends React.Component{
     }
 
     getData = async e => {
-        var url = "http://localhost:8080/getMeal?mealId='" + String(this.state.mealId) + "'";
+        var url = "http://localhost:8080/getMeal?mealId='" + String(this.props.mealId) + "'";
 
         var mealInfo = await getMeal(url);
 
-        var url = "http://localhost:8080/getFoodsInMeal?mealId='" + String(this.state.mealId) + "'";
+        var url = "http://localhost:8080/getFoodsInMeal?mealId='" + String(this.props.mealId) + "'";
 
         var foodsInMeal = await getFoodsInMeal(url);
 
@@ -55,9 +55,7 @@ class Food extends React.Component{
     
             var foodData = await getNutrients(url, jsonBody);
 
-            console.log(foodData)
-
-            foodsInMeal[i]['Food_Info'] = {
+            foodsInMeal[i]['Food_Info'] =  {
                 name: foodData.ingredients[0].parsed[0].food,
                 calories: foodData.totalNutrients.ENERC_KCAL.quantity,
                 protein: foodData.totalNutrients.PROCNT.quantity,
@@ -69,9 +67,9 @@ class Food extends React.Component{
                 unit: 'gram',
             };
 
-        }
+            foodsInMeal[i]['Food_Info'] = calculateValues(foodsInMeal[i].Serving, foodsInMeal[i].Unit, foodsInMeal[i].Food_Info)
 
-        console.log(foodsInMeal)
+        }
 
         this.setState({
             mealInfo: mealInfo.success[0],
@@ -83,8 +81,6 @@ class Food extends React.Component{
     routeToFood = async e => {
         var url = "https://api.edamam.com/api/food-database/v2/parser?nutrition-type=logging&ingr=" + String(e.Food_Id) + "&app_id=36b7b45f&app_key=cb6dd0831871febd1d0ce5077a364182";
         var returnedResults = await getFood(url);
-
-        console.log(returnedResults)
 
         this.props.getSearchQuery(returnedResults.hints[0].food)
         this.props.history.push("/food")
@@ -111,22 +107,29 @@ class Food extends React.Component{
                         {(() => {
                             var foods = this.state.foodsInMeal.map(food => (
                                 <div className="ingredientDiv" key={food.Food_Id}>
-                                    <Link onClick={() => { this.routeToFood(food) }}>
-                                        {food.Food_Info.name}
-                                    </Link>
-                                    <h4 id={"calories_" + food.Food_Id}>Calories:  {parseFloat(food.Food_Info.calories).toFixed(2) + " kcal"} </h4>
-                                    <h4 id={"protein_" + food.Food_Id}>Protein:  {parseFloat(food.Food_Info.protein).toFixed(2) + " g"} </h4>
-                                    <h4 id={"carbs_" + food.Food_Id}>Carbs: {parseFloat(food.Food_Info.carbs).toFixed(2) + " g"} </h4>
-                                    <h4 id={"fat_" + food.Food_Id}>Fat:  {parseFloat(food.Food_Info.fat).toFixed(2) + " g"} </h4>
+                                    <h3 className="ingredientTitle" onClick={() => { this.routeToFood(food) }}>
+                                        <u>{food.Food_Info.name}</u>
+                                    </h3>
+                                    <h4 id={"calories_" + food.Food_Id} className="nutrientLabel">Calories: <b className="nutrient">{parseFloat(food.Food_Info.calories).toFixed(2) + " kcal"}</b></h4>
+                                    <h4 id={"protein_" + food.Food_Id} className="nutrientLabel">Protein: <b className="nutrient">{parseFloat(food.Food_Info.protein).toFixed(2) + " g"}</b></h4>
+                                    <h4 id={"carbs_" + food.Food_Id} className="nutrientLabel">Carbs: <b className="nutrient">{parseFloat(food.Food_Info.carbs).toFixed(2) + " g"}</b></h4>
+                                    <h4 id={"fat_" + food.Food_Id} className="nutrientLabel">Fat: <b className="nutrient">{parseFloat(food.Food_Info.fat).toFixed(2) + " g"}</b></h4>
+                                    <h4 id={"serving_" + food.Food_Id} className="nutrientLabel">Serving: <b className="nutrient">{food.Food_Info.serving + " " + food.Food_Info.unit + "(s)"}</b></h4>
                                 </div>
                             ))
-                            return <div>{foods}</div>
+                            return <div className="ingredientsDiv">{foods}</div>
                         })()}
+                    </div>
+                    <div className="backToMainDiv">
+                        <button type="submit" className="backToMainBtn" onClick={() => this.props.history.push("/")}>My Meals</button>
                     </div>
                 </div>
             )
         }else{
-            this.getData();
+
+            if(this.props.mealDataUpdated){
+                this.getData();
+            }
 
             return(
                 <div style={{
