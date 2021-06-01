@@ -19,7 +19,7 @@
 .ingredientsDiv {
     justify-content: center;
     align-items: center;
-    display: block;
+    display: table;
     width: 100%;
     text-align: center;
 }
