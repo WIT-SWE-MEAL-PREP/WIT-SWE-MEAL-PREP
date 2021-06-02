@@ -5,7 +5,7 @@
     position: absolute;
     overflow: hidden;
     width: 40%;
-    height: 16%;
+    height: 20%;
     background-color: #b7cfda;
     border: 2px solid #000;
     box-shadow: #000;
@@ -13,10 +13,12 @@
 
 .addFoodModalText {
     justify-self: center;
+    margin-top: 5px;
 }
 
 .addFoodModalSelectLabel {
     margin-left: 5px;
+    font-size: 15px;
 }
 
 .addFoodModalSelect {
@@ -25,10 +27,25 @@
     width: 70%;
 }
 
+.mealNameInputLabel {
+    margin-left: 5px;
+    font-size: 15px;
+}
+
+.mealNameInput {
+    float: right;
+    margin-right: 10px;
+    width: 70%;
+}
+
+.mealNameDiv {
+    margin-top: 5px;
+}
+
 .addFoodModalButton {
     font-family: 'Raleway', sans-serif;
     margin: auto;
-    margin-top: 15px;
+    margin-top: 24px;
     border-radius: 50px;
     cursor: pointer;
     border: 1px solid #4d6f8a;
