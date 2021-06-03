@@ -5,9 +5,6 @@ async function removeFoodFromMealService(foodInfoToRemove, mealToRemoveFrom) {
 
     var url;
 
-    console.log(foodInfoToRemove)
-    console.log(mealToRemoveFrom)
-
     var calories = mealToRemoveFrom.Calories - foodInfoToRemove.foodInfo.calories;
     var protein = mealToRemoveFrom.Protein - foodInfoToRemove.foodInfo.protein;
     var carbs = mealToRemoveFrom.Carbs - foodInfoToRemove.foodInfo.carbs;
@@ -26,22 +23,18 @@ async function removeFoodFromMealService(foodInfoToRemove, mealToRemoveFrom) {
 
     var mealUpdated = await updateMealData(url);
 
-    console.log(mealUpdated)
-
-    // if(!mealUpdated.success){
-    //     //TO-DO Add error handling here 
-    // }
+    if(!mealUpdated.success){
+        //TO-DO Add error handling here 
+    }
 
     url = "http://localhost:8080/removeFoodFromMeal?mealId='" + String(mealToRemoveFrom.Meal_Id) 
                                             + "'&foodId='"   + String(foodInfoToRemove.Food_Id) + "'";
 
     var foodInMealUpdated = await removeFoodFromMeal(url);
 
-    console.log(foodInMealUpdated)
-
-    // if(!foodInMealUpdated.success){
-    //     //TO-DO Add error handling here 
-    // }
+    if(!foodInMealUpdated.success){
+        //TO-DO Add error handling here 
+    }
 
     return foodInfoToRemove.mealId
     

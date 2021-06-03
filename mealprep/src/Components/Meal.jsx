@@ -102,11 +102,7 @@ class Food extends React.Component{
             dataReturned: false
         })
 
-        console.log(this.state.foodsInMeal.length);
-
         if(this.state.foodsInMeal.length <= 1){
-
-            console.log(foodToremove)
 
             var url = "http://localhost:8080/deleteMeal?mealId='" + String(this.props.mealId) + "'";
             var mealDeleted = await deleteMeal(url);
@@ -114,9 +110,6 @@ class Food extends React.Component{
             this.props.history.push("/")
 
         }else{
-
-            console.log(foodToremove);
-            console.log(this.state.mealInfo)
 
             var foodRemoved = await removeFoodFromMealService(foodToremove, this.state.mealInfo);
 
