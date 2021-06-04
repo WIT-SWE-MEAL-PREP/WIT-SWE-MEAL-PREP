@@ -145,7 +145,7 @@ app.post('/uploadUserConfig', (req, res) => {
             ", Age = " + String(req.query.age) +
             ", Weight = " + String(req.query.weight) +
             ", Height = " + String(req.query.height) +
-            "' WHERE Username = " + String(req.query.username);
+            "' WHERE User_Id = " + String(req.query.userId);
 
         connection.query(sql, (err, resp) => {
             if (err) {
@@ -168,7 +168,7 @@ app.get('/getConfig', (req, res) => {
 
     var result = false;
     var getDBInfo = function(callback) {
-        let sql = "SELECT * FROM gainsday.User WHERE Username = " + String(req.query.username)
+        let sql = "SELECT * FROM gainsday.User WHERE User_Id = " + String(req.query.userId)
         connection.query(sql, (err, resp) => {
             if (err) {
                 console.log("error: ", err);
