@@ -11,7 +11,7 @@ import Meal from '../Components/Meal.jsx'
 import Footer from '../Components/Footer.jsx'
 import Header from '../Components/Header.jsx'
 
-import updateMeal from '../Services/UpdateMeal.jsx'
+import addNewFood from '../Services/AddNewFood.jsx'
 
 import '../Stylings/AppStylings.css'
 
@@ -115,7 +115,7 @@ class AppController extends React.Component {
             mealId: foodAndMealInfo.mealId
         }, async () => {
             
-            var newId = await updateMeal(foodAndMealInfo, this.state.userId);
+            var newId = await addNewFood(foodAndMealInfo, this.state.userId);
 
             this.setState({
                 mealDataUpdated: true,

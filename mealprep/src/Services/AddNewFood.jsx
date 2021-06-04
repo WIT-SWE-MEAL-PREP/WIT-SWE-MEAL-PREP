@@ -4,7 +4,7 @@ import uploadNewMeal from '../Models/UploadNewMeal.js'
 import getMeal from '../Models/GetMeal.js'
 
 
-async function updateMeal(data, userId) {
+async function addNewFood(data, userId) {
 
     if(data.mealId != 0){
 
@@ -84,4 +84,4 @@ async function updateMeal(data, userId) {
 
 }
 
-export default updateMeal;
+export default addNewFood;

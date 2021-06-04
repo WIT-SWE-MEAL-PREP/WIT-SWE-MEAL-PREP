@@ -145,7 +145,7 @@ app.post('/uploadUserConfig', (req, res) => {
             ", Age = " + String(req.query.age) +
             ", Weight = " + String(req.query.weight) +
             ", Height = " + String(req.query.height) +
-            "' WHERE Username = " + String(req.query.username);
+            "' WHERE User_Id = " + String(req.query.userId);
 
         connection.query(sql, (err, resp) => {
             if (err) {
@@ -168,7 +168,7 @@ app.get('/getConfig', (req, res) => {
 
     var result = false;
     var getDBInfo = function(callback) {
-        let sql = "SELECT * FROM gainsday.User WHERE Username = " + String(req.query.username)
+        let sql = "SELECT * FROM gainsday.User WHERE User_Id = " + String(req.query.userId)
         connection.query(sql, (err, resp) => {
             if (err) {
                 console.log("error: ", err);
@@ -280,6 +280,9 @@ app.post('/updateFoodsInMeal', (req, res) => {
 
 app.post('/updateMealData', (req, res) => {
     var result = false;
+
+    console.log("INFO")
+    console.log(req.query.mealID)
 
     var postDBInfo = function(callback) {
 
@@ -445,6 +448,9 @@ app.post('/deleteMeal', (req, res) => {
 
     var removeFromFoodsInMealMealTable = function(callback) {
         let sql = "DELETE FROM gainsday.FoodsInMeal WHERE Meal_Id LIKE " + mealId;
+
+        console.log("FoodsInMeal SQL")
+        console.log(sql)
         connection.query(sql, (err, resp) => {
             if (err) {
                 console.log("error: ", err);
@@ -463,6 +469,8 @@ app.post('/deleteMeal', (req, res) => {
 
     var removeFromMealTable = function(callback) {
         let sql = "DELETE FROM gainsday.Meals WHERE Meal_Id LIKE " + mealId;
+        console.log("Meals SQL")
+        console.log(sql)
         connection.query(sql, (err, resp) => {
             if (err) {
                 console.log("error: ", err);
@@ -487,6 +495,33 @@ app.post('/deleteMeal', (req, res) => {
             console.log({ success: result })
             res.send({ success: true });
         });
+    });
+});
+
+app.post('/removeFoodFromMeal', (req, res) => {
+    var result = false;
+
+    console.log("INFO")
+    console.log(req.query.mealId)
+
+    var postDBInfo = function(callback) {
+
+        let sql = "DELETE FROM gainsday.FoodsInMeal WHERE Meal_Id LIKE " + req.query.mealId + " AND Food_Id LIKE " + String(req.query.foodId);
+
+        connection.query(sql, (err, resp) => {
+            if (err) {
+                console.log("error: ", err);
+                return callback(err);
+            }
+
+            result = true
+
+            callback(null, result);
+        });
+    }
+
+    postDBInfo(function(err, result) {
+        res.send({ success: result });
     });
 });
 

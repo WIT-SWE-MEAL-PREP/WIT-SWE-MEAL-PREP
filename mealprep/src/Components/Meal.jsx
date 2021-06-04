@@ -6,8 +6,12 @@ import getMeal from '../Models/GetMeal.js'
 import getFoodsInMeal from '../Models/GetFoodsInMeal.js'
 import getNutrients from '../Models/GetFoodNutrients.js'
 import getFood from '../Models/GetFood.js'
+import deleteMeal from '../Models/DeleteMeal.js'
+
+import Ingrediant from './Ingrediant.jsx'
 
 import calculateValues from '../Services/CalculateValues.jsx'
+import removeFoodFromMealService from '../Services/RemoveFoodFromMeal.jsx'
 
 import Loader from "react-loader-spinner";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
@@ -22,6 +26,8 @@ class Food extends React.Component{
       this.state = {
         mealId: this.props.mealId
       }
+
+      this.removeFood = this.removeFood.bind(this);
     }
 
     getData = async e => {
@@ -56,7 +62,7 @@ class Food extends React.Component{
         
                 var foodData = await getNutrients(url, jsonBody);
     
-                foodsInMeal[i]['Food_Info'] =  {
+                foodsInMeal[i]['foodInfo'] =  {
                     name: foodData.ingredients[0].parsed[0].food,
                     calories: foodData.totalNutrients.ENERC_KCAL.quantity,
                     protein: foodData.totalNutrients.PROCNT.quantity,
@@ -68,7 +74,7 @@ class Food extends React.Component{
                     unit: 'gram',
                 };
     
-                foodsInMeal[i]['Food_Info'] = calculateValues(foodsInMeal[i].Serving, foodsInMeal[i].Unit, foodsInMeal[i].Food_Info)
+                foodsInMeal[i]['foodInfo'] = calculateValues(foodsInMeal[i].Serving, foodsInMeal[i].Unit, foodsInMeal[i].foodInfo)
     
             }
     
@@ -86,6 +92,34 @@ class Food extends React.Component{
 
         this.props.getSearchQuery(returnedResults.hints[0].food)
         this.props.history.push("/food")
+    }
+
+    removeFood = async e => {
+
+        var foodToremove = e;
+
+        this.setState({
+            dataReturned: false
+        })
+
+        if(this.state.foodsInMeal.length <= 1){
+
+            var url = "http://localhost:8080/deleteMeal?mealId='" + String(this.props.mealId) + "'";
+            var mealDeleted = await deleteMeal(url);
+
+            this.props.history.push("/")
+
+        }else{
+
+            var foodRemoved = await removeFoodFromMealService(foodToremove, this.state.mealInfo);
+
+            this.getData();
+        }
+
+        this.setState({
+            dataReturned: true
+        })
+
     }
  
     render() {
@@ -108,22 +142,13 @@ class Food extends React.Component{
                         <h2>Ingredients: </h2>
                         {(() => {
                             var foods = this.state.foodsInMeal.map(food => (
-                                <div className="ingredientDiv" key={food.Food_Id}>
-                                    <h3 className="ingredientTitle" onClick={() => { this.routeToFood(food) }}>
-                                        <u>{food.Food_Info.name}</u>
-                                    </h3>
-                                    <h4 id={"calories_" + food.Food_Id} className="nutrientLabel">Calories: <b className="nutrient">{parseFloat(food.Food_Info.calories).toFixed(2) + " kcal"}</b></h4>
-                                    <h4 id={"protein_" + food.Food_Id} className="nutrientLabel">Protein: <b className="nutrient">{parseFloat(food.Food_Info.protein).toFixed(2) + " g"}</b></h4>
-                                    <h4 id={"carbs_" + food.Food_Id} className="nutrientLabel">Carbs: <b className="nutrient">{parseFloat(food.Food_Info.carbs).toFixed(2) + " g"}</b></h4>
-                                    <h4 id={"fat_" + food.Food_Id} className="nutrientLabel">Fat: <b className="nutrient">{parseFloat(food.Food_Info.fat).toFixed(2) + " g"}</b></h4>
-                                    <h4 id={"serving_" + food.Food_Id} className="nutrientLabel">Serving: <b className="nutrient">{food.Food_Info.serving + " " + food.Food_Info.unit + "(s)"}</b></h4>
-                                </div>
+                                <Ingrediant foodInfo={food} routeToFood={this.routeToFood} removeFood={this.removeFood} />
                             ))
                             return <div className="ingredientsDiv">{foods}</div>
                         })()}
-                    </div>
-                    <div className="backToMainDiv">
-                        <button type="submit" className="backToMainBtn" onClick={() => this.props.history.push("/")}>My Meals</button>
+                        <div className="backToMainDiv">
+                            <button type="submit" className="backToMainBtn" onClick={() => this.props.history.push("/")}>My Meals</button>
+                        </div>
                     </div>
                 </div>
             )
