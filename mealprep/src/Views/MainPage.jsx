@@ -103,7 +103,7 @@ class MainPage extends React.Component{
     var url = "http://localhost:8080/getMeals?userId='" + String(this.props.userId) + "'";
     var returnedResults = await getMeals(url);
 
-    if(returnedResults.success.length > 0) {
+    if(returnedResults.success) {
 
       this.setState({
         data: returnedResults.success
