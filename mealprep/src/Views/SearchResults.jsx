@@ -74,6 +74,7 @@ class SearchResults extends React.Component {
                         title="Search results"
                         icons={tableIcons}
                         columns={[
+                            { field: 'image', render: rowData => <img src={rowData.image} style={{width: 50, borderRadius: '50%'}}/> },
                             { title: 'Name', field: 'label' },
                             { title: 'Calories', field: 'Calories' },
                             { title: 'Protein (g)', field: 'Protein' },
