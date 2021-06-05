@@ -86,16 +86,8 @@ class MainPage extends React.Component{
 
   retrieveSearchSelections = (selection) => {
 
-    selection = selection.map(row =>{
-      delete row['tableData']
-      return row
-    })
-
-    this.setState({
-      selectedFoods: selection,
-      renderSearchPage: false,
-      searchQuery: ''
-    })
+    this.props.getFoodId(selection)
+    this.props.history.push("/food")
   }
 
   getMeals = async e => {

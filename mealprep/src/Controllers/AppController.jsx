@@ -51,6 +51,7 @@ class AppController extends React.Component {
         this.getSearchQuery = this.getSearchQuery.bind(this);
         this.getFoodToAdd = this.getFoodToAdd.bind(this);
         this.getMealId = this.getMealId.bind(this);
+        this.getFoodId = this.getFoodId.bind(this);
     }
 
     componentDidMount(){
@@ -98,6 +99,13 @@ class AppController extends React.Component {
     getSearchQuery(searchQuery){
         this.setState({
             food: searchQuery
+        })
+    }
+
+    getFoodId(foodData){
+
+        this.setState({
+            food: foodData
         })
     }
 
@@ -153,7 +161,7 @@ class AppController extends React.Component {
                         </Route>
                         <Route path="/">
                             <Header/>
-                            <MainController getSearchQuery={this.getSearchQuery} getMealId={this.getMealId} userId={this.state.userId}/>
+                            <MainController getSearchQuery={this.getSearchQuery} getMealId={this.getMealId} userId={this.state.userId} getFoodId={this.getFoodId} />
                             <Footer setSignInStatus = { this.setSignInStatus }/>
                         </Route>
                     </Switch>
