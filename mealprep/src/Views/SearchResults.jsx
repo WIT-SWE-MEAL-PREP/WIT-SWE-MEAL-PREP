@@ -74,27 +74,16 @@ class SearchResults extends React.Component {
                         title="Search results"
                         icons={tableIcons}
                         columns={[
-                            { title: 'Name', field: 'Name' },
+                            { field: 'image', render: rowData => <img src={rowData.image} style={{width: 50, borderRadius: '50%'}}/> },
+                            { title: 'Name', field: 'label' },
                             { title: 'Calories', field: 'Calories' },
-                            // { title: 'Protein (g)', field: 'Protein' },
-                            // { title: 'Carbs (g)', field: 'Carbs' },
-                            // { title: 'Mono-Saturated Fat (g)', field: 'Mono_Sat_Fat'},
-                            // { title: 'Poly-Saturated Fat (g)', field: 'Poly_Sat_Fat'},
-                            // { title: 'Fiber (g)', field: 'Fiber'},
-                            // { title: 'Sugar (g)', field: 'Sugar'},
-                            // { title: 'Serving Size', field: 'Serving_Size'},
-                            ]}
-                            data={this.state.results}
-                        options={{
-                            selection: true
-                        }}
-                        actions={[
-                            {
-                              tooltip: 'Add to main view',
-                              icon: AddIcon,
-                              onClick: (evt, data) => this.props.retrieveSearchSelections(data)
-                            }
-                          ]}
+                            { title: 'Protein (g)', field: 'Protein' },
+                            { title: 'Carbs (g)', field: 'Carbs' },
+                            { title: 'Fat (g)', field: 'Fat'},
+                            { title: 'Fiber (g)', field: 'Fiber'}
+                        ]}
+                        data={this.state.results}
+                        onRowClick={ (evt, rowData) => this.props.retrieveSearchSelections(rowData)}
                     />
                 </MuiThemeProvider>
             </div>

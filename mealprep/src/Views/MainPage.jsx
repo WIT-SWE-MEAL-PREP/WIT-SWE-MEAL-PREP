@@ -86,16 +86,8 @@ class MainPage extends React.Component{
 
   retrieveSearchSelections = (selection) => {
 
-    selection = selection.map(row =>{
-      delete row['tableData']
-      return row
-    })
-
-    this.setState({
-      selectedFoods: selection,
-      renderSearchPage: false,
-      searchQuery: ''
-    })
+    this.props.getFoodId(selection)
+    this.props.history.push("/food")
   }
 
   getMeals = async e => {
@@ -103,7 +95,7 @@ class MainPage extends React.Component{
     var url = "http://localhost:8080/getMeals?userId='" + String(this.props.userId) + "'";
     var returnedResults = await getMeals(url);
 
-    if(returnedResults.success.length > 0) {
+    if(returnedResults.success) {
 
       this.setState({
         data: returnedResults.success
