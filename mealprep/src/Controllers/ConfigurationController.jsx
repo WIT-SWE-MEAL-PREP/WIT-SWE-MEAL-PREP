@@ -57,6 +57,7 @@ class ConfigController extends React.Component{
         })
     }
 
+
     getUserConfig = async e => {
 
         var url = "http://localhost:8080/getConfig?userId='" + String(this.state.userId) + "'";

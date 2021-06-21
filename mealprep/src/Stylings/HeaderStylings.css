@@ -16,3 +16,18 @@
     margin-top: 15px;
     color: #4d6f8a;
 }
+
+.ReturnMain {
+    font: bold 11px Arial;
+    border-color: white;
+    text-decoration: none;
+    color: transparent;
+    position: absolute;
+    top: 20px;
+    border-top: 10px solid transparent;
+    border-right: 295px solid transparent;
+    border-bottom: 15px solid transparent;
+    border-left: 20px solid transparent;
+    margin-left: 150px;
+    margin-top: 0px;
+  }
