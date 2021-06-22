@@ -46,12 +46,12 @@
 .addFoodBtn {
     width: 30%;
     font-family: 'Raleway', sans-serif;
-    margin: auto;
+    margin: 10px;
     border-radius: 50px;
     cursor: pointer;
     border: 1px solid #4d6f8a;
     height: 50px;
-    width: 50%;
+    width: 35%;
     background-color: #4d6f8a;
     color: white;
     text-align: center;

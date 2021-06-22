@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import AccountStatusController from './AccountStatusController.jsx';
 import MainController from './MainController.jsx'
 import ConfigController from './ConfigurationController.jsx'
+import InventoryController from './InventoryController.jsx';
 
 import Food from '../Components/Food.jsx'
 import Meal from '../Components/Meal.jsx'
@@ -157,6 +158,11 @@ class AppController extends React.Component {
                         <Route path="/meal">
                             <Header/>
                             <Meal mealId={this.state.mealId} userId={this.state.userId} mealDataUpdated={this.state.mealDataUpdated} getSearchQuery={this.getSearchQuery}/>
+                            <Footer setSignInStatus = { this.setSignInStatus }/>
+                        </Route>
+                        <Route path="/inventory">
+                            <Header/>
+                            <InventoryController userId={this.state.userId} getSearchQuery={this.getSearchQuery} getFoodId={this.getFoodId}/>
                             <Footer setSignInStatus = { this.setSignInStatus }/>
                         </Route>
                         <Route path="/">
