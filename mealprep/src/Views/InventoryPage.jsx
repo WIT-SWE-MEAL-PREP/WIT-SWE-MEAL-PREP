@@ -99,12 +99,10 @@ class InventoryPage extends React.Component{
                   icons={tableIcons}
                   columns={[
                       { title: 'Name', field: 'Name' },
-                      { title: 'Calories', field: 'Calories' },
-                      { title: 'Protein (g)', field: 'Protein' },
-                      { title: 'Carbs (g)', field: 'Carbs' },
-                      { title: 'Total Fat (g)', field: 'Total_Fat'},
-                      { title: 'Fiber (g)', field: 'Fiber'},
-                      { title: 'Sugar (g)', field: 'Sugar'},
+                      { title: 'Quantity', field: 'Quantity' },
+                      { title: 'Unit', field: 'Unit' },
+                      { title: 'Expiration Data', field: 'ExpirationDate' },
+                      { title: 'Days left', field: 'Days_Left' }
                       ]}
                   data={this.state.data}
                   actions={[

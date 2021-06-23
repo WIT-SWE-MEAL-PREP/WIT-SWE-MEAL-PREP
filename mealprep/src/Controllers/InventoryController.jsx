@@ -1,5 +1,4 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import getUserInventory from '../Models/GetUserInventory.js'
 
@@ -36,26 +35,7 @@ class InventoryController extends React.Component {
             dataReturned: true
         })
     }
-
-    handleInputChange = () => {
-        this.setState({
-            searchQuery: this.search.value
-        })
-    }
     
-    handleSearchSubmit = (search) => {
-        this.setState({
-            renderSearchPage: true,
-            searchQuery: search
-        })
-    }
-
-    retrieveSearchSelections = (selection) => {
-        this.props.getFoodId(selection)
-        this.props.history.push("/food")
-    }
-    
-
     render(){
 
         if(this.state.dataReturned){
