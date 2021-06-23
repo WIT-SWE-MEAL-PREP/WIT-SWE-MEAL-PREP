@@ -525,5 +525,34 @@ app.post('/removeFoodFromMeal', (req, res) => {
     });
 });
 
+app.get('/getUserInventory', (req, res) => {
+
+    var result = false;
+    var userId = req.query.userId
+    var getDBInfo = function(callback) {
+        let sql = "SELECT * FROM gainsday.Inventory WHERE User_Id LIKE " + userId;
+        connection.query(sql, (err, resp) => {
+            if (err) {
+                console.log("error: ", err);
+                return callback(err);
+            }
+
+            console.log(sql)
+
+            if (resp.length) {
+                console.log("found foods in inventory: ", resp);
+                result = resp;
+            }
+
+            callback(null, result);
+        });
+    }
+
+    getDBInfo(function(err, result) {
+        console.log({ success: result })
+        res.send({ success: result });
+    });
+});
+
 
 app.listen(PORT, () => console.log('API is running on http://localhost:8080'));

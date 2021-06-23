@@ -7,7 +7,7 @@ class Header extends React.Component{
         return(
             <div className="headerWrapper">
                 <h1>Gains Day Preppers</h1>
-                <a href="/" class="ReturnMain"> ______________________________________________</a>
+                <a href="/" className="ReturnMain"> ______________________________________________</a>
             </div>
         )
     }

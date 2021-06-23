@@ -85,7 +85,7 @@ class ConfigPage extends React.Component {
                             <section className="actions">
                             <div className="submit-button"> 
                                 <button type="submit" className="submit-btn">Submit</button>
-                                <a href="/" class="cancel-btn">Cancel</a>
+                                <a href="/" className="cancel-btn">Cancel</a>
                             </div>
                             </section>
                         </fieldset>
