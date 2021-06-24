@@ -61,18 +61,32 @@ class Food extends React.Component{
                   }
         
                 var foodData = await getNutrients(url, jsonBody);
+
+                if(foodData.totalNutrients.SUGAR != undefined){
+                    foodsInMeal[i]['foodInfo'] =  {
+                        name: foodData.ingredients[0].parsed[0].food,
+                        calories: foodData.totalNutrients.ENERC_KCAL.quantity,
+                        protein: foodData.totalNutrients.PROCNT.quantity,
+                        carbs: foodData.totalNutrients.CHOCDF.quantity,
+                        fat: foodData.totalNutrients.FAT.quantity,
+                        fiber: foodData.totalNutrients.FIBTG.quantity,
+                        sugar: foodData.totalNutrients.SUGAR.quantity,
+                        serving: 1,
+                        unit: 'gram',
+                    };
+                }else{
+                    foodsInMeal[i]['foodInfo'] =  {
+                        name: foodData.ingredients[0].parsed[0].food,
+                        calories: foodData.totalNutrients.ENERC_KCAL.quantity,
+                        protein: foodData.totalNutrients.PROCNT.quantity,
+                        carbs: foodData.totalNutrients.CHOCDF.quantity,
+                        fat: foodData.totalNutrients.FAT.quantity,
+                        fiber: foodData.totalNutrients.FIBTG.quantity,
+                        serving: 1,
+                        unit: 'gram',
+                    };
+                }
     
-                foodsInMeal[i]['foodInfo'] =  {
-                    name: foodData.ingredients[0].parsed[0].food,
-                    calories: foodData.totalNutrients.ENERC_KCAL.quantity,
-                    protein: foodData.totalNutrients.PROCNT.quantity,
-                    carbs: foodData.totalNutrients.CHOCDF.quantity,
-                    fat: foodData.totalNutrients.FAT.quantity,
-                    fiber: foodData.totalNutrients.FIBTG.quantity,
-                    sugar: foodData.totalNutrients.SUGAR.quantity,
-                    serving: 1,
-                    unit: 'gram',
-                };
     
                 foodsInMeal[i]['foodInfo'] = calculateValues(foodsInMeal[i].Serving, foodsInMeal[i].Unit, foodsInMeal[i].foodInfo)
     

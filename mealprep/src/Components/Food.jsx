@@ -43,46 +43,87 @@ class Food extends React.Component{
 
         var returnedResults = await getNutrients(url, jsonBody);
 
-        this.setState({
-            foodInfo: returnedResults,
-            dataReturned: true,
-            nutrients: {
-                name: this.state.preliminaryInfo.label,
-                id: this.state.preliminaryInfo.foodId,
-                calories: returnedResults.totalNutrients.ENERC_KCAL.quantity,
-                protein: returnedResults.totalNutrients.PROCNT.quantity,
-                carbs: returnedResults.totalNutrients.CHOCDF.quantity,
-                fat: returnedResults.totalNutrients.FAT.quantity,
-                fiber: returnedResults.totalNutrients.FIBTG.quantity,
-                sugar: returnedResults.totalNutrients.SUGAR.quantity,
-                serving: 1,
-                unit: "gram"
-            }
-        });
+        if(returnedResults.totalNutrients.SUGAR != undefined){
+            this.setState({
+                foodInfo: returnedResults,
+                dataReturned: true,
+                nutrients: {
+                    name: this.state.preliminaryInfo.label,
+                    id: this.state.preliminaryInfo.foodId,
+                    calories: returnedResults.totalNutrients.ENERC_KCAL.quantity,
+                    protein: returnedResults.totalNutrients.PROCNT.quantity,
+                    carbs: returnedResults.totalNutrients.CHOCDF.quantity,
+                    fat: returnedResults.totalNutrients.FAT.quantity,
+                    fiber: returnedResults.totalNutrients.FIBTG.quantity,
+                    sugar: returnedResults.totalNutrients.SUGAR.quantity,
+                    serving: 1,
+                    unit: "gram"
+                }
+            });
+        }else{
+            this.setState({
+                foodInfo: returnedResults,
+                dataReturned: true,
+                nutrients: {
+                    name: this.state.preliminaryInfo.label,
+                    id: this.state.preliminaryInfo.foodId,
+                    calories: returnedResults.totalNutrients.ENERC_KCAL.quantity,
+                    protein: returnedResults.totalNutrients.PROCNT.quantity,
+                    carbs: returnedResults.totalNutrients.CHOCDF.quantity,
+                    fat: returnedResults.totalNutrients.FAT.quantity,
+                    fiber: returnedResults.totalNutrients.FIBTG.quantity,
+                    serving: 1,
+                    unit: "gram"
+                }
+            });
+        }
+
     }
 
     setValues(quanity, unit) {
 
-        this.setState({
-            nutrients: {
-                name: this.state.preliminaryInfo.label,
-                id: this.state.preliminaryInfo.foodId,
-                calories: this.state.foodInfo.totalNutrients.ENERC_KCAL.quantity,
-                protein: this.state.foodInfo.totalNutrients.PROCNT.quantity,
-                carbs: this.state.foodInfo.totalNutrients.CHOCDF.quantity,
-                fat: this.state.foodInfo.totalNutrients.FAT.quantity,
-                fiber: this.state.foodInfo.totalNutrients.FIBTG.quantity,
-                sugar: this.state.foodInfo.totalNutrients.SUGAR.quantity,
-                serving: 1,
-                unit: "gram",
-                dataReturned: false
-            }
-        }, () => {
+        if(this.state.foodInfo.totalNutrients.SUGAR != undefined){
             this.setState({
-                nutrients: calculateValues(quanity, unit, this.state.nutrients),
-                dataReturned: true
-            });
-        })
+                nutrients: {
+                    name: this.state.preliminaryInfo.label,
+                    id: this.state.preliminaryInfo.foodId,
+                    calories: this.state.foodInfo.totalNutrients.ENERC_KCAL.quantity,
+                    protein: this.state.foodInfo.totalNutrients.PROCNT.quantity,
+                    carbs: this.state.foodInfo.totalNutrients.CHOCDF.quantity,
+                    fat: this.state.foodInfo.totalNutrients.FAT.quantity,
+                    fiber: this.state.foodInfo.totalNutrients.FIBTG.quantity,
+                    sugar: this.state.foodInfo.totalNutrients.SUGAR.quantity,
+                    serving: 1,
+                    unit: "gram",
+                    dataReturned: false
+                }
+            }, () => {
+                this.setState({
+                    nutrients: calculateValues(quanity, unit, this.state.nutrients),
+                    dataReturned: true
+                });
+            })
+        }else{
+            this.setState({
+                nutrients: {
+                    name: this.state.preliminaryInfo.label,
+                    id: this.state.preliminaryInfo.foodId,
+                    calories: this.state.foodInfo.totalNutrients.ENERC_KCAL.quantity,
+                    protein: this.state.foodInfo.totalNutrients.PROCNT.quantity,
+                    carbs: this.state.foodInfo.totalNutrients.CHOCDF.quantity,
+                    fat: this.state.foodInfo.totalNutrients.FAT.quantity,
+                    fiber: this.state.foodInfo.totalNutrients.FIBTG.quantity,
+                    serving: 1,
+                    unit: "gram",
+                    dataReturned: false
+                }
+            }, () => {
+                this.setState({
+                    nutrients: calculateValues(quanity, unit, this.state.nutrients),
+                    dataReturned: true
+                });
+            })
+        }
     }
 
     onClose() {
