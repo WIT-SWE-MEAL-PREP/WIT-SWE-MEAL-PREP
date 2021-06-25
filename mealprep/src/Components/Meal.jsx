@@ -156,7 +156,6 @@ class Food extends React.Component{
                         <h2>Fiber: <b className="nutrient">{parseFloat(this.state.mealInfo.Fiber).toFixed(2) + " g"}</b></h2>
                         {(() => {
                         if(this.state.mealInfo.Sugar != undefined){
-                            if(this.state.mealId == 0){
                             return(
                                 <h2>Sugar: <b className="nutrient">{parseFloat(this.state.mealInfo.Sugar).toFixed(2) + " g"}</b></h2>                
                                 )
@@ -165,7 +164,6 @@ class Food extends React.Component{
                                 <h2>Sugar: <b className="nutrient">{"n/a" + " g"}</b></h2>  
                                 )   
                             }
-                        }
                         })()}
                         <h2>Ingredients: </h2>
                         {(() => {
