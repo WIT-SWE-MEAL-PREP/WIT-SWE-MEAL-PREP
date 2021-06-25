@@ -98,23 +98,18 @@ class InventoryPage extends React.Component{
                   title="Inventory"
                   icons={tableIcons}
                   columns={[
-                      { title: 'Name', field: 'Name' },
-                      { title: 'Quantity', field: 'Quantity' },
-                      { title: 'Unit', field: 'Unit' },
+                      { title: 'Name', field: 'name' },
+                      { title: 'Quantity', field: 'serving' },
+                      { title: 'Unit', field: 'unit' },
                       { title: 'Expiration Data', field: 'ExpirationDate' },
                       { title: 'Days left', field: 'Days_Left' }
                       ]}
-                  data={this.state.data}
+                  data={this.state.inventory}
                   actions={[
-                    {
-                      icon: tableIcons.Edit,
-                      tooltip: 'Edit Meal',
-                      onClick: (event, rowData) => this.editMeal(rowData.Meal_Id)
-                    },
                     rowData => ({
                       icon: tableIcons.Delete,
                       tooltip: 'Delete Meal',
-                      onClick: (event, rowData) => this.deleteMeal(rowData.Meal_Id),
+                      onClick: (event, rowData) => this.props.removeInventoryItem(rowData.foodId),
                     })
                   ]}
                   options={{

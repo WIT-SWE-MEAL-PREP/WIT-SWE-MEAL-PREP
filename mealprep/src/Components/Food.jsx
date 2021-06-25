@@ -179,7 +179,16 @@ class Food extends React.Component{
                         <button type="submit" className="addFoodBtn" onClick={() => this.setState({showModal: true, modalView: "Meal"})}>Add to meal</button>
                         <button type="submit" className="addFoodBtn" onClick={() => this.setState({showModal: true, modalView: "Inventory"})}>Add to inventory</button>
                     </div>
-                    <AddFoodModal modalView={this.state.modalView} onClose={this.onClose} show={this.state.showModal} foodId={this.state.foodInfo.ingredients[0].parsed[0].foodId} nutrients={ this.state.nutrients } userId={this.state.userId} getFoodToAdd={ this.props.getFoodToAdd } initialModalRender={this.state.initialModalRender}/>
+                    <AddFoodModal 
+                    modalView={this.state.modalView} 
+                    onClose={this.onClose} 
+                    show={this.state.showModal} 
+                    foodId={this.state.foodInfo.ingredients[0].parsed[0].foodId} 
+                    nutrients={ this.state.nutrients } userId={this.state.userId} 
+                    getFoodToAdd={ this.props.getFoodToAdd } 
+                    initialModalRender={this.state.initialModalRender}
+                    addToInventory={this.props.addToInventory}
+                    />
                 </div>
             )
         }else{

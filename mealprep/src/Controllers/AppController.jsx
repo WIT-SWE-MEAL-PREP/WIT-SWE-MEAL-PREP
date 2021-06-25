@@ -13,6 +13,7 @@ import Footer from '../Components/Footer.jsx'
 import Header from '../Components/Header.jsx'
 
 import addNewFood from '../Services/AddNewFood.jsx'
+import updateUserInventory from '../Models/UpdateUserInventory.js'
 
 import '../Stylings/AppStylings.css'
 
@@ -134,6 +135,21 @@ class AppController extends React.Component {
 
     }
 
+    addToInventory = async e => {
+        var foodId = e.id;
+        var serving = e.serving;
+        var unit = e.unit;
+
+        var url = "http://localhost:8080/updateUserInventory?userId='" + 
+                                          String(this.state.userId) 
+                                          + "'&foodId='" + String(foodId) 
+                                          + "'&serving='" + String(serving)
+                                          + "'&unit='" + String(unit)
+        var inventory = await updateUserInventory(url);
+
+        console.log(inventory);
+    }
+
     render(){
 
         if(!this.state.signedIn){
@@ -152,7 +168,7 @@ class AppController extends React.Component {
                         </Route>
                         <Route path="/food">
                             <Header/>
-                            <Food foodInfo={this.state.food} userId={this.state.userId} getFoodToAdd={ this.getFoodToAdd }/>
+                            <Food foodInfo={this.state.food} userId={this.state.userId} getFoodToAdd={ this.getFoodToAdd } addToInventory={this.addToInventory} />
                             <Footer setSignInStatus = { this.setSignInStatus }/>
                         </Route>
                         <Route path="/meal">
