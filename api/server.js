@@ -554,5 +554,69 @@ app.get('/getUserInventory', (req, res) => {
     });
 });
 
+app.post('/updateUserInventory', (req, res) => {
+
+    var result = false;
+    var userId = req.query.userId
+    var foodId = req.query.foodId
+    var serving = req.query.serving
+    var unit = req.query.unit
+
+
+    var getDBInfo = function(callback) {
+        let sql = "INSERT INTO gainsday.Inventory (User_Id, Food_Id, Serving, Unit) VALUES" +
+            " (" + String(userId) +
+            ", " + String(foodId) +
+            ", " + String(serving) +
+            ", " + String(unit) + "');"
+
+        connection.query(sql, (err, resp) => {
+            if (err) {
+                console.log("error: ", err);
+                return callback(err);
+            }
+
+            console.log(sql)
+
+            if (resp.length) {
+                result = resp;
+            }
+
+            callback(null, result);
+        });
+    }
+
+    getDBInfo(function(err, result) {
+        console.log({ success: result })
+        res.send({ success: result });
+    });
+});
+
+app.post('/deleteInventoryItem', (req, res) => {
+    var result = false;
+
+    console.log("INFO")
+    console.log(req.query.foodId)
+
+    var postDBInfo = function(callback) {
+
+        let sql = "DELETE FROM gainsday.Inventory WHERE Food_Id LIKE " + String(req.query.foodId) + " AND User_Id LIKE " + String(req.query.userId) + "';";
+
+        connection.query(sql, (err, resp) => {
+            if (err) {
+                console.log("error: ", err);
+                return callback(err);
+            }
+
+            result = true
+
+            callback(null, result);
+        });
+    }
+
+    postDBInfo(function(err, result) {
+        res.send({ success: result });
+    });
+});
 
 app.listen(PORT, () => console.log('API is running on http://localhost:8080'));
