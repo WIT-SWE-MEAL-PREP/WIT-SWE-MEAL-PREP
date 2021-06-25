@@ -8,7 +8,7 @@ async function updateMeal(data, userId) {
 
     if(data.mealId != 0){
 
-        var url = "http://localhost:8080/getMeal?mealId='" + String(data.mealId) + "'";
+        var url = "http://3.233.98.252:8080/getMeal?mealId='" + String(data.mealId) + "'";
     
         var mealInfo = await getMeal(url);
     
@@ -19,7 +19,7 @@ async function updateMeal(data, userId) {
         var fiber = mealInfo.success[0].Fiber + data.foodInfo.fiber;
         var sugar = mealInfo.success[0].Sugar + data.foodInfo.sugar;
     
-        url = "http://localhost:8080/updateMealData?mealId='"   + String(data.mealId) 
+        url = "http://3.233.98.252:8080/updateMealData?mealId='"   + String(data.mealId) 
                                                + "'&calories='" + String(calories) 
                                                + "'&protein='"  + String(protein) 
                                                + "'&carbs='"    + String(carbs) 
@@ -34,7 +34,7 @@ async function updateMeal(data, userId) {
             //TO-DO Add error handling here 
         }
     
-        url = "http://localhost:8080/updateFoodsInMeal?mealId='" + String(data.mealId) 
+        url = "http://3.233.98.252:8080/updateFoodsInMeal?mealId='" + String(data.mealId) 
                                                 + "'&foodId='"   + String(data.foodInfo.id) 
                                                 + "'&serving='"  + String(data.foodInfo.serving) 
                                                 + "'&unit='"     + String(data.foodInfo.unit) + "'";
@@ -59,7 +59,7 @@ async function updateMeal(data, userId) {
         var unit = data.foodInfo.unit;
         var foodId = data.foodInfo.id;
     
-        url = "http://localhost:8080/uploadNewMeal?userId='"    + String(userId)
+        url = "http://3.233.98.252:8080/uploadNewMeal?userId='"    + String(userId)
                                                + "'&calories='" + String(calories) 
                                                + "'&protein='"  + String(protein) 
                                                + "'&carbs='"    + String(carbs) 
