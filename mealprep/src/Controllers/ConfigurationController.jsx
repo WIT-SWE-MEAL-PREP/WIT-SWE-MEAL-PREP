@@ -16,7 +16,7 @@ class ConfigController extends React.Component{
             age: '',
             weight: '',
             height: '',
-            username: this.props.username,
+            userId: this.props.userId,
             constraints: {
                 numMeals: 0,
                 calories: 0,
@@ -41,7 +41,7 @@ class ConfigController extends React.Component{
             age: document.getElementById("Age").value,
             weight: document.getElementById("Weight").value,
             height: document.getElementById("Height").value,
-            username: this.state.username,
+            userID: this.state.userId,
             constraints:{
                 numMeals: document.getElementById("numMeals").value,
                 calories: document.getElementById("calories").value,
@@ -57,9 +57,10 @@ class ConfigController extends React.Component{
         })
     }
 
+
     getUserConfig = async e => {
 
-        var url = "http://3.233.98.252:8080/getConfig?username='" + String(this.state.username) + "'";
+        var url = "http://3.233.98.252:8080/getConfig?userId='" + String(this.state.username) + "'";
         var returnedResults = await getConfig(url);
 
         if(returnedResults.configData !== false){
@@ -81,7 +82,7 @@ class ConfigController extends React.Component{
     }
 
     uploadUserConfig = async e => {
-        var url = "http://3.233.98.252:8080/uploadUserConfig?username='" + 
+        var url = "http://3.233.98.252:8080/uploadUserConfig?userId='" + 
                                           String(this.state.username) 
                                           + "'&firstname='" + String(this.state.firstName) 
                                           + "'&lastname='" + String(this.state.lastName)

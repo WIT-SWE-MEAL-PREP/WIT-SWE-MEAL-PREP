@@ -1,6 +1,7 @@
 import React from 'react';
 import '../Stylings/ConfigStyling.css'
 
+
 class ConfigPage extends React.Component {
     validate(e) {  
         e.preventDefault();
@@ -82,11 +83,11 @@ class ConfigPage extends React.Component {
                             <br/>
                             <br/>
                             <section className="actions">
-                            <div className="submit-button">
+                            <div className="submit-button"> 
                                 <button type="submit" className="submit-btn">Submit</button>
+                                <a href="/" className="cancel-btn">Cancel</a>
                             </div>
                             </section>
-
                         </fieldset>
                     </form>
                 </div>

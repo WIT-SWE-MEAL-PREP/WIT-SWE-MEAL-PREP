@@ -24,10 +24,18 @@ class FoodSearchController extends React.Component {
         var url = "https://api.edamam.com/api/food-database/v2/parser?nutrition-type=logging&ingr=" + String(this.state.searchQuery) + "&app_id=36b7b45f&app_key=cb6dd0831871febd1d0ce5077a364182";
         var returnedResults = await getFood(url);
 
+        console.log(returnedResults)
+
         returnedResults = returnedResults.hints.map(hint => {
             return( {
-                Name: hint.food.label,
-                Calories: hint.food.nutrients.ENERC_KCAL
+                label: hint.food.label,
+                Calories: parseFloat(hint.food.nutrients.ENERC_KCAL).toFixed(2),
+                Protein: parseFloat(hint.food.nutrients.PROCNT).toFixed(2),
+                Carbs: parseFloat(hint.food.nutrients.CHOCDF).toFixed(2),
+                Fat: parseFloat(hint.food.nutrients.FAT).toFixed(2),
+                Fiber: parseFloat(hint.food.nutrients.FIBTG).toFixed(2),
+                foodId: hint.food.foodId,
+                image: hint.food.image
             })
         })
 

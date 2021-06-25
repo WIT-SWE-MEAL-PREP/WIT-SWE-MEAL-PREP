@@ -26,6 +26,9 @@ class Footer extends React.Component{
                         <button className="signoutButton" onClick={() => { this.props.history.push("/configure")}}>Configure </button>
                     </div>
                     <div className="centerDiv">
+                        <button className="signoutButton" onClick={() => { this.props.history.push("/inventory")}}>Inventory</button>
+                    </div>
+                    <div className="centerDiv">
                         <button className="signoutButton" onClick={() => { window.location.href="https://github.com/WIT-SWE-MEAL-PREP/WIT-SWE-MEAL-PREP" }}>Repository</button>
                     </div>
                 </div>

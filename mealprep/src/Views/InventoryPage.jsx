@@ -8,8 +8,6 @@ import MaterialTable from 'material-table'
 
 import SearchBar from '../Components/SearchBar.jsx'
 
-import getMeals from '../Models/GetMeal.js'
-import deleteMeal from '../Models/DeleteMeal.js'
 
 import '../Stylings/MainStylings.css'
 import '../Stylings/SearchBarStylings.css'
@@ -50,7 +48,7 @@ const tableIcons = {
   ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />)
 };
 
-class MainPage extends React.Component{
+class InventoryPage extends React.Component{
   constructor(props){
       super(props)
       this.wrapper = React.createRef();
@@ -59,16 +57,10 @@ class MainPage extends React.Component{
         renderSearchPage: false,
         searchQuery: "",
         userId: this.props.userId,
-        constraints: this.props.constraints,
-        selectedFoods: [{}]
+        inventory: this.props.inventory
       }
-
-      this.retrieveSearchSelections = this.retrieveSearchSelections.bind(this)
   }
 
-  componentDidMount(){
-    this.getMeals()
-  }
 
   handleInputChange = () => {
     this.setState({
@@ -90,59 +82,27 @@ class MainPage extends React.Component{
     this.props.history.push("/food")
   }
 
-  getMeals = async e => {
-
-    var url = "http://3.233.98.252:8080/getMeals?userId='" + String(this.props.userId) + "'";
-    var returnedResults = await getMeals(url);
-
-    if(returnedResults.success) {
-
-      this.setState({
-        data: returnedResults.success
-      })
-
-    }
-
-    return {}
-  }
-
-  editMeal(mealId){
-    this.props.getMealId(mealId);
-    this.props.history.push("/meal")
-  }
-
-  deleteMeal = async e => {
-    var url = "http://3.233.98.252:8080/deleteMeal?mealId='" + String(e) + "'";
-    var mealDeleted = await deleteMeal(url);
-
-    if(mealDeleted.success){
-      this.getMeals();
-    }
-  }
-
   render(){
     if(!this.state.renderSearchPage){
       return(
         <div className="pageWrapper">
 
           <div className="wrapper" >
-            <SearchBar 
+          <SearchBar 
               getSearchQuery={this.props.getSearchQuery}
               handleSearchSubmit={this.handleSearchSubmit} />
           </div>
 
           <div className="tableDiv">
               <MaterialTable
-                  title="My Meals"
+                  title="Inventory"
                   icons={tableIcons}
                   columns={[
                       { title: 'Name', field: 'Name' },
-                      { title: 'Calories', field: 'Calories' },
-                      { title: 'Protein (g)', field: 'Protein' },
-                      { title: 'Carbs (g)', field: 'Carbs' },
-                      { title: 'Total Fat (g)', field: 'Total_Fat'},
-                      { title: 'Fiber (g)', field: 'Fiber'},
-                      { title: 'Sugar (g)', field: 'Sugar'},
+                      { title: 'Quantity', field: 'Quantity' },
+                      { title: 'Unit', field: 'Unit' },
+                      { title: 'Expiration Data', field: 'ExpirationDate' },
+                      { title: 'Days left', field: 'Days_Left' }
                       ]}
                   data={this.state.data}
                   actions={[
@@ -180,4 +140,4 @@ class MainPage extends React.Component{
   }
 }
 
-export default withRouter(MainPage); 
+export default withRouter(InventoryPage); 

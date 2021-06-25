@@ -83,7 +83,7 @@ class AddFoodModal extends React.Component {
             
             <div className="addFoodModalCentered">
             <Link to="/meal" onClick={ () => this.props.getFoodToAdd({foodInfo: this.props.nutrients, mealId: this.state.mealId, mealName: (document.getElementById("mealNameInput") != null) ? document.getElementById("mealNameInput").value : "" })}>
-              <button className="addFoodModalButton" >Add</button>
+              <button className="addFoodModalButton" >Add To Meal</button>
             </Link>
             </div>
           </div>

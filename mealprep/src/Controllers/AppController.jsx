@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import AccountStatusController from './AccountStatusController.jsx';
 import MainController from './MainController.jsx'
 import ConfigController from './ConfigurationController.jsx'
+import InventoryController from './InventoryController.jsx';
 
 import Food from '../Components/Food.jsx'
 import Meal from '../Components/Meal.jsx'
@@ -11,7 +12,7 @@ import Meal from '../Components/Meal.jsx'
 import Footer from '../Components/Footer.jsx'
 import Header from '../Components/Header.jsx'
 
-import updateMeal from '../Services/UpdateMeal.jsx'
+import addNewFood from '../Services/AddNewFood.jsx'
 
 import '../Stylings/AppStylings.css'
 
@@ -51,6 +52,7 @@ class AppController extends React.Component {
         this.getSearchQuery = this.getSearchQuery.bind(this);
         this.getFoodToAdd = this.getFoodToAdd.bind(this);
         this.getMealId = this.getMealId.bind(this);
+        this.getFoodId = this.getFoodId.bind(this);
     }
 
     componentDidMount(){
@@ -101,6 +103,13 @@ class AppController extends React.Component {
         })
     }
 
+    getFoodId(foodData){
+
+        this.setState({
+            food: foodData
+        })
+    }
+
     getMealId(mealId){
         this.setState({
             mealDataUpdated: true,
@@ -115,7 +124,7 @@ class AppController extends React.Component {
             mealId: foodAndMealInfo.mealId
         }, async () => {
             
-            var newId = await updateMeal(foodAndMealInfo, this.state.userId);
+            var newId = await addNewFood(foodAndMealInfo, this.state.userId);
 
             this.setState({
                 mealDataUpdated: true,
@@ -151,9 +160,14 @@ class AppController extends React.Component {
                             <Meal mealId={this.state.mealId} userId={this.state.userId} mealDataUpdated={this.state.mealDataUpdated} getSearchQuery={this.getSearchQuery}/>
                             <Footer setSignInStatus = { this.setSignInStatus }/>
                         </Route>
+                        <Route path="/inventory">
+                            <Header/>
+                            <InventoryController userId={this.state.userId} getSearchQuery={this.getSearchQuery} getFoodId={this.getFoodId}/>
+                            <Footer setSignInStatus = { this.setSignInStatus }/>
+                        </Route>
                         <Route path="/">
                             <Header/>
-                            <MainController getSearchQuery={this.getSearchQuery} getMealId={this.getMealId} userId={this.state.userId}/>
+                            <MainController getSearchQuery={this.getSearchQuery} getMealId={this.getMealId} userId={this.state.userId} getFoodId={this.getFoodId} />
                             <Footer setSignInStatus = { this.setSignInStatus }/>
                         </Route>
                     </Switch>
