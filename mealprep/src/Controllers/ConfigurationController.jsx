@@ -60,7 +60,7 @@ class ConfigController extends React.Component{
 
     getUserConfig = async e => {
 
-        var url = "http://localhost:8080/getConfig?userId='" + String(this.state.userId) + "'";
+        var url = "http://3.233.98.252:8080/getConfig?userId='" + String(this.state.username) + "'";
         var returnedResults = await getConfig(url);
 
         if(returnedResults.configData !== false){
@@ -82,8 +82,8 @@ class ConfigController extends React.Component{
     }
 
     uploadUserConfig = async e => {
-        var url = "http://localhost:8080/uploadUserConfig?userId='" + 
-                                          String(this.state.userId) 
+        var url = "http://3.233.98.252:8080/uploadUserConfig?userId='" + 
+                                          String(this.state.username) 
                                           + "'&firstname='" + String(this.state.firstName) 
                                           + "'&lastname='" + String(this.state.lastName)
                                           + "'&age='" + String(this.state.age)

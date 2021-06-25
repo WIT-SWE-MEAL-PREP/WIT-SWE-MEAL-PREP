@@ -1,5 +1,5 @@
 const dotenv = require("dotenv");
-dotenv.config();
+require("dotenv").config();
 
 const express = require('express');
 const cors = require('cors');
@@ -18,7 +18,7 @@ connection.connect((err) => {
     console.log('Connected!');
 });
 
-const PORT = process.env.PORT || 8080
+const PORT = 8080
 
 app.use(cors());
 
@@ -75,7 +75,7 @@ app.post('/uploadNewUser', (req, res) => {
     var postDBInfo = function(callback) {
 
         let sql = "INSERT INTO gainsday.User (User_id, Username, Password, Email) VALUES (" + maxUserID + "," + String(req.query.username) + ", " + String(req.query.password) + ", " + String(req.query.email) + ");";
-
+    
         connection.query(sql, (err, resp) => {
             if (err) {
                 console.log("error: ", err);
@@ -555,4 +555,4 @@ app.get('/getUserInventory', (req, res) => {
 });
 
 
-app.listen(PORT, () => console.log('API is running on http://localhost:8080'));
+app.listen(PORT, () => console.log('API is running on mealprepapp.colnsoq0t3zb.us-east-1.rds.amazonaws.com'));
