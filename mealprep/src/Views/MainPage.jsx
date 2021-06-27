@@ -92,7 +92,7 @@ class MainPage extends React.Component{
 
   getMeals = async e => {
 
-    var url = "http://localhost:8080/getMeals?userId='" + String(this.props.userId) + "'";
+    var url = "http://3.233.98.252:8080/getMeals?userId='" + String(this.props.userId) + "'";
     var returnedResults = await getMeals(url);
 
     if(returnedResults.success) {
@@ -112,7 +112,7 @@ class MainPage extends React.Component{
   }
 
   deleteMeal = async e => {
-    var url = "http://localhost:8080/deleteMeal?mealId='" + String(e) + "'";
+    var url = "http://3.233.98.252:8080/deleteMeal?mealId='" + String(e) + "'";
     var mealDeleted = await deleteMeal(url);
 
     if(mealDeleted.success){
