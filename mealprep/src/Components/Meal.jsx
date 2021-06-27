@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 
 import getMeal from '../Models/GetMeal.js'
@@ -39,7 +38,10 @@ class Food extends React.Component{
 
         var foodsInMeal = await getFoodsInMeal(url);
 
+        console.log(foodsInMeal);
+
         if(foodsInMeal.success !== false){
+
             foodsInMeal = foodsInMeal.success.map(food => {
                 food = food;
                 return food
@@ -152,7 +154,17 @@ class Food extends React.Component{
                         <h2>Carbs: <b className="nutrient">{parseFloat(this.state.mealInfo.Carbs).toFixed(2) + " g"}</b></h2>
                         <h2>Fat: <b className="nutrient">{parseFloat(this.state.mealInfo.Total_Fat).toFixed(2) + " g"}</b></h2>
                         <h2>Fiber: <b className="nutrient">{parseFloat(this.state.mealInfo.Fiber).toFixed(2) + " g"}</b></h2>
-                        <h2>Sugar: <b className="nutrient">{parseFloat(this.state.mealInfo.Sugar).toFixed(2) + " g"}</b></h2>
+                        {(() => {
+                        if(this.state.mealInfo.Sugar != undefined){
+                            return(
+                                <h2>Sugar: <b className="nutrient">{parseFloat(this.state.mealInfo.Sugar).toFixed(2) + " g"}</b></h2>                
+                                )
+                            }else{
+                                return(
+                                <h2>Sugar: <b className="nutrient">{"n/a" + " g"}</b></h2>  
+                                )   
+                            }
+                        })()}
                         <h2>Ingredients: </h2>
                         {(() => {
                             var foods = this.state.foodsInMeal.map(food => (

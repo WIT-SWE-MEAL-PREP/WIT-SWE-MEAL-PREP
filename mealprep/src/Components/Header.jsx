@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 import '../Stylings/HeaderStylings.css'
 
 
@@ -6,8 +7,9 @@ class Header extends React.Component{
     render() {
         return(
             <div className="headerWrapper">
-                <h1>Gains Day Preppers</h1>
-                <a href="/" className="ReturnMain"> ______________________________________________</a>
+                <Link to="/">
+                    <h1>Gains Day Preppers</h1>
+                </Link>
             </div>
         )
     }
