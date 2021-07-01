@@ -2,7 +2,7 @@ import React from 'react';
 
 import getUserInventory from '../Models/GetUserInventory.js'
 import getNutrients from '../Models/GetFoodNutrients.js'
-//import getExpiration from '../Models/UpdateExpiration.js'
+import getExpiration from '../Models/UpdateExpiration.js'
 import deleteInventoryItem from '../Models/DeleteInventoryItem.js'
 
 import InventoryPage from '../Views/InventoryPage.jsx';
@@ -37,7 +37,7 @@ class InventoryController extends React.Component {
 
             inventory = inventory.success.map(food => {
                 food = food;
-                return food--
+                return food
             });
 
             for(let i = 0; i < inventory.length; i++){
@@ -56,12 +56,10 @@ class InventoryController extends React.Component {
                   }
         
                 var foodData = await getNutrients(url, jsonBody);
-                //var expiration = await getExpiration(url, jsonBody);
+                var expiration = await getExpiration(url, jsonBody); //what will be used to store the days to expiration and calculate expiration date
                 var currentDate = moment();
                 var expDate = moment().add(5, 'days').format('ll');
                 var daysLeft = -1 * currentDate.diff(expDate, 'days') +1;
-                
-
 
                 console.log(foodData)
                 console.log(inventory)
@@ -81,7 +79,7 @@ class InventoryController extends React.Component {
             });
 
         }else{
-         var inventory = [{}]
+            inventory = [{}]
         }
 
         console.log(inventory)
