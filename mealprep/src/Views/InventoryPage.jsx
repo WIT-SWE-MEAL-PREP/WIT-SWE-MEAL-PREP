@@ -108,7 +108,7 @@ class InventoryPage extends React.Component{
                   actions={[
                     rowData => ({
                       icon: tableIcons.Delete,
-                      tooltip: 'Delete Meal',
+                      tooltip: 'Remove Food',
                       onClick: (event, rowData) => this.props.removeInventoryItem(rowData.foodId),
                     })
                   ]}
