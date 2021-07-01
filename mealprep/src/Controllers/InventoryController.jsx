@@ -2,6 +2,7 @@ import React from 'react';
 
 import getUserInventory from '../Models/GetUserInventory.js'
 import getNutrients from '../Models/GetFoodNutrients.js'
+import getExpiration from '../Models/UpdateExpiration.js'
 import deleteInventoryItem from '../Models/DeleteInventoryItem.js'
 
 import InventoryPage from '../Views/InventoryPage.jsx';
@@ -10,11 +11,12 @@ import Loader from "react-loader-spinner";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 import '../Stylings/AppStylings.css'
+import moment from '../moment.js';
 
 class InventoryController extends React.Component {
 
     constructor(props){
-        super(props);
+        super(props);   
 
         this.state = {
             userId: this.props.userId,
@@ -54,7 +56,11 @@ class InventoryController extends React.Component {
                   }
         
                 var foodData = await getNutrients(url, jsonBody);
-    
+                var expiration = await getExpiration(url, jsonBody); //what will be used to store the days to expiration and calculate expiration date
+                var currentDate = moment();
+                var expDate = moment().add(5, 'days').format('ll');
+                var daysLeft = -1 * currentDate.diff(expDate, 'days') +1;
+
                 console.log(foodData)
                 console.log(inventory)
                 inventory[i]['foodInfo'] =  {
@@ -62,6 +68,8 @@ class InventoryController extends React.Component {
                     foodId: inventory[i].Food_Id,
                     serving: inventory[i].Serving,
                     unit: inventory[i].Unit,
+                    ExpirationDate: expDate,
+                    Days_Left: daysLeft,
                 };
             }
 

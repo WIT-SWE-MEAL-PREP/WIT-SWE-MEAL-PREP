@@ -101,14 +101,14 @@ class InventoryPage extends React.Component{
                       { title: 'Name', field: 'name' },
                       { title: 'Quantity', field: 'serving' },
                       { title: 'Unit', field: 'unit' },
-                      { title: 'Expiration Data', field: 'ExpirationDate' },
+                      { title: 'Expiration Date', field: 'ExpirationDate' },
                       { title: 'Days left', field: 'Days_Left' }
                       ]}
                   data={this.state.inventory}
                   actions={[
                     rowData => ({
                       icon: tableIcons.Delete,
-                      tooltip: 'Delete Meal',
+                      tooltip: 'Remove Food',
                       onClick: (event, rowData) => this.props.removeInventoryItem(rowData.foodId),
                     })
                   ]}
