@@ -101,7 +101,7 @@ class InventoryPage extends React.Component{
                       { title: 'Name', field: 'name' },
                       { title: 'Quantity', field: 'serving' },
                       { title: 'Unit', field: 'unit' },
-                      { title: 'Expiration Data', field: 'ExpirationDate' },
+                      { title: 'Expiration Date', field: 'ExpirationDate' },
                       { title: 'Days left', field: 'Days_Left' }
                       ]}
                   data={this.state.inventory}

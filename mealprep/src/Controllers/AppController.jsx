@@ -14,6 +14,7 @@ import Header from '../Components/Header.jsx'
 
 import addNewFood from '../Services/AddNewFood.jsx'
 import updateUserInventory from '../Models/UpdateUserInventory.js'
+import UpdateExpiration from '../Models/UpdateExpiration.js'
 
 import '../Stylings/AppStylings.css'
 
@@ -149,6 +150,17 @@ class AppController extends React.Component {
 
         console.log(inventory);
     }
+
+    /*addExpiration = async e => {
+        var exp = e.expiration;
+
+        var url = "http://localhost:8080/updateUserInventory?userId='" + 
+                                          String(this.state.userId) 
+                                          + "'&Expiration='" + String(exp) 
+        var inventory = await updateExpiration(url);
+
+        console.log(inventory);
+    }*/
 
     render(){
 
