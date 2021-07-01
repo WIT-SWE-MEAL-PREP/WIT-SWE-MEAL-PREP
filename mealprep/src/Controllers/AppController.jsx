@@ -141,7 +141,7 @@ class AppController extends React.Component {
         var serving = e.serving;
         var unit = e.unit;
 
-        var url = "http://localhost:8080/updateUserInventory?userId='" + 
+        var url = "http://3.233.98.252:8080/updateUserInventory?userId='" + 
                                           String(this.state.userId) 
                                           + "'&foodId='" + String(foodId) 
                                           + "'&serving='" + String(serving)

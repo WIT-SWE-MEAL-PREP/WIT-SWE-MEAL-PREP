@@ -30,7 +30,7 @@ class InventoryController extends React.Component {
     }
 
     getInventory = async e =>{
-        var url = "http://localhost:8080/getUserInventory?userId='" + String(this.state.userId) + "'";
+        var url = "http://3.233.98.252:8080/getUserInventory?userId='" + String(this.state.userId) + "'";
         var inventory = await getUserInventory(url);
 
         if(inventory.success.length > 0){
@@ -91,7 +91,7 @@ class InventoryController extends React.Component {
     }
 
     removeInventoryItem = async e => {
-        var url = "http://localhost:8080/deleteInventoryItem?foodId='" + String(e) + "'&userId='" + String(this.state.userId);
+        var url = "http://3.233.98.252:8080/deleteInventoryItem?foodId='" + String(e) + "'&userId='" + String(this.state.userId);
         var itemRemoved = await deleteInventoryItem(url);
     
         if(itemRemoved.success){
