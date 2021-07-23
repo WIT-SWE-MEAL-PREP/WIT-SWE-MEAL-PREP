@@ -10,7 +10,7 @@ import Food from '../Components/Food.jsx'
 import Meal from '../Components/Meal.jsx'
 
 import Footer from '../Components/Footer.jsx'
-import Header from '../Components/Header.jsx'
+import Header from '../Components/Navigation/Header.jsx'
 
 import addNewFood from '../Services/AddNewFood.jsx'
 import updateUserInventory from '../Models/UpdateUserInventory.js'

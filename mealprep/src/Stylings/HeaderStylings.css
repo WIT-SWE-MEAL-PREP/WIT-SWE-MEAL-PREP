@@ -31,3 +31,13 @@
     margin-left: 150px;
     margin-top: 0px;
   }
+  .container {
+    display: inline-block;
+    cursor: pointer;
+  }
+  
+  .testing h1 {
+    margin-left: 150px;
+    margin-top: 15px;
+    color: #4d6f8a;
+}
