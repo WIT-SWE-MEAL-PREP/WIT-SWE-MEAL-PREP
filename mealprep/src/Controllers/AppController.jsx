@@ -9,8 +9,8 @@ import InventoryController from './InventoryController.jsx';
 import Food from '../Components/Food.jsx'
 import Meal from '../Components/Meal.jsx'
 
-import Footer from '../Components/Footer.jsx'
-import Header from '../Components/Navigation/Header.jsx'
+//import Footer from '../Components/Footer.jsx'
+import Header from '../Components/Header.jsx'
 
 import addNewFood from '../Services/AddNewFood.jsx'
 import updateUserInventory from '../Models/UpdateUserInventory.js'
@@ -179,24 +179,24 @@ class AppController extends React.Component {
                             <ConfigController userId={this.state.userId}/>
                         </Route>
                         <Route path="/food">
-                            <Header/>
+                            <Header setSignInStatus = { this.setSignInStatus }/>
                             <Food foodInfo={this.state.food} userId={this.state.userId} getFoodToAdd={ this.getFoodToAdd } addToInventory={this.addToInventory} />
-                            <Footer setSignInStatus = { this.setSignInStatus }/>
+                            {/* <Footer /> */}
                         </Route>
                         <Route path="/meal">
-                            <Header/>
+                            <Header setSignInStatus = { this.setSignInStatus }/>
                             <Meal mealId={this.state.mealId} userId={this.state.userId} mealDataUpdated={this.state.mealDataUpdated} getSearchQuery={this.getSearchQuery}/>
-                            <Footer setSignInStatus = { this.setSignInStatus }/>
+                            {/* <Footer /> */}
                         </Route>
                         <Route path="/inventory">
-                            <Header/>
+                            <Header setSignInStatus = { this.setSignInStatus }/>
                             <InventoryController userId={this.state.userId} getSearchQuery={this.getSearchQuery} getFoodId={this.getFoodId}/>
-                            <Footer setSignInStatus = { this.setSignInStatus }/>
+                            {/* <Footer /> */}
                         </Route>
                         <Route path="/">
-                            <Header/>
+                            <Header setSignInStatus = { this.setSignInStatus }/>
                             <MainController getSearchQuery={this.getSearchQuery} getMealId={this.getMealId} userId={this.state.userId} getFoodId={this.getFoodId} />
-                            <Footer setSignInStatus = { this.setSignInStatus }/>
+                            {/* <Footer /> */}
                         </Route>
                     </Switch>
                 </BrowserRouter>

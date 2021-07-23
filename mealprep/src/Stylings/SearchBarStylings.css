@@ -14,7 +14,7 @@
     display: flex;
     min-width: 100px;
     max-height: 20%;
-    overflow: scroll;
+    overflow: hidden;
     width: 100%;
     z-index: 2;
     margin-bottom: 5%;
