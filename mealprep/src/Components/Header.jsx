@@ -32,7 +32,7 @@ class Header extends React.Component{
                     }
                 }} />
                 <h1>
-                    <Link to="/">Gains Day Preppers</Link>
+                    <Link className="headerText" to="/">Gains Day Preppers</Link>
                 </h1>
             {this.state.visible?
             (
