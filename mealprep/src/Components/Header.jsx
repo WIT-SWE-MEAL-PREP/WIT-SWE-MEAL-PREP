@@ -38,8 +38,9 @@ class Header extends React.Component{
             (
                 <ul className="dropdown">
                     <li>
-                        <Link className="menuItem" onClick={() => { this.setSignInStatus(false) }}>Sign Out  </Link> 
+                        <Link to="/" className="menuItem">My Meals</Link>
                     </li>
+                    
                     <li>
                         <Link className="menuItem" onClick={() => { this.props.history.push("/configure")}}>Configure </Link>
                     </li>
@@ -48,6 +49,9 @@ class Header extends React.Component{
                     </li>
                     <li>   
                         <Link className="menuItem" onClick={() => { window.location.href="https://github.com/WIT-SWE-MEAL-PREP/WIT-SWE-MEAL-PREP" }}>Repository</Link>
+                    </li>
+                    <li>
+                        <Link className="menuItem" onClick={() => { this.setSignInStatus(false) }}>Sign Out  </Link> 
                     </li>  
               </ul>
             )

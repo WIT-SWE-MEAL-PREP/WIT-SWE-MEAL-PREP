@@ -1,10 +1,13 @@
 .headerWrapper {
-  background: #4d6f8a;
+  background-color: #4d6f8a;
   box-shadow: 0px 0px 4px #3d3d3d;
   position: fixed;
   display: flex;
+  padding-left: 4vw;
+  vertical-align: middle;
   width: 100%;
   height: 70px;
+  padding-top: 10px;
   top: 0;
   left: 0;
   overflow: visible;
@@ -15,40 +18,42 @@
   width: max-content;
   margin-top: 0px;
   color: #f5f5f5;
+  background-color: #4d6f8a;
   left: 50%;
 }
 .headerWrapper a{
   color: #f5f5f5;
   text-decoration: none;
 }
-  .dropdown{
-    position: absolute;
-    top: 50px;
-    width: 8%;
-    height: 100vh;
-    border-radius: 6px;
-    padding: 1rem;
-    overflow: visible;
-    background-color: #4d6f8a;
-    box-shadow: 0px 0px 4px #3d3d3d;
-    list-style-type: none
-    }
-
-  .menuItem{
-    height: 50px;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--bg);
-    text-decoration: none;
-    border-radius: 6px;
-    transition: background var(--speed);
+.dropdown{
+  position: absolute;
+  left: 0;
+  top: 50px;
+  width: 10vw;
+  height: 100vh;
+  border-radius: 6px;
+  padding: 1rem;
+  overflow: visible;
+  background-color: #4d6f8a;
+  box-shadow: 0px 0px 4px #3d3d3d;
+  list-style-type: none
   }
 
+.menuItem{
+  height: 50px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #4d6f8a;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background var(--speed);
+}
 
 
-  .menuItem:hover{
-    background-color: #f5f5f5;
-    color: #4d6f8a;
-  }
+
+.menuItem:hover{
+  background-color: #f5f5f5;
+  color: #4d6f8a;
+}
