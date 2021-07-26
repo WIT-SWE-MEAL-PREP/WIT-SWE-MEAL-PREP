@@ -1,5 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import '../Stylings/ConfigStyling.css'
+
 
 class ConfigPage extends React.Component {
     validate(e) {  
@@ -18,11 +20,11 @@ class ConfigPage extends React.Component {
                             <legend>User Information</legend>
                             </div>
                             <p className="fieldWrapper">
-                                <label>First Name:</label>
+                                <label>First Name:<label className="required">*</label></label>
                                 <input className="configInput" type="string" placeholder="First Name" name="First_Name" id="firstName" required={true} />   
                             </p>
                             <p className="fieldWrapper">
-                                <label>Last Name:</label>
+                                <label>Last Name:<label className="required">*</label></label>
                                 <input className="configInput" type="string" placeholder="Last Name" name="Last_Name" id="lastName" required={true} />
                             </p>
                             <p className="fieldWrapper">
@@ -46,12 +48,12 @@ class ConfigPage extends React.Component {
                             <legend>Nutritional Constraints</legend>
                         </div>
                             <p className="fieldWrapper">
-                                <label>Number of meals per day:</label>
+                                <label>Number of meals per day:<label className="required">*</label></label>
                                 <input className="configInput" type="number" placeholder="Meals" name="num_meals" id="numMeals" required={true} />
                             </p>
 
                             <p className="fieldWrapper">
-                                <label>Calories per day:</label>
+                                <label>Calories per day:<label className="required">*</label></label>
                                 <input className="configInput" type="number" placeholder="Calories" name="num_cals" id="calories" required={true} />
                             </p>
 
@@ -83,10 +85,14 @@ class ConfigPage extends React.Component {
                             <br/>
                             <section className="actions">
                             <div className="submit-button">
-                                <button type="submit" className="submit-btn">Submit</button>
+                                <Link to="/" className="btn">
+                                    <button type="submit" className="btn">Cancel</button>
+                                </Link> 
+                                <div className="btn">
+                                    <button type="submit" className="btn" >Submit</button>
+                                </div>
                             </div>
                             </section>
-
                         </fieldset>
                     </form>
                 </div>

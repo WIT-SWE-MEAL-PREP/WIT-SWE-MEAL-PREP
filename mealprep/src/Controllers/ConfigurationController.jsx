@@ -16,7 +16,7 @@ class ConfigController extends React.Component{
             age: '',
             weight: '',
             height: '',
-            username: this.props.username,
+            userId: this.props.userId,
             constraints: {
                 numMeals: 0,
                 calories: 0,
@@ -41,7 +41,7 @@ class ConfigController extends React.Component{
             age: document.getElementById("Age").value,
             weight: document.getElementById("Weight").value,
             height: document.getElementById("Height").value,
-            username: this.state.username,
+            userID: this.state.userId,
             constraints:{
                 numMeals: document.getElementById("numMeals").value,
                 calories: document.getElementById("calories").value,
@@ -57,12 +57,11 @@ class ConfigController extends React.Component{
         })
     }
 
+
     getUserConfig = async e => {
 
-        var url = "http://3.233.98.252:8080/getConfig?username='" + String(this.state.username) + "'";
+        var url = "http://3.233.98.252:8080/getConfig?userId='" + String(this.state.username) + "'";
         var returnedResults = await getConfig(url);
-
-        console.log(returnedResults.configData)
 
         if(returnedResults.configData !== false){
             if(returnedResults.configData[0].First_Name !== ''){
@@ -79,11 +78,36 @@ class ConfigController extends React.Component{
                     constraints: this.state.constraints
                 })
             }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
         }
     }
 
     uploadUserConfig = async e => {
-        var url = "http://3.233.98.2528080/uploadUserConfig?username='" + 
+        var url = "http://3.233.98.252:8080/uploadUserConfig?userId='" + 
                                           String(this.state.username) 
                                           + "'&firstname='" + String(this.state.firstName) 
                                           + "'&lastname='" + String(this.state.lastName)
@@ -91,8 +115,6 @@ class ConfigController extends React.Component{
                                           + "'&weight='" + String(this.state.weight)
                                           + "'&height='" + String(this.state.height);
         var returnedResults = await uploadUserConfig(url);
-
-        console.log(returnedResults)
 
         if(!returnedResults.success){
             //TO-DO add error handling for datbase failure here 

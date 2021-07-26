@@ -1,6 +1,6 @@
-export default async function getMeal(url) {
+export default async function uploadNewMeal(url) {
     return fetch(url, {
-            method: 'GET',
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             }

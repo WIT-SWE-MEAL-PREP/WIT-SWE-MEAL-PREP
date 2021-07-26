@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 
 import getNutrients from '../Models/GetFoodNutrients.js'
@@ -22,7 +21,8 @@ class Food extends React.Component{
         userId: this.props.userId,
         preliminaryInfo: this.props.foodInfo,
         dataReturned: false,
-        showModal: false
+        showModal: false,
+        initialModalRender: true
       }
 
       this.onClose = this.onClose.bind(this);
@@ -43,49 +43,93 @@ class Food extends React.Component{
 
         var returnedResults = await getNutrients(url, jsonBody);
 
-        this.setState({
-            foodInfo: returnedResults,
-            dataReturned: true,
-            nutrients: {
-                name: this.state.preliminaryInfo.label,
-                calories: returnedResults.totalNutrients.ENERC_KCAL.quantity,
-                protein: returnedResults.totalNutrients.PROCNT.quantity,
-                carbs: returnedResults.totalNutrients.CHOCDF.quantity,
-                fat: returnedResults.totalNutrients.FAT.quantity,
-                fiber: returnedResults.totalNutrients.FIBTG.quantity,
-                sugar: returnedResults.totalNutrients.SUGAR.quantity,
-                serving: 1,
-                unit: "gram"
-            }
-        }, () => console.log(this.state.foodInfo));
+        if(returnedResults.totalNutrients.SUGAR != undefined){
+            this.setState({
+                foodInfo: returnedResults,
+                dataReturned: true,
+                nutrients: {
+                    name: this.state.preliminaryInfo.label,
+                    id: this.state.preliminaryInfo.foodId,
+                    calories: returnedResults.totalNutrients.ENERC_KCAL.quantity,
+                    protein: returnedResults.totalNutrients.PROCNT.quantity,
+                    carbs: returnedResults.totalNutrients.CHOCDF.quantity,
+                    fat: returnedResults.totalNutrients.FAT.quantity,
+                    fiber: returnedResults.totalNutrients.FIBTG.quantity,
+                    sugar: returnedResults.totalNutrients.SUGAR.quantity,
+                    serving: 1,
+                    unit: "gram"
+                }
+            });
+        }else{
+            this.setState({
+                foodInfo: returnedResults,
+                dataReturned: true,
+                nutrients: {
+                    name: this.state.preliminaryInfo.label,
+                    id: this.state.preliminaryInfo.foodId,
+                    calories: returnedResults.totalNutrients.ENERC_KCAL.quantity,
+                    protein: returnedResults.totalNutrients.PROCNT.quantity,
+                    carbs: returnedResults.totalNutrients.CHOCDF.quantity,
+                    fat: returnedResults.totalNutrients.FAT.quantity,
+                    fiber: returnedResults.totalNutrients.FIBTG.quantity,
+                    serving: 1,
+                    unit: "gram"
+                }
+            });
+        }
+
     }
 
     setValues(quanity, unit) {
 
-        this.setState({
-            nutrients: {
-                name: this.state.preliminaryInfo.label,
-                calories: this.state.foodInfo.totalNutrients.ENERC_KCAL.quantity,
-                protein: this.state.foodInfo.totalNutrients.PROCNT.quantity,
-                carbs: this.state.foodInfo.totalNutrients.CHOCDF.quantity,
-                fat: this.state.foodInfo.totalNutrients.FAT.quantity,
-                fiber: this.state.foodInfo.totalNutrients.FIBTG.quantity,
-                sugar: this.state.foodInfo.totalNutrients.SUGAR.quantity,
-                serving: 1,
-                unit: "gram",
-                dataReturned: false
-            }
-        }, () => {
+        if(this.state.foodInfo.totalNutrients.SUGAR != undefined){
             this.setState({
-                nutrients: calculateValues(quanity, unit, this.state.nutrients),
-                dataReturned: true
-            });
-        })
+                nutrients: {
+                    name: this.state.preliminaryInfo.label,
+                    id: this.state.preliminaryInfo.foodId,
+                    calories: this.state.foodInfo.totalNutrients.ENERC_KCAL.quantity,
+                    protein: this.state.foodInfo.totalNutrients.PROCNT.quantity,
+                    carbs: this.state.foodInfo.totalNutrients.CHOCDF.quantity,
+                    fat: this.state.foodInfo.totalNutrients.FAT.quantity,
+                    fiber: this.state.foodInfo.totalNutrients.FIBTG.quantity,
+                    sugar: this.state.foodInfo.totalNutrients.SUGAR.quantity,
+                    serving: 1,
+                    unit: "gram",
+                    dataReturned: false
+                }
+            }, () => {
+                this.setState({
+                    nutrients: calculateValues(quanity, unit, this.state.nutrients),
+                    dataReturned: true
+                });
+            })
+        }else{
+            this.setState({
+                nutrients: {
+                    name: this.state.preliminaryInfo.label,
+                    id: this.state.preliminaryInfo.foodId,
+                    calories: this.state.foodInfo.totalNutrients.ENERC_KCAL.quantity,
+                    protein: this.state.foodInfo.totalNutrients.PROCNT.quantity,
+                    carbs: this.state.foodInfo.totalNutrients.CHOCDF.quantity,
+                    fat: this.state.foodInfo.totalNutrients.FAT.quantity,
+                    fiber: this.state.foodInfo.totalNutrients.FIBTG.quantity,
+                    serving: 1,
+                    unit: "gram",
+                    dataReturned: false
+                }
+            }, () => {
+                this.setState({
+                    nutrients: calculateValues(quanity, unit, this.state.nutrients),
+                    dataReturned: true
+                });
+            })
+        }
     }
 
     onClose() {
         this.setState({
-            showModal: false
+            showModal: false,
+            initialModalRender: true
         })
     }
     
@@ -97,7 +141,7 @@ class Food extends React.Component{
                     <div className="foodHeader">
                         <img className="foodImage" src={this.state.preliminaryInfo.image} alt={this.state.preliminaryInfo.label}/>
                         <div className="title">
-                            <h1>{this.state.nutrients.name}</h1>
+                            <h1 className="headerText" >{this.state.nutrients.name}</h1>
                         </div>
                     </div>
                     <div className="nutrientWrapper"> 
@@ -130,11 +174,21 @@ class Food extends React.Component{
                                 <input className="qtyInput" id="qtyInput" onChange={e => this.setValues(e.target.value, document.getElementById("unitSelect").value)} defaultValue="1"/> 
                             </div>
                         </h2>
+                        <div className="addFoodDiv">
+                            <button type="submit" className="addFoodBtn" onClick={() => this.setState({showModal: true, modalView: "Meal"})}>Add to meal</button>
+                            <button type="submit" className="addFoodBtn" onClick={() => this.setState({showModal: true, modalView: "Inventory"})}>Add to inventory</button>
+                        </div>
+                        <AddFoodModal 
+                        modalView={this.state.modalView} 
+                        onClose={this.onClose} 
+                        show={this.state.showModal} 
+                        foodId={this.state.foodInfo.ingredients[0].parsed[0].foodId} 
+                        nutrients={ this.state.nutrients } userId={this.state.userId} 
+                        getFoodToAdd={ this.props.getFoodToAdd } 
+                        initialModalRender={this.state.initialModalRender}
+                        addToInventory={this.props.addToInventory}
+                        />
                     </div>
-                    <div className="addFoodDiv">
-                        <button type="submit" className="addFoodBtn" onClick={() => this.setState({showModal: true})}>Add</button>
-                    </div>
-                    <AddFoodModal onClose={this.onClose} show={this.state.showModal} foodId={this.state.foodInfo.ingredients[0].parsed[0].foodId} userId={this.state.userId} />
                 </div>
             )
         }else{

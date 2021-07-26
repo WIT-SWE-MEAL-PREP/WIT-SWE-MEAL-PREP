@@ -1,4 +1,4 @@
-export default async function getMeal(url) {
+export default async function getFoodsInMeal(url) {
     return fetch(url, {
             method: 'GET',
             headers: {

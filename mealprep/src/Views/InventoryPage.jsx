@@ -8,10 +8,6 @@ import MaterialTable from 'material-table'
 
 import SearchBar from '../Components/SearchBar.jsx'
 
-import getMeals from '../Models/GetMeal.js'
-import deleteMeal from '../Models/DeleteMeal.js'
-
-import AddMealPlanModal from '../Views/AddMealPlanModal.jsx'
 
 import '../Stylings/MainStylings.css'
 import '../Stylings/SearchBarStylings.css'
@@ -52,36 +48,19 @@ const tableIcons = {
   ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />)
 };
 
-const [data1, setData] = ([
-  { name: 'Mehmet' },
-  { name: 'Zerya Betül' },
-]);
-
-class MainPage extends React.Component{
+class InventoryPage extends React.Component{
   constructor(props){
       super(props)
       this.wrapper = React.createRef();
-      
+
       this.state = {
         renderSearchPage: false,
         searchQuery: "",
         userId: this.props.userId,
-        constraints: this.props.constraints,
-        showModal: false,
-        initialModalRender: true,
-        selectedFoods: [{}]
+        inventory: this.props.inventory
       }
-      
-      this.retrieveSearchSelections = this.retrieveSearchSelections.bind(this)
-  }
-  
-  componentDidMount(){
-    this.getMeals()
   }
 
-  componentDidMount(){
-    this.getMeals()
-  }
 
   handleInputChange = () => {
     this.setState({
@@ -103,71 +82,34 @@ class MainPage extends React.Component{
     this.props.history.push("/food")
   }
 
-  getMeals = async e => {
-
-    var url = "http://3.233.98.252:8080/getMeals?userId='" + String(this.props.userId) + "'";
-    var returnedResults = await getMeals(url);
-
-    if(returnedResults.success) {
-
-      this.setState({
-        data: returnedResults.success
-      })
-
-    }
-
-    return {}
-  }
-
-  editMeal(mealId){
-    this.props.getMealId(mealId);
-    this.props.history.push("/meal")
-  }
-
-  deleteMeal = async e => {
-    var url = "http://3.233.98.252:8080/deleteMeal?mealId='" + String(e) + "'";
-    var mealDeleted = await deleteMeal(url);
-
-    if(mealDeleted.success){
-      this.getMeals();
-    }
-  }
-
   render(){
     if(!this.state.renderSearchPage){
       return(
         <div className="pageWrapper">
 
           <div className="wrapper" >
-            <SearchBar 
+          <SearchBar 
               getSearchQuery={this.props.getSearchQuery}
               handleSearchSubmit={this.handleSearchSubmit} />
           </div>
 
           <div className="tableDiv">
               <MaterialTable
-                  title="My Meals"
+                  title="Inventory"
                   icons={tableIcons}
                   columns={[
-                      { title: 'Name', field: 'Name' },
-                      { title: 'Calories', field: 'Calories' },
-                      { title: 'Protein (g)', field: 'Protein' },
-                      { title: 'Carbs (g)', field: 'Carbs' },
-                      { title: 'Total Fat (g)', field: 'Total_Fat'},
-                      { title: 'Fiber (g)', field: 'Fiber'},
-                      { title: 'Sugar (g)', field: 'Sugar'},
+                      { title: 'Name', field: 'name' },
+                      { title: 'Quantity', field: 'serving' },
+                      { title: 'Unit', field: 'unit' },
+                      { title: 'Expiration Date', field: 'ExpirationDate' },
+                      { title: 'Days left', field: 'Days_Left' }
                       ]}
-                  data={this.state.data}
+                  data={this.state.inventory}
                   actions={[
-                    {
-                      icon: tableIcons.Edit,
-                      tooltip: 'Edit Meal',
-                      onClick: (event, rowData) => this.editMeal(rowData.Meal_Id)
-                    },
                     rowData => ({
                       icon: tableIcons.Delete,
-                      tooltip: 'Delete Meal',
-                      onClick: (event, rowData) => this.deleteMeal(rowData.Meal_Id),
+                      tooltip: 'Remove Food',
+                      onClick: (event, rowData) => this.props.removeInventoryItem(rowData.foodId),
                     })
                   ]}
                   options={{
@@ -178,46 +120,6 @@ class MainPage extends React.Component{
                     zIndex:1
                   }}
               />
-            </div>
-            <AddMealPlanModal onClose={() => this.setState({showModal: false})} show={this.state.showModal} initialModalRender={this.state.initialModalRender}/>
-            <div className="tableDivMealPlans">
-            <MaterialTable
-                title="My Meal Plan"
-                icons={tableIcons}
-                columns={([
-                  { title: 'Meal Plan Name', field: 'name' }
-                ])}
-                data1={data1}
-                editable={{
-                  onRowAdd: newData =>
-                    new Promise((resolve, reject) => {
-                      setTimeout(() => {
-                        setData([...this.data1, newData]);
-                        resolve();
-                      }, 1000)
-                    }),
-                  onRowUpdate: (newData, oldData) =>
-                    new Promise((resolve, reject) => {
-                      setTimeout(() => {
-                        const dataUpdate = [...this.data1];
-                        const index = oldData.tableData.id;
-                        dataUpdate[index] = newData;
-                        setData([...dataUpdate]);
-                        resolve();
-                      }, 1000)
-                    }),
-                  onRowDelete: oldData =>
-                    new Promise((resolve, reject) => {
-                      setTimeout(() => {
-                        const dataDelete = [...this.data1];
-                        const index = oldData.tableData.id;
-                        dataDelete.splice(index, 1);
-                        setData([...dataDelete]);
-                        resolve()
-                      }, 1000)
-                    }),
-                }}
-             />
             </div>
         </div>
       )
@@ -233,4 +135,4 @@ class MainPage extends React.Component{
   }
 }
 
-export default withRouter(MainPage); 
+export default withRouter(InventoryPage); 
