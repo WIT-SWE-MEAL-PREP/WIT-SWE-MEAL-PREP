@@ -141,7 +141,7 @@ class Food extends React.Component{
                     <div className="foodHeader">
                         <img className="foodImage" src={this.state.preliminaryInfo.image} alt={this.state.preliminaryInfo.label}/>
                         <div className="title">
-                            <h1>{this.state.nutrients.name}</h1>
+                            <h1 className="headerText" >{this.state.nutrients.name}</h1>
                         </div>
                     </div>
                     <div className="nutrientWrapper"> 
@@ -174,21 +174,21 @@ class Food extends React.Component{
                                 <input className="qtyInput" id="qtyInput" onChange={e => this.setValues(e.target.value, document.getElementById("unitSelect").value)} defaultValue="1"/> 
                             </div>
                         </h2>
+                        <div className="addFoodDiv">
+                            <button type="submit" className="addFoodBtn" onClick={() => this.setState({showModal: true, modalView: "Meal"})}>Add to meal</button>
+                            <button type="submit" className="addFoodBtn" onClick={() => this.setState({showModal: true, modalView: "Inventory"})}>Add to inventory</button>
+                        </div>
+                        <AddFoodModal 
+                        modalView={this.state.modalView} 
+                        onClose={this.onClose} 
+                        show={this.state.showModal} 
+                        foodId={this.state.foodInfo.ingredients[0].parsed[0].foodId} 
+                        nutrients={ this.state.nutrients } userId={this.state.userId} 
+                        getFoodToAdd={ this.props.getFoodToAdd } 
+                        initialModalRender={this.state.initialModalRender}
+                        addToInventory={this.props.addToInventory}
+                        />
                     </div>
-                    <div className="addFoodDiv">
-                        <button type="submit" className="addFoodBtn" onClick={() => this.setState({showModal: true, modalView: "Meal"})}>Add to meal</button>
-                        <button type="submit" className="addFoodBtn" onClick={() => this.setState({showModal: true, modalView: "Inventory"})}>Add to inventory</button>
-                    </div>
-                    <AddFoodModal 
-                    modalView={this.state.modalView} 
-                    onClose={this.onClose} 
-                    show={this.state.showModal} 
-                    foodId={this.state.foodInfo.ingredients[0].parsed[0].foodId} 
-                    nutrients={ this.state.nutrients } userId={this.state.userId} 
-                    getFoodToAdd={ this.props.getFoodToAdd } 
-                    initialModalRender={this.state.initialModalRender}
-                    addToInventory={this.props.addToInventory}
-                    />
                 </div>
             )
         }else{
