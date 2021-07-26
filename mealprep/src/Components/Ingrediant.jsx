@@ -15,7 +15,7 @@ class Ingrediant extends React.Component{
         return(
             <div className="ingredientDiv" key={this.state.ingredientInfo.Food_Id}>
                 <h3 className="ingredientTitle" onClick={() => { this.props.routeToFood(this.state.ingredientInfo) }}>
-                    <u>{this.state.ingredientInfo.foodInfo.name}</u>
+                    <u className="ingredientTitle">{this.state.ingredientInfo.foodInfo.name}</u>
                 </h3>
                 <h4 id={"calories_" + this.state.ingredientInfo.Food_Id} className="nutrientLabel">Calories: <b className="nutrient">{parseFloat(this.state.ingredientInfo.foodInfo.calories).toFixed(2) + " kcal"}</b></h4>
                 <h4 id={"protein_" + this.state.ingredientInfo.Food_Id} className="nutrientLabel">Protein: <b className="nutrient">{parseFloat(this.state.ingredientInfo.foodInfo.protein).toFixed(2) + " g"}</b></h4>

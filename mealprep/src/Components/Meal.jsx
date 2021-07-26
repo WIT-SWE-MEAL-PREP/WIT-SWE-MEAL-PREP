@@ -66,7 +66,7 @@ class Food extends React.Component{
 
                 if(foodData.totalNutrients.SUGAR != undefined){
                     foodsInMeal[i]['foodInfo'] =  {
-                        name: foodData.ingredients[0].parsed[0].food,
+                        name: foodData.ingredients[0].parsed[0].food.toUpperCase(),
                         calories: foodData.totalNutrients.ENERC_KCAL.quantity,
                         protein: foodData.totalNutrients.PROCNT.quantity,
                         carbs: foodData.totalNutrients.CHOCDF.quantity,
@@ -78,7 +78,7 @@ class Food extends React.Component{
                     };
                 }else{
                     foodsInMeal[i]['foodInfo'] =  {
-                        name: foodData.ingredients[0].parsed[0].food,
+                        name: foodData.ingredients[0].parsed[0].food.toUpperCase(),
                         calories: foodData.totalNutrients.ENERC_KCAL.quantity,
                         protein: foodData.totalNutrients.PROCNT.quantity,
                         carbs: foodData.totalNutrients.CHOCDF.quantity,
@@ -145,7 +145,7 @@ class Food extends React.Component{
                 <div className="foodWrapper">
                     <div className="foodHeader">
                         <div className="title">
-                            <h1>{this.state.mealInfo.Name}</h1>
+                            <h1>{this.state.mealInfo.Name.toUpperCase()}</h1>
                         </div>
                     </div>
                     <div className="nutrientWrapper"> 
@@ -172,9 +172,6 @@ class Food extends React.Component{
                             ))
                             return <div className="ingredientsDiv">{foods}</div>
                         })()}
-                        <div className="backToMainDiv">
-                            <button type="submit" className="backToMainBtn" onClick={() => this.props.history.push("/")}>My Meals</button>
-                        </div>
                     </div>
                 </div>
             )
