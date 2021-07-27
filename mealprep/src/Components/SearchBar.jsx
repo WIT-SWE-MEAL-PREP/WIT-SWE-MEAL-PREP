@@ -11,11 +11,13 @@ import '../Stylings/SearchBarStylings.css'
 class SearchBar extends React.Component{
     constructor(props){
       super(props)
+      
+      this.divRef = React.createRef()
 
       this.state = {
         search: ''
       }
-
+      this.handleClickOutside = this.handleClickOutside.bind(this);
       this.handleSearchSubmit = this.props.handleSearchSubmit.bind(this);
     }
      
@@ -44,7 +46,23 @@ class SearchBar extends React.Component{
             dataReturned: true
         });
     }
-    
+
+    componentDidMount() {
+      document.addEventListener('mousedown', this.handleClickOutside)
+    }
+
+    componentWillUnmount() {
+      document.removeEventListener('mousedown', this.handleClickOutside)
+    }
+
+    handleClickOutside(event) {
+      if (this.divRef && !this.divRef.current.contains(event.target)) {
+          this.setState({
+            search: ''
+          })
+      }
+    }
+
     render() {
         return(
             <div className="searchWrapper">
@@ -56,11 +74,11 @@ class SearchBar extends React.Component{
                 onChange={this.handleInputChange}
                 className="searchBar"
               />
-            <div className="searchSuggestions">
+            <div ref={this.divRef} className="searchSuggestions">
             {(() => {
               if(this.state.results !== undefined && this.state.results.hints[0] !== undefined && this.state.search !== ''){
                   var options = this.state.results.hints.map(hint => (
-                    <li key={hint.food.foodId}>
+                    <li className="result" key={hint.food.foodId}>
                       <Link to="/food" onClick={() => { this.props.getSearchQuery(hint.food) }}>
                       <img src={hint.food.image} className="suggestionImage" alt=""/>
                       {hint.food.label}

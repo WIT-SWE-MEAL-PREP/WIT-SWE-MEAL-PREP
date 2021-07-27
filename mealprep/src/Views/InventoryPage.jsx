@@ -98,11 +98,11 @@ class InventoryPage extends React.Component{
                   title="Inventory"
                   icons={tableIcons}
                   columns={[
-                      { title: 'Name', field: 'name' },
+                      { title: 'Name', field: 'name', cellStyle: { whiteSpace: 'nowrap'}},
                       { title: 'Quantity', field: 'serving' },
                       { title: 'Unit', field: 'unit' },
                       { title: 'Expiration Date', field: 'ExpirationDate' },
-                      { title: 'Days left', field: 'Days_Left' }
+                      { title: 'Days left', field: 'Days_Left' },
                       ]}
                   data={this.state.inventory}
                   actions={[
@@ -113,12 +113,14 @@ class InventoryPage extends React.Component{
                     })
                   ]}
                   options={{
-                    actionsColumnIndex: -1
+                    actionsColumnIndex: -1,
+
                   }}
                   style={{
                     opacity:1,
                     zIndex:1
                   }}
+                  
               />
             </div>
         </div>

@@ -45,10 +45,10 @@ const tableIcons = {
   const theme = createMuiTheme({
     palette: {
       primary: {
-        main: '#4caf50',
+        main: '#f5f5f5',
       },
       secondary: {
-        main: '#ff9100',
+        main: '#4d6f8a',
       },
     },
 
@@ -59,7 +59,6 @@ class SearchResults extends React.Component {
   constructor(props){
       super(props)
       this.wrapper = React.createRef();
-
       this.state = {
           results: this.props.results
       }
@@ -73,6 +72,11 @@ class SearchResults extends React.Component {
                     <MaterialTable
                         title="Search results"
                         icons={tableIcons}
+                        options={{
+                          headerStyle: { position: 'sticky', top: 0 },
+                          maxBodyHeight: 700,
+                          
+                        }}
                         columns={[
                             { field: 'image', render: rowData => <img src={rowData.image} style={{width: 50, borderRadius: '50%'}}/> },
                             { title: 'Name', field: 'label' },
