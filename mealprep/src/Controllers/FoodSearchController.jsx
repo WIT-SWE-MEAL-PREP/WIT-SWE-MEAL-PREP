@@ -8,12 +8,14 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 class FoodSearchController extends React.Component {
     constructor(props){
         super(props);
-
+        console.log(this.props)
         this.state = {
             searchQuery: this.props.searchQuery,
             dataReturned: false,
+            // renderSearchResults: true,
             results: [{}]
         }
+        this.setRenderSearchPage=this.props.setRenderSearchPage.bind(this)
     }
 
     componentDidMount = () =>{
@@ -52,6 +54,7 @@ class FoodSearchController extends React.Component {
             <SearchResults 
             results={this.state.results}
             retrieveSearchSelections={this.props.retrieveSearchSelections}
+            setRenderSearchPage={this.setRenderSearchPage}
             />
             ) 
         }else{

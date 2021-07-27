@@ -62,7 +62,10 @@ class SearchResults extends React.Component {
       this.state = {
           results: this.props.results
       }
+    this.setRenderSearchPage=this.props.setRenderSearchPage.bind(this)
   }
+
+
 
   render(){
     return(
@@ -91,6 +94,9 @@ class SearchResults extends React.Component {
                     />
                 </MuiThemeProvider>
             </div>
+            <button className="returnBtn" onClick={() => { 
+              this.setRenderSearchPage(false)
+               }}>Escape to da Meals</button>
         </div>
     ) 
   }
