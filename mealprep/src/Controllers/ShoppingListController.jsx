@@ -5,6 +5,8 @@ import getNutrients from '../Models/GetFoodNutrients.js'
 import getExpiration from '../Models/UpdateExpiration.js'
 import deleteInventoryItem from '../Models/DeleteInventoryItem.js'
 import getShoppingList from '../Models/GetShoppingList.js';
+import getMeals from '../Models/GetMeals.js';
+import getFoodsInMeal from '../Models/GetFoodsInMeal.js';
 
 import ShoppingListPage from '../Views/ShoppingListPage';
 
@@ -27,7 +29,52 @@ class ShoppingListController extends React.Component {
     }
 
     componentDidMount(){
-        this.getInventory()
+        this.getInventory();
+        this.getMealsandFoods();
+
+        this.setState({
+            dataReturned: true
+        })
+    }
+
+    getMealsandFoods = async e => {
+        var url = "http://3.233.98.252:8080/getMeals?userId='" + String(this.state.userId) + "'";
+        var returnedResults = await getMeals(url);
+
+        console.log(returnedResults.success)
+
+        var mealIds = returnedResults.success.map(mealId => {
+            mealId = mealId.Meal_Id;
+            return mealId;
+        });
+
+        console.log(mealIds)
+
+        var foodIds = [];
+
+        for(let i = 0; i < mealIds.length ; i++){
+
+            url = "http://3.233.98.252:8080/getFoodsInMeal?mealId='" + String(mealIds[i]) + "'";
+
+            var foodsInMeal = await getFoodsInMeal(url);
+
+            if(foodsInMeal.success !== false){
+
+            foodsInMeal = foodsInMeal.success.map(food => {
+                food = food;
+                return food
+            });
+            }
+    
+            foodIds = foodIds.concat(foodsInMeal)
+        };
+
+        console.log(foodIds);
+
+        this.setState({
+            foodIds: foodIds,
+            mealIds: mealIds
+        })
     }
 
     getInventory = async e =>{
@@ -86,8 +133,7 @@ class ShoppingListController extends React.Component {
         console.log(inventory)
 
         this.setState({
-            inventory: inventory,
-            dataReturned: true
+            inventory: inventory
         })
     }
 
