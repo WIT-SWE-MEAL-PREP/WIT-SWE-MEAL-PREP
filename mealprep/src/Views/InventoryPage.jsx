@@ -45,7 +45,7 @@ const tableIcons = {
   Search: forwardRef((props, ref) => <Search {...props} ref={ref} />),
   SortArrow: forwardRef((props, ref) => <ArrowDownward {...props} ref={ref} />),
   ThirdStateCheck: forwardRef((props, ref) => <Remove {...props} ref={ref} />),
-  ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />)
+  ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
 };
 
 class InventoryPage extends React.Component{
@@ -79,6 +79,7 @@ class InventoryPage extends React.Component{
   retrieveSearchSelections = (selection) => {
 
     this.props.getFoodId(selection)
+    console.log(this.props.getFoodId(selection))
     this.props.history.push("/food")
   }
 
@@ -104,6 +105,7 @@ class InventoryPage extends React.Component{
                       { title: 'Expiration Date', field: 'ExpirationDate' },
                       { title: 'Days left', field: 'Days_Left' },
                       ]}
+                  onRowClick={ (evt, rowData) => this.retrieveSearchSelections(rowData)}
                   data={this.state.inventory}
                   actions={[
                     rowData => ({

@@ -24,7 +24,7 @@ class Food extends React.Component{
         showModal: false,
         initialModalRender: true
       }
-
+      console.log(this.state)
       this.onClose = this.onClose.bind(this);
     }
 
