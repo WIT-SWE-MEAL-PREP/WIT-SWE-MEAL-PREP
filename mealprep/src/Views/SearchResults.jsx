@@ -62,10 +62,7 @@ class SearchResults extends React.Component {
       this.state = {
           results: this.props.results
       }
-    this.setRenderSearchPage=this.props.setRenderSearchPage.bind(this)
   }
-
-
 
   render(){
     return(
@@ -76,27 +73,24 @@ class SearchResults extends React.Component {
                         title="Search results"
                         icons={tableIcons}
                         options={{
-                          headerStyle: { position: 'sticky', top: 0 },
+                          headerStyle: { position: 'sticky', top: 0, textAlign: 'center' },
                           maxBodyHeight: 700,
                           
                         }}
                         columns={[
                             { field: 'image', render: rowData => <img src={rowData.image} style={{width: 50, borderRadius: '50%'}}/> },
                             { title: 'Name', field: 'label' },
-                            { title: 'Calories', field: 'Calories' },
-                            { title: 'Protein (g)', field: 'Protein' },
-                            { title: 'Carbs (g)', field: 'Carbs' },
-                            { title: 'Fat (g)', field: 'Fat'},
-                            { title: 'Fiber (g)', field: 'Fiber'}
+                            { title: 'Calories/100g', field: 'Calories' },
+                            { title: 'Protein/100g (g)', field: 'Protein' },
+                            { title: 'Carbs/100g (g)', field: 'Carbs' },
+                            { title: 'Fat/100g (g)', field: 'Fat'},
+                            { title: 'Fiber/100g (g)', field: 'Fiber'}
                         ]}
                         data={this.state.results}
                         onRowClick={ (evt, rowData) => this.props.retrieveSearchSelections(rowData)}
                     />
                 </MuiThemeProvider>
             </div>
-            <button className="returnBtn" onClick={() => { 
-              this.setRenderSearchPage(false)
-               }}>Escape to da Meals</button>
         </div>
     ) 
   }
