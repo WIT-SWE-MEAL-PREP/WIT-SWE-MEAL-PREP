@@ -70,9 +70,10 @@ class SearchResults extends React.Component {
             <div className="tableDiv">
                 <MuiThemeProvider theme={theme}>
                     <MaterialTable
-                        title="Search results"
+                        title="Search results: values are out of 100g"
                         icons={tableIcons}
                         options={{
+                         
                           headerStyle: { position: 'sticky', top: 0 },
                           maxBodyHeight: 700,
                           

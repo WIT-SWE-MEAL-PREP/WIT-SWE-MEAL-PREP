@@ -62,8 +62,9 @@ class MainPage extends React.Component{
         constraints: this.props.constraints,
         selectedFoods: [{}]
       }
-
+      
       this.retrieveSearchSelections = this.retrieveSearchSelections.bind(this)
+      
   }
 
   componentDidMount(){
@@ -119,7 +120,6 @@ class MainPage extends React.Component{
       this.getMeals();
     }
   }
-
   render(){
     if(!this.state.renderSearchPage){
       return(
