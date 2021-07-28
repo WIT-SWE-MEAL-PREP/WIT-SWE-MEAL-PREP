@@ -1,0 +1,66 @@
+.ingredientTitle:hover {
+    cursor: pointer;
+    color: rgb(1, 80, 250);
+}
+
+.ingredientTitle {
+    text-align: center;
+}
+
+.ingredientDiv {
+    display: table-cell;
+    margin-right: 50px;
+    border: 1px solid #000000;
+    justify-content: center;
+    align-items: center;
+    height: 10px;
+}
+
+.ingredientsDiv {
+    justify-content: center;
+    align-items: center;
+    display: table;
+    width: 100%;
+    text-align: center;
+}
+
+.nutrient {
+    float: right;
+}
+
+.nutrientLabel {
+    padding: 5px;
+    float: left;
+    width: 100%;
+    text-align: left;
+}
+
+.backToMainBtn {
+    font-family: 'Raleway', sans-serif;
+    margin: auto;
+    margin-top: 24px;
+    border-radius: 50px;
+    cursor: pointer;
+    border: 1px solid #4d6f8a;
+    padding: 10px 50px;
+    background-color: #4d6f8a;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    font-size: 18px;
+    outline: none;
+}
+
+.backToMainBtn:hover {
+    color: rgb(84, 143, 233);
+}
+
+.backToMainBtn:active {
+    color: #2e3638;
+    border: 1px solid #ffffff;
+}
+
+.backToMainDiv {
+    width: 100%;
+}

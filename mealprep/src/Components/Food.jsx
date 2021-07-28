@@ -1,5 +1,4 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 
 import getNutrients from '../Models/GetFoodNutrients.js'
@@ -22,7 +21,8 @@ class Food extends React.Component{
         userId: this.props.userId,
         preliminaryInfo: this.props.foodInfo,
         dataReturned: false,
-        showModal: false
+        showModal: false,
+        initialModalRender: true
       }
 
       this.onClose = this.onClose.bind(this);
@@ -48,6 +48,7 @@ class Food extends React.Component{
             dataReturned: true,
             nutrients: {
                 name: this.state.preliminaryInfo.label,
+                id: this.state.preliminaryInfo.foodId,
                 calories: returnedResults.totalNutrients.ENERC_KCAL.quantity,
                 protein: returnedResults.totalNutrients.PROCNT.quantity,
                 carbs: returnedResults.totalNutrients.CHOCDF.quantity,
@@ -57,7 +58,7 @@ class Food extends React.Component{
                 serving: 1,
                 unit: "gram"
             }
-        }, () => console.log(this.state.foodInfo));
+        });
     }
 
     setValues(quanity, unit) {
@@ -65,6 +66,7 @@ class Food extends React.Component{
         this.setState({
             nutrients: {
                 name: this.state.preliminaryInfo.label,
+                id: this.state.preliminaryInfo.foodId,
                 calories: this.state.foodInfo.totalNutrients.ENERC_KCAL.quantity,
                 protein: this.state.foodInfo.totalNutrients.PROCNT.quantity,
                 carbs: this.state.foodInfo.totalNutrients.CHOCDF.quantity,
@@ -85,7 +87,8 @@ class Food extends React.Component{
 
     onClose() {
         this.setState({
-            showModal: false
+            showModal: false,
+            initialModalRender: true
         })
     }
     
@@ -134,7 +137,7 @@ class Food extends React.Component{
                     <div className="addFoodDiv">
                         <button type="submit" className="addFoodBtn" onClick={() => this.setState({showModal: true})}>Add</button>
                     </div>
-                    <AddFoodModal onClose={this.onClose} show={this.state.showModal} foodId={this.state.foodInfo.ingredients[0].parsed[0].foodId} userId={this.state.userId} />
+                    <AddFoodModal onClose={this.onClose} show={this.state.showModal} foodId={this.state.foodInfo.ingredients[0].parsed[0].foodId} nutrients={ this.state.nutrients } userId={this.state.userId} getFoodToAdd={ this.props.getFoodToAdd } initialModalRender={this.state.initialModalRender}/>
                 </div>
             )
         }else{

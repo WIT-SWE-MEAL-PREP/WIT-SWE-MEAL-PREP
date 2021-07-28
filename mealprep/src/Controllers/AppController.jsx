@@ -1,14 +1,17 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-
 import AccountStatusController from './AccountStatusController.jsx';
 import MainController from './MainController.jsx'
 import ConfigController from './ConfigurationController.jsx'
+
 import Food from '../Components/Food.jsx'
+import Meal from '../Components/Meal.jsx'
 
 import Footer from '../Components/Footer.jsx'
 import Header from '../Components/Header.jsx'
+
+import addNewFood from '../Services/AddNewFood.jsx'
 
 import '../Stylings/AppStylings.css'
 
@@ -35,12 +38,19 @@ class AppController extends React.Component {
                 fat: 0,
                 sugar: 0,
                 fiber: 0,
-            }
+            },
+            mealId: '',
+            foodAndMealInfo:{
+                mealId: ''
+            },
+            mealDataUpdated: false
         }
 
         this.setLogInStatus = this.setLogInStatus.bind(this);
         this.getUserId = this.getUserId.bind(this);
         this.getSearchQuery = this.getSearchQuery.bind(this);
+        this.getFoodToAdd = this.getFoodToAdd.bind(this);
+        this.getMealId = this.getMealId.bind(this);
     }
 
     componentDidMount(){
@@ -91,6 +101,30 @@ class AppController extends React.Component {
         })
     }
 
+    getMealId(mealId){
+        this.setState({
+            mealDataUpdated: true,
+            mealId: mealId
+        })
+    }
+
+    getFoodToAdd(foodAndMealInfo){
+
+        this.setState({
+            foodAndMealInfo: foodAndMealInfo,
+            mealId: foodAndMealInfo.mealId
+        }, async () => {
+            
+            var newId = await addNewFood(foodAndMealInfo, this.state.userId);
+
+            this.setState({
+                mealDataUpdated: true,
+                mealId: newId
+            })
+        })
+
+    }
+
     render(){
 
         if(!this.state.signedIn){
@@ -109,12 +143,17 @@ class AppController extends React.Component {
                         </Route>
                         <Route path="/food">
                             <Header/>
-                            <Food foodInfo={this.state.food} userId={this.state.userId}/>
+                            <Food foodInfo={this.state.food} userId={this.state.userId} getFoodToAdd={ this.getFoodToAdd }/>
+                            <Footer setSignInStatus = { this.setSignInStatus }/>
+                        </Route>
+                        <Route path="/meal">
+                            <Header/>
+                            <Meal mealId={this.state.mealId} userId={this.state.userId} mealDataUpdated={this.state.mealDataUpdated} getSearchQuery={this.getSearchQuery}/>
                             <Footer setSignInStatus = { this.setSignInStatus }/>
                         </Route>
                         <Route path="/">
                             <Header/>
-                            <MainController getSearchQuery={this.getSearchQuery}/>
+                            <MainController getSearchQuery={this.getSearchQuery} getMealId={this.getMealId} userId={this.state.userId}/>
                             <Footer setSignInStatus = { this.setSignInStatus }/>
                         </Route>
                     </Switch>
