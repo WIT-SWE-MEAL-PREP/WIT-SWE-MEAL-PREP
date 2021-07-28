@@ -15,7 +15,6 @@ class FoodSearchController extends React.Component {
             // renderSearchResults: true,
             results: [{}]
         }
-        this.setRenderSearchPage=this.props.setRenderSearchPage.bind(this)
     }
 
     componentDidMount = () =>{
@@ -54,7 +53,6 @@ class FoodSearchController extends React.Component {
             <SearchResults 
             results={this.state.results}
             retrieveSearchSelections={this.props.retrieveSearchSelections}
-            setRenderSearchPage={this.setRenderSearchPage}
             />
             ) 
         }else{

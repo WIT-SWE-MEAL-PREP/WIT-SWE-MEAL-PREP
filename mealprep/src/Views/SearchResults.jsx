@@ -70,21 +70,22 @@ class SearchResults extends React.Component {
             <div className="tableDiv">
                 <MuiThemeProvider theme={theme}>
                     <MaterialTable
-                        title="Search results"
+                        title="Search results: values are out of 100g"
                         icons={tableIcons}
                         options={{
-                          headerStyle: { position: 'sticky', top: 0, textAlign: 'center' },
+                         
+                          headerStyle: { position: 'sticky', top: 0 },
                           maxBodyHeight: 700,
                           
                         }}
                         columns={[
                             { field: 'image', render: rowData => <img src={rowData.image} style={{width: 50, borderRadius: '50%'}}/> },
                             { title: 'Name', field: 'label' },
-                            { title: 'Calories/100g', field: 'Calories' },
-                            { title: 'Protein/100g (g)', field: 'Protein' },
-                            { title: 'Carbs/100g (g)', field: 'Carbs' },
-                            { title: 'Fat/100g (g)', field: 'Fat'},
-                            { title: 'Fiber/100g (g)', field: 'Fiber'}
+                            { title: 'Calories', field: 'Calories' },
+                            { title: 'Protein (g)', field: 'Protein' },
+                            { title: 'Carbs (g)', field: 'Carbs' },
+                            { title: 'Fat (g)', field: 'Fat'},
+                            { title: 'Fiber (g)', field: 'Fiber'}
                         ]}
                         data={this.state.results}
                         onRowClick={ (evt, rowData) => this.props.retrieveSearchSelections(rowData)}
