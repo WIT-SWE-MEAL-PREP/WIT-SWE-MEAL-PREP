@@ -57,9 +57,14 @@ class ConfigController extends React.Component{
         })
     }
 
+
     getUserConfig = async e => {
 
+<<<<<<< HEAD
         var url = "http://localhost:8080/getConfig?userId='" + String(this.state.userId) + "'";
+=======
+        var url = "http://3.233.98.252:8080/getConfig?userId='" + String(this.state.username) + "'";
+>>>>>>> 2e36ab2508f349f8c5365939bf895e5e450fde97
         var returnedResults = await getConfig(url);
 
         if(returnedResults.configData !== false){
@@ -77,12 +82,42 @@ class ConfigController extends React.Component{
                     constraints: this.state.constraints
                 })
             }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
         }
     }
 
     uploadUserConfig = async e => {
+<<<<<<< HEAD
         var url = "http://localhost:8080/uploadUserConfig?userId='" + 
                                           String(this.state.userId) 
+=======
+        var url = "http://3.233.98.252:8080/uploadUserConfig?userId='" + 
+                                          String(this.state.username) 
+>>>>>>> 2e36ab2508f349f8c5365939bf895e5e450fde97
                                           + "'&firstname='" + String(this.state.firstName) 
                                           + "'&lastname='" + String(this.state.lastName)
                                           + "'&age='" + String(this.state.age)

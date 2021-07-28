@@ -7,12 +7,12 @@
     background-color: #f2f5f8;
 }
 
-.config-form{
-    border:none;
+.config-form {
+    border: none;
 }
 
-fieldset{
-    border:0;
+fieldset {
+    border: 0;
 }
 
 .legend {
@@ -22,7 +22,7 @@ fieldset{
     margin-top: 10px;
     margin-bottom: 40px;
     font-size: 18pt;
-    color:#4d6f8a;
+    color: #4d6f8a;
 }
 
 * {
@@ -60,16 +60,23 @@ body {
     overflow: hidden;
 }
 
-.submit-btn {
-    justify-content: center;
+.cancel-btn {
+    font: bold 11px Arial;
+    text-decoration: none;
+    background-color: #EEEEEE;
+    color: #333333;
+    padding: 2px 6px 2px 6px;
+    border-top: 1px solid #CCCCCC;
+    border-right: 1px solid #333333;
+    border-bottom: 1px solid #333333;
+    border-left: 1px solid #CCCCCC;
+}
+
+.cancel-btn:hover {
+    background-color: rgb(142, 176, 211);
 }
 
 .btn {
-    border: none;
-    background-color: inherit;
-    padding: 14px 28px;
-    font-size: 16px;
-    cursor: pointer;
     display: inline-block;
 }
 
@@ -96,4 +103,8 @@ body {
 
 .fieldWrapper {
     justify-content: baseline;
+}
+
+.required {
+    color: red;
 }

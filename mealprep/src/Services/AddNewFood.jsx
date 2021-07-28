@@ -1,87 +1,96 @@
-import updateFoodsInMeal from '../Models/UpdateFoodsInMeal.js'
-import updateMealData from '../Models/UpdateMealData.js'
-import uploadNewMeal from '../Models/UploadNewMeal.js'
-import getMeal from '../Models/GetMeal.js'
+import React from "react";
+import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 
-async function addNewFood(data, userId) {
+import Modal from '@material-ui/core/Modal';
 
-    if(data.mealId != 0){
+import getMeals from '../Models/GetMeals.js'
+import "../Stylings/AddFoodModalStylings.css"
 
-        var url = "http://localhost:8080/getMeal?mealId='" + String(data.mealId) + "'";
-    
-        var mealInfo = await getMeal(url);
-    
-        var calories = mealInfo.success[0].Calories + data.foodInfo.calories;
-        var protein = mealInfo.success[0].Protein + data.foodInfo.protein;
-        var carbs = mealInfo.success[0].Carbs + data.foodInfo.carbs;
-        var fat = mealInfo.success[0].Total_Fat + data.foodInfo.fat;
-        var fiber = mealInfo.success[0].Fiber + data.foodInfo.fiber;
-        var sugar = mealInfo.success[0].Sugar + data.foodInfo.sugar;
-    
-        url = "http://localhost:8080/updateMealData?mealId='"   + String(data.mealId) 
-                                               + "'&calories='" + String(calories) 
-                                               + "'&protein='"  + String(protein) 
-                                               + "'&carbs='"    + String(carbs) 
-                                               + "'&fat='"      + String(fat)
-                                               + "'&fiber='"    + String(fiber)
-                                               + "'&sugar='"    + String(sugar) 
-                                               + "'&mealName='" + String(mealInfo.success[0].Name) + "'";
-    
-        var mealUpdated = await updateMealData(url);
-    
-        if(!mealUpdated.success){
-            //TO-DO Add error handling here 
-        }
-    
-        url = "http://localhost:8080/updateFoodsInMeal?mealId='" + String(data.mealId) 
-                                                + "'&foodId='"   + String(data.foodInfo.id) 
-                                                + "'&serving='"  + String(data.foodInfo.serving) 
-                                                + "'&unit='"     + String(data.foodInfo.unit) + "'";
-    
-        var foodInMealUpdated = await updateFoodsInMeal(url);
-    
-        if(!foodInMealUpdated.success){
-            //TO-DO Add error handling here 
-        }
-    
-        return data.mealId
-    }else{
+class AddFoodModal extends React.Component {
 
-        var calories = data.foodInfo.calories;
-        var protein = data.foodInfo.protein;
-        var carbs = data.foodInfo.carbs;
-        var fat = data.foodInfo.fat;
-        var fiber = data.foodInfo.fiber;
-        var sugar = data.foodInfo.sugar;
-        var name = data.mealName
-        var serving = data.foodInfo.serving;
-        var unit = data.foodInfo.unit;
-        var foodId = data.foodInfo.id;
-    
-        url = "http://localhost:8080/uploadNewMeal?userId='"    + String(userId)
-                                               + "'&calories='" + String(calories) 
-                                               + "'&protein='"  + String(protein) 
-                                               + "'&carbs='"    + String(carbs) 
-                                               + "'&fat='"      + String(fat)
-                                               + "'&fiber='"    + String(fiber)
-                                               + "'&sugar='"    + String(sugar) 
-                                               + "'&mealName='" + String(name)
-                                               + "'&foodId='"   + String(foodId) 
-                                               + "'&serving='"  + String(serving) 
-                                               + "'&unit='"     + String(unit) + "'";
-    
-        var mealUploaded = await uploadNewMeal(url);
-        
-        if(mealUploaded.success != 0){
-            return mealUploaded.success
-        }else{
-            return false
-        }
+  constructor(props){
+    super(props)
+
+    this.state = {
+      mealId: 0,
+      initalRender: this.props.initialModalRender
     }
+  }
+  
+  createOptions = async e => {
 
-    
+    var url = "http://localhost:8080/getMeals?userId='" + String(this.props.userId) + "'";
+    var returnedResults = await getMeals(url);
 
+    if(returnedResults.success.length > 0) {
+
+      var options = document.getElementById("mealSelect").options;
+
+      returnedResults.success.forEach(meal => 
+        options.add(
+        new Option(meal.Name, meal.Meal_Id, false)
+      ))
+
+      this.setState({
+        initalRender: false
+      })
+
+    }
+  }
+
+  render() {
+    return (
+      <div>
+        <Modal
+          open={this.props.show}
+          onClose={this.props.onClose}
+          onRendered={this.createOptions}
+          aria-labelledby="simple-modal-title"
+          aria-describedby="simple-modal-description"
+        >
+          <div className="addFoodModal">
+
+            <div className="addFoodModalCentered">
+              <h2 className="addFoodModalText">Add To:</h2>
+            </div>
+
+            <div>
+              <label className="addFoodModalSelectLabel">Meal:</label>
+              <select className="addFoodModalSelect" id="mealSelect"  defaultValue="0" onChange={e => this.setState({mealId: e.target.value, initalRender: false})}> 
+                <option value="0">New Meal</option>
+              </select>
+
+              {(() => {
+                if(this.props.show){
+                  if(this.state.mealId == 0){
+                    return(
+                      <div className="mealNameDiv">
+                        <label className="mealNameInputLabel" >Meal Name:</label>
+                        <input className="mealNameInput" id="mealNameInput" type="string" placeholder="Meal Name" required={true} />   
+                      </div>                  
+                      )
+                  }else{
+                    <div className="mealNameDiv" style={{display: "none"}}>
+                    <label className="mealNameInputLabel" >Meal Name:</label>
+                    <input className="mealNameInput" id="mealNameInput" type="string" placeholder="Meal Name" required={true} />   
+                  </div>       
+                  }
+                }
+              })()}
+            </div>
+            
+            <div className="addFoodModalCentered">
+            <Link to="/meal" onClick={ () => this.props.getFoodToAdd({foodInfo: this.props.nutrients, mealId: this.state.mealId, mealName: (document.getElementById("mealNameInput") != null) ? document.getElementById("mealNameInput").value : "" })}>
+              <button className="addFoodModalButton" >Add</button>
+            </Link>
+            </div>
+          </div>
+        </Modal>
+      </div>
+    )
+  }
 }
 
-export default addNewFood;
+export default withRouter(AddFoodModal)

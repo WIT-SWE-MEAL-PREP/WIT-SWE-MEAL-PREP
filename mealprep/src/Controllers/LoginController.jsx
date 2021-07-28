@@ -35,7 +35,7 @@ class LoginController extends React.Component {
 
     handleSubmit = async e => {
         e.preventDefault();
-        var url = "http://localhost:8080/login?username='" + String(this.state.username) + "'&password='" + String(this.state.password) + "'";
+        var url = "http://3.233.98.252:8080/login?username='" + String(this.state.username) + "'&password='" + String(this.state.password) + "'";
         var token = await loginUser(url);
 
         if (token["loggedIn"] === true) {
