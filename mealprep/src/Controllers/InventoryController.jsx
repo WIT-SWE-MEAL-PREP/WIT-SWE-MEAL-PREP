@@ -21,7 +21,7 @@ class InventoryController extends React.Component {
         this.state = {
             userId: this.props.userId,
             dataReturned: false,
-            inventory: {}
+            inventory: [{}]
         }
     }
 
@@ -79,7 +79,7 @@ class InventoryController extends React.Component {
             });
 
         }else{
-            inventory = [{}]
+            inventory = []
         }
 
         console.log(inventory)

@@ -24,7 +24,7 @@ class Food extends React.Component{
         showModal: false,
         initialModalRender: true
       }
-
+      console.log(this.state)
       this.onClose = this.onClose.bind(this);
     }
 
@@ -59,7 +59,24 @@ class Food extends React.Component{
                     serving: 1,
                     unit: "gram"
                 }
-            });
+            })
+            if(this.state.nutrients.name == undefined){
+                this.setState({
+                    nutrients:{
+                        name: this.state.preliminaryInfo.name,
+                        id: this.state.preliminaryInfo.foodId,
+                        calories: returnedResults.totalNutrients.ENERC_KCAL.quantity,
+                        protein: returnedResults.totalNutrients.PROCNT.quantity,
+                        carbs: returnedResults.totalNutrients.CHOCDF.quantity,
+                        fat: returnedResults.totalNutrients.FAT.quantity,
+                        fiber: returnedResults.totalNutrients.FIBTG.quantity,
+                        sugar: returnedResults.totalNutrients.SUGAR.quantity,
+                        serving: 1,
+                        unit: "gram"
+                    }
+                })
+            }
+            
         }else{
             this.setState({
                 foodInfo: returnedResults,
@@ -76,7 +93,23 @@ class Food extends React.Component{
                     unit: "gram"
                 }
             });
+            if(this.state.nutrients.name == undefined){
+                this.setState({
+                    nutrients:{
+                        name: this.state.preliminaryInfo.name,
+                        id: this.state.preliminaryInfo.foodId,
+                        calories: returnedResults.totalNutrients.ENERC_KCAL.quantity,
+                        protein: returnedResults.totalNutrients.PROCNT.quantity,
+                        carbs: returnedResults.totalNutrients.CHOCDF.quantity,
+                        fat: returnedResults.totalNutrients.FAT.quantity,
+                        fiber: returnedResults.totalNutrients.FIBTG.quantity,
+                        serving: 1,
+                        unit: "gram"
+                    }
+                })
+            }
         }
+        
 
     }
 
@@ -117,7 +150,12 @@ class Food extends React.Component{
                     unit: "gram",
                     dataReturned: false
                 }
-            }, () => {
+            }
+            
+            
+            
+            
+            , () => {
                 this.setState({
                     nutrients: calculateValues(quanity, unit, this.state.nutrients),
                     dataReturned: true
@@ -139,7 +177,7 @@ class Food extends React.Component{
             return(
                 <div className="foodWrapper">
                     <div className="foodHeader">
-                        <img className="foodImage" src={this.state.preliminaryInfo.image} alt={this.state.preliminaryInfo.label}/>
+                        {this.state.preliminaryInfo.image!==undefined ? <img className="foodImage" src={this.state.preliminaryInfo.image} alt={this.state.preliminaryInfo.label}/> : null}
                         <div className="title">
                             <h1 className="headerText" >{this.state.nutrients.name}</h1>
                         </div>
