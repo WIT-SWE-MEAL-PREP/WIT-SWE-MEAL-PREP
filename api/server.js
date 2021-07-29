@@ -554,6 +554,35 @@ app.get('/getUserInventory', (req, res) => {
     });
 });
 
+app.get('/getShoppingList', (req, res) => {
+
+    var result = false;
+    var userId = req.query.userId
+    var getDBInfo = function(callback) {
+        let sql = "Select Food_Id From gainsday.FoodsInMeal Where FoodsInMeal.Meal_Id = (  Select Meals.Meal_Id From gainsday.Meals Where User_Id LIKE " + userId + " ) AND Food_Id Not in (SELECT Food_Id From gainsday.Inventory Where User_Id LIKE " + userId + ")";
+        connection.query(sql, (err, resp) => {
+            if (err) {
+                console.log("error: ", err);
+                return callback(err);
+            }
+
+            console.log(sql)
+
+            if (resp.length) {
+                console.log("shopping list: ", resp);
+                result = resp;
+            }
+
+            callback(null, result);
+        });
+    }
+
+    getDBInfo(function(err, result) {
+        console.log({ success: result })
+        res.send({ success: result });
+    });
+});
+
 app.post('/updateUserInventory', (req, res) => {
 
     var result = false;

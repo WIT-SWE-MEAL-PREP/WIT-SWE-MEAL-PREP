@@ -8,10 +8,11 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 class FoodSearchController extends React.Component {
     constructor(props){
         super(props);
-
+        console.log(this.props)
         this.state = {
             searchQuery: this.props.searchQuery,
             dataReturned: false,
+            // renderSearchResults: true,
             results: [{}]
         }
     }

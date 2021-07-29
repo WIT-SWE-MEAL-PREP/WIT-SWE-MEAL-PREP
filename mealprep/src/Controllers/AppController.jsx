@@ -14,6 +14,7 @@ import Header from '../Components/Header.jsx'
 import addNewFood from '../Services/AddNewFood.jsx'
 
 import '../Stylings/AppStylings.css'
+import ShoppingListController from './ShoppingListController.jsx';
 
 class AppController extends React.Component {
 
@@ -139,20 +140,25 @@ class AppController extends React.Component {
                 <BrowserRouter>
                     <Switch>
                         <Route path="/configure">
+                            <Header setSignInStatus = { this.setSignInStatus }/>
                             <ConfigController userId={this.state.userId}/>
                         </Route>
                         <Route path="/food">
-                            <Header/>
+                            <Header setSignInStatus = { this.setSignInStatus }/>
                             <Food foodInfo={this.state.food} userId={this.state.userId} getFoodToAdd={ this.getFoodToAdd }/>
                             <Footer setSignInStatus = { this.setSignInStatus }/>
                         </Route>
                         <Route path="/meal">
-                            <Header/>
+                            <Header setSignInStatus = { this.setSignInStatus }/>
                             <Meal mealId={this.state.mealId} userId={this.state.userId} mealDataUpdated={this.state.mealDataUpdated} getSearchQuery={this.getSearchQuery}/>
                             <Footer setSignInStatus = { this.setSignInStatus }/>
                         </Route>
+                        <Route path='/shoppinglist'>
+                            <Header setSignInStatus = { this.setSignInStatus }/>
+                            <ShoppingListController userId={this.state.userId} getSearchQuery={this.getSearchQuery} getFoodId={this.getFoodId}/>
+                        </Route>
                         <Route path="/">
-                            <Header/>
+                            <Header setSignInStatus = { this.setSignInStatus }/>
                             <MainController getSearchQuery={this.getSearchQuery} getMealId={this.getMealId} userId={this.state.userId}/>
                             <Footer setSignInStatus = { this.setSignInStatus }/>
                         </Route>

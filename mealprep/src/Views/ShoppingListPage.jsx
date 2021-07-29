@@ -45,10 +45,10 @@ const tableIcons = {
   Search: forwardRef((props, ref) => <Search {...props} ref={ref} />),
   SortArrow: forwardRef((props, ref) => <ArrowDownward {...props} ref={ref} />),
   ThirdStateCheck: forwardRef((props, ref) => <Remove {...props} ref={ref} />),
-  ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
+  ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />)
 };
 
-class InventoryPage extends React.Component{
+class ShoppingListPage extends React.Component{
   constructor(props){
       super(props)
       this.wrapper = React.createRef();
@@ -57,7 +57,7 @@ class InventoryPage extends React.Component{
         renderSearchPage: false,
         searchQuery: "",
         userId: this.props.userId,
-        inventory: this.props.inventory
+        shoppingList: this.props.shoppingList
       }
   }
 
@@ -79,7 +79,6 @@ class InventoryPage extends React.Component{
   retrieveSearchSelections = (selection) => {
 
     this.props.getFoodId(selection)
-    console.log(this.props.getFoodId(selection))
     this.props.history.push("/food")
   }
 
@@ -96,33 +95,22 @@ class InventoryPage extends React.Component{
 
           <div className="tableDiv">
               <MaterialTable
-                  title="Inventory"
+                  title="Shopping List"
                   icons={tableIcons}
                   columns={[
-                      { title: 'Name', field: 'name', cellStyle: { whiteSpace: 'nowrap'}},
+                      { title: 'Name', field: 'name' },
                       { title: 'Quantity', field: 'serving' },
                       { title: 'Unit', field: 'unit' },
-                      { title: 'Expiration Date', field: 'ExpirationDate' },
-                      { title: 'Days left', field: 'Days_Left' },
                       ]}
-                  onRowClick={ (evt, rowData) => this.retrieveSearchSelections(rowData)}
-                  data={this.state.inventory}
-                  actions={[
-                    rowData => ({
-                      icon: tableIcons.Delete,
-                      tooltip: 'Remove Food',
-                      onClick: (event, rowData) => this.props.removeInventoryItem(rowData.foodId),
-                    })
-                  ]}
+                  data={this.state.shoppingList}
+                  
                   options={{
-                    actionsColumnIndex: -1,
-
+                    actionsColumnIndex: -1
                   }}
                   style={{
                     opacity:1,
                     zIndex:1
                   }}
-                  
               />
             </div>
         </div>
@@ -139,4 +127,4 @@ class InventoryPage extends React.Component{
   }
 }
 
-export default withRouter(InventoryPage); 
+export default withRouter(ShoppingListPage); 

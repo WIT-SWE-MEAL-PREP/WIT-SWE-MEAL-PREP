@@ -73,6 +73,7 @@ class MainPage extends React.Component{
       }
       
       this.retrieveSearchSelections = this.retrieveSearchSelections.bind(this)
+      
   }
   
   componentDidMount(){
@@ -132,7 +133,6 @@ class MainPage extends React.Component{
       this.getMeals();
     }
   }
-
   render(){
     if(!this.state.renderSearchPage){
       return(

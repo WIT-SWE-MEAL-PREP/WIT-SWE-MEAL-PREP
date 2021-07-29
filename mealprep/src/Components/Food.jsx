@@ -24,7 +24,7 @@ class Food extends React.Component{
         showModal: false,
         initialModalRender: true
       }
-
+      console.log(this.state)
       this.onClose = this.onClose.bind(this);
     }
 
@@ -43,26 +43,77 @@ class Food extends React.Component{
 
         var returnedResults = await getNutrients(url, jsonBody);
 
-        this.setState({
-            foodInfo: returnedResults,
-            dataReturned: true,
-            nutrients: {
-                name: this.state.preliminaryInfo.label,
-                id: this.state.preliminaryInfo.foodId,
-                calories: returnedResults.totalNutrients.ENERC_KCAL.quantity,
-                protein: returnedResults.totalNutrients.PROCNT.quantity,
-                carbs: returnedResults.totalNutrients.CHOCDF.quantity,
-                fat: returnedResults.totalNutrients.FAT.quantity,
-                fiber: returnedResults.totalNutrients.FIBTG.quantity,
-                sugar: returnedResults.totalNutrients.SUGAR.quantity,
-                serving: 1,
-                unit: "gram"
+        if(returnedResults.totalNutrients.SUGAR != undefined){
+            this.setState({
+                foodInfo: returnedResults,
+                dataReturned: true,
+                nutrients: {
+                    name: this.state.preliminaryInfo.label,
+                    id: this.state.preliminaryInfo.foodId,
+                    calories: returnedResults.totalNutrients.ENERC_KCAL.quantity,
+                    protein: returnedResults.totalNutrients.PROCNT.quantity,
+                    carbs: returnedResults.totalNutrients.CHOCDF.quantity,
+                    fat: returnedResults.totalNutrients.FAT.quantity,
+                    fiber: returnedResults.totalNutrients.FIBTG.quantity,
+                    sugar: returnedResults.totalNutrients.SUGAR.quantity,
+                    serving: 1,
+                    unit: "gram"
+                }
+            })
+            if(this.state.nutrients.name == undefined){
+                this.setState({
+                    nutrients:{
+                        name: this.state.preliminaryInfo.name,
+                        id: this.state.preliminaryInfo.foodId,
+                        calories: returnedResults.totalNutrients.ENERC_KCAL.quantity,
+                        protein: returnedResults.totalNutrients.PROCNT.quantity,
+                        carbs: returnedResults.totalNutrients.CHOCDF.quantity,
+                        fat: returnedResults.totalNutrients.FAT.quantity,
+                        fiber: returnedResults.totalNutrients.FIBTG.quantity,
+                        sugar: returnedResults.totalNutrients.SUGAR.quantity,
+                        serving: 1,
+                        unit: "gram"
+                    }
+                })
             }
-        });
+            
+        }else{
+            this.setState({
+                foodInfo: returnedResults,
+                dataReturned: true,
+                nutrients: {
+                    name: this.state.preliminaryInfo.label,
+                    id: this.state.preliminaryInfo.foodId,
+                    calories: returnedResults.totalNutrients.ENERC_KCAL.quantity,
+                    protein: returnedResults.totalNutrients.PROCNT.quantity,
+                    carbs: returnedResults.totalNutrients.CHOCDF.quantity,
+                    fat: returnedResults.totalNutrients.FAT.quantity,
+                    fiber: returnedResults.totalNutrients.FIBTG.quantity,
+                    serving: 1,
+                    unit: "gram"
+                }
+            });
+            if(this.state.nutrients.name == undefined){
+                this.setState({
+                    nutrients:{
+                        name: this.state.preliminaryInfo.name,
+                        id: this.state.preliminaryInfo.foodId,
+                        calories: returnedResults.totalNutrients.ENERC_KCAL.quantity,
+                        protein: returnedResults.totalNutrients.PROCNT.quantity,
+                        carbs: returnedResults.totalNutrients.CHOCDF.quantity,
+                        fat: returnedResults.totalNutrients.FAT.quantity,
+                        fiber: returnedResults.totalNutrients.FIBTG.quantity,
+                        serving: 1,
+                        unit: "gram"
+                    }
+                })
+            }
+        }
+        
+
     }
 
     setValues(quanity, unit) {
-
         this.setState({
             nutrients: {
                 name: this.state.preliminaryInfo.label,
@@ -77,12 +128,23 @@ class Food extends React.Component{
                 unit: "gram",
                 dataReturned: false
             }
-        }, () => {
-            this.setState({
-                nutrients: calculateValues(quanity, unit, this.state.nutrients),
-                dataReturned: true
-            });
-        })
+        }, () => this.setState({
+            nutrients: {
+                name: this.state.preliminaryInfo.label,
+                id: this.state.preliminaryInfo.foodId,
+                calories: this.state.foodInfo.totalNutrients.ENERC_KCAL.quantity,
+                protein: this.state.foodInfo.totalNutrients.PROCNT.quantity,
+                carbs: this.state.foodInfo.totalNutrients.CHOCDF.quantity,
+                fat: this.state.foodInfo.totalNutrients.FAT.quantity,
+                fiber: this.state.foodInfo.totalNutrients.FIBTG.quantity,
+                serving: 1,
+                unit: "gram",
+                dataReturned: false
+            }
+        }, () => this.setState({
+            nutrients: calculateValues(quanity, unit, this.state.nutrients),
+            dataReturned: true
+        })));
     }
 
     onClose() {
@@ -98,7 +160,7 @@ class Food extends React.Component{
             return(
                 <div className="foodWrapper">
                     <div className="foodHeader">
-                        <img className="foodImage" src={this.state.preliminaryInfo.image} alt={this.state.preliminaryInfo.label}/>
+                        {this.state.preliminaryInfo.image!==undefined ? <img className="foodImage" src={this.state.preliminaryInfo.image} alt={this.state.preliminaryInfo.label}/> : null}
                         <div className="title">
                             <h1>{this.state.nutrients.name}</h1>
                         </div>

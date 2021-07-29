@@ -47,6 +47,9 @@ class Header extends React.Component{
                     <li>   
                         <Link className="menuItem" onClick={() => { this.props.history.push("/inventory")}}>Inventory </Link>
                     </li>
+                    <li>
+                        <Link className="menuItem" onClick={() => { this.props.history.push("/shoppinglist")}}>Shopping List </Link>
+                    </li>
                     <li>   
                         <Link className="menuItem" onClick={() => { window.location.href="https://github.com/WIT-SWE-MEAL-PREP/WIT-SWE-MEAL-PREP" }}>Repository</Link>
                     </li>
