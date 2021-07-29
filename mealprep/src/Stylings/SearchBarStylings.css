@@ -6,8 +6,9 @@
     outline: 0;
     background-color: #f5f5f5;
     width: 75%;
-    z-index: 2;
-    float: right;
+    z-index: 1;
+    /* left: 5%; */
+    position: relative;
 }
 
 .searchWrapper {
@@ -19,13 +20,14 @@
     width: 40rem;
     z-index: 2;
     scroll-behavior: auto;
-
 }
 
 .searchForm {
     max-height: 22vh;
     width: 40%;
     padding: 15;
+    display: inline;
+    vertical-align: middle;
 }
 
 .searchBar:hover,
@@ -36,20 +38,24 @@
 
 .icon {
     position: relative;
-    left: 15%;
+    left: 10%;
+    top: 25%;
+    z-index: 2;
 }
-.searchSuggestions{
+
+.searchSuggestions {
     position: relative;
     float: right;
     z-index: 15;
 }
+
 .searchSuggestions:not(:empty) {
     position: relative;
     float: right;
     box-shadow: 0px 0px 4px #3d3d3d;
     background-color: #f5f5f5;
     list-style-type: none;
-    overflow:scroll;
+    overflow: scroll;
     max-height: 30vh;
     width: 75%;
     justify-content: left;
@@ -57,27 +63,26 @@
     scrollbar-width: none;
 }
 
-.searchSuggestions:not(:empty)::-webkit-scrollbar{
+.searchSuggestions:not(:empty)::-webkit-scrollbar {
     display: none;
 }
-
 
 .searchSuggestions:empty {
     display: none;
 }
 
-.searchSuggestions ul{
+.searchSuggestions ul {
     padding: 0;
     list-style-type: none;
     height: 100%;
 }
 
-.result a{
+.result a {
     text-decoration: none;
     color: var(--primary);
-
 }
-.result{
+
+.result {
     width: 100%;
     color: #4d6f8a;
     display: flex;
@@ -88,10 +93,12 @@
     transition: background var(--speed);
     padding: 2%;
 }
-.result:hover{
+
+.result:hover {
     background-color: #4d6f8a;
     color: #EBF5EE;
 }
+
 .suggestionImage {
     width: 20px;
 }

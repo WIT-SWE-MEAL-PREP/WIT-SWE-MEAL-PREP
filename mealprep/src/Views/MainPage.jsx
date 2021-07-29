@@ -168,7 +168,7 @@ class MainPage extends React.Component{
               />
             </div>
             <AddMealPlanModal onClose={() => this.setState({showModal: false})} show={this.state.showModal} initialModalRender={this.state.initialModalRender}/>
-            <div className="tableDivMealPlans">
+            <div className="tableDiv">
             <MaterialTable
             title="My Meal Plans"
             icons={tableIcons}
@@ -188,7 +188,7 @@ class MainPage extends React.Component{
               },
               {
                 icon: tableIcons.Add,
-                tooltip: 'Add Meal Plan',
+                tooltip: 'Generate Meal Plan',
                 isFreeAction: true
               }
             ]}

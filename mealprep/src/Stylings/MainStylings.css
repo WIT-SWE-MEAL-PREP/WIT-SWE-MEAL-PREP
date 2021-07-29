@@ -5,9 +5,8 @@
 
 .tableDiv {
     overflow: hidden;
-    margin-bottom: 75px;
     position: relative;
-    top: 75px;
+    top: 50px;
     min-width: 45vw;
 }
 
