@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { forwardRef } from 'react';
 import { withRouter } from 'react-router-dom';
 
@@ -7,6 +7,7 @@ import FoodSearchController from '../Controllers/FoodSearchController.jsx'
 import MaterialTable from 'material-table'
 
 import SearchBar from '../Components/SearchBar.jsx'
+import AddMealPlanModal from '../Views/AddMealPlanModal.jsx'
 
 import getMeals from '../Models/GetMeal.js'
 import deleteMeal from '../Models/DeleteMeal.js'
@@ -165,6 +166,40 @@ class MainPage extends React.Component{
                     zIndex:1
                   }}
               />
+            </div>
+            <AddMealPlanModal onClose={() => this.setState({showModal: false})} show={this.state.showModal} initialModalRender={this.state.initialModalRender}/>
+            <div className="tableDivMealPlans">
+            <MaterialTable
+            title="My Meal Plans"
+            icons={tableIcons}
+            columns={[
+              { title: 'Name', field: 'name' }
+            ]}
+            data={[
+              { name: 'Vegetarian' },
+              { name: 'Atkins' },
+              { name: 'Keto' }
+            ]}    
+            actions={[
+              {
+                icon: tableIcons.Edit,
+                tooltip: 'Edit Meal Plan',
+                onClick: (event, rowData) => this.setState({showModal: true})
+              },
+              {
+                icon: tableIcons.Add,
+                tooltip: 'Add Meal Plan',
+                isFreeAction: true
+              }
+            ]}
+            options={{
+              actionsColumnIndex: -1
+            }}
+            style={{
+              opacity:1,
+              zIndex:1
+            }}
+          />
             </div>
         </div>
       )
