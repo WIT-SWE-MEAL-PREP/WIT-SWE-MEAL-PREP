@@ -45,7 +45,7 @@ const tableIcons = {
   Search: forwardRef((props, ref) => <Search {...props} ref={ref} />),
   SortArrow: forwardRef((props, ref) => <ArrowDownward {...props} ref={ref} />),
   ThirdStateCheck: forwardRef((props, ref) => <Remove {...props} ref={ref} />),
-  ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />)
+  ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
 };
 
 class InventoryPage extends React.Component{
@@ -79,6 +79,7 @@ class InventoryPage extends React.Component{
   retrieveSearchSelections = (selection) => {
 
     this.props.getFoodId(selection)
+    console.log(this.props.getFoodId(selection))
     this.props.history.push("/food")
   }
 
@@ -98,12 +99,13 @@ class InventoryPage extends React.Component{
                   title="Inventory"
                   icons={tableIcons}
                   columns={[
-                      { title: 'Name', field: 'name' },
+                      { title: 'Name', field: 'name', cellStyle: { whiteSpace: 'nowrap'}},
                       { title: 'Quantity', field: 'serving' },
                       { title: 'Unit', field: 'unit' },
                       { title: 'Expiration Date', field: 'ExpirationDate' },
-                      { title: 'Days left', field: 'Days_Left' }
+                      { title: 'Days left', field: 'Days_Left' },
                       ]}
+                  onRowClick={ (evt, rowData) => this.retrieveSearchSelections(rowData)}
                   data={this.state.inventory}
                   actions={[
                     rowData => ({
@@ -113,12 +115,14 @@ class InventoryPage extends React.Component{
                     })
                   ]}
                   options={{
-                    actionsColumnIndex: -1
+                    actionsColumnIndex: -1,
+
                   }}
                   style={{
                     opacity:1,
                     zIndex:1
                   }}
+                  
               />
             </div>
         </div>

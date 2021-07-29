@@ -12,7 +12,7 @@ async function removeFoodFromMealService(foodInfoToRemove, mealToRemoveFrom) {
     var fiber = mealToRemoveFrom.Fiber - foodInfoToRemove.foodInfo.fiber;
     var sugar = mealToRemoveFrom.Sugar - foodInfoToRemove.foodInfo.sugar;
 
-    url = "http://localhost:8080/updateMealData?mealId='"   + String(mealToRemoveFrom.Meal_Id) 
+    url = "http://3.233.98.252:8080/updateMealData?mealId='"   + String(mealToRemoveFrom.Meal_Id) 
                                             + "'&calories='" + String(calories) 
                                             + "'&protein='"  + String(protein) 
                                             + "'&carbs='"    + String(carbs) 
@@ -27,7 +27,7 @@ async function removeFoodFromMealService(foodInfoToRemove, mealToRemoveFrom) {
         //TO-DO Add error handling here 
     }
 
-    url = "http://localhost:8080/removeFoodFromMeal?mealId='" + String(mealToRemoveFrom.Meal_Id) 
+    url = "http://3.233.98.252:8080/removeFoodFromMeal?mealId='" + String(mealToRemoveFrom.Meal_Id) 
                                             + "'&foodId='"   + String(foodInfoToRemove.Food_Id) + "'";
 
     var foodInMealUpdated = await removeFoodFromMeal(url);
