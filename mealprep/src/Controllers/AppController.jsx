@@ -17,6 +17,7 @@ import updateUserInventory from '../Models/UpdateUserInventory.js'
 import UpdateExpiration from '../Models/UpdateExpiration.js'
 
 import '../Stylings/AppStylings.css'
+import ShoppingListController from './ShoppingListController.jsx';
 
 class AppController extends React.Component {
 
@@ -192,6 +193,10 @@ class AppController extends React.Component {
                             <Header setSignInStatus = { this.setSignInStatus }/>
                             <InventoryController userId={this.state.userId} getSearchQuery={this.getSearchQuery} getFoodId={this.getFoodId}/>
                             {/* <Footer /> */}
+                        </Route>
+                        <Route path='/shoppinglist'>
+                            <Header setSignInStatus = { this.setSignInStatus }/>
+                            <ShoppingListController userId={this.state.userId} getSearchQuery={this.getSearchQuery} getFoodId={this.getFoodId}/>
                         </Route>
                         <Route path="/">
                             <Header setSignInStatus = { this.setSignInStatus }/>
