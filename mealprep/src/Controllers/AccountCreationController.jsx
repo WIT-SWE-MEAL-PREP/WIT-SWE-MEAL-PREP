@@ -52,6 +52,7 @@ class AccountCreationController extends React.Component {
             setEmail = { this.setEmail }
             setUserName = { this.setUserName }
             setPassword = { this.setPassword }
+            setAccountStatus = {this.setAccountStatus}
             />
         )
     }

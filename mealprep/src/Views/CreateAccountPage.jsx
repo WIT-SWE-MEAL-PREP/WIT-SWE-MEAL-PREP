@@ -24,26 +24,26 @@ class CreateAccountPage extends React.Component{
         <form onSubmit={this.handleSubmit}>
           <div className="field">
             <label>
-              <p>Email:</p>
+              <label className="fieldLabel">Email:<label className="required">*</label></label>
             </label>
-            <input type="email" onChange={e => this.setEmail(e.target.value)} />
+            <input type="email" onChange={e => this.setEmail(e.target.value)} required/>
           </div>
           <div className="field">
             <label>
-              <p>Username:</p>
+              <label className="fieldLabel">Username:<label className="required">*</label></label>
             </label>
-            <input type="text" onChange={e => this.setUserName(e.target.value)} />
+            <input type="text" onChange={e => this.setUserName(e.target.value)} required/>
           </div>
           <div className="field">
             <label>
-              <p>Password:</p>
+              <label className="fieldLabel">Password:<label className="required">*</label></label>
             </label>
-            <input type="password" onChange={e => this.setPassword(e.target.value)} />
+            <input type="password" onChange={e => this.setPassword(e.target.value)} required/>
           </div>
           <section className="actions">
             <div className="submit-button">
               <button type="submit" className="submit-btn">Submit</button>
-              <button type="submit" className="submit-btn">Cancel</button>
+              <button className="submit-btn" onClick={() => this.props.setAccountStatus(true)}>Cancel</button>
             </div>
           </section>
         </form>
