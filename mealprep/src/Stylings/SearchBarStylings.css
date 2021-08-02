@@ -45,13 +45,12 @@
 
 .searchSuggestions {
     position: relative;
-    float: right;
     z-index: 15;
 }
 
 .searchSuggestions:not(:empty) {
+    left: 10%;
     position: relative;
-    float: right;
     box-shadow: 0px 0px 4px #3d3d3d;
     background-color: #f5f5f5;
     list-style-type: none;
