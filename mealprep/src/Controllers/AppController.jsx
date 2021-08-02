@@ -1,10 +1,11 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, withRouter  } from 'react-router-dom';
 
 import AccountStatusController from './AccountStatusController.jsx';
 import MainController from './MainController.jsx'
 import ConfigController from './ConfigurationController.jsx'
 import InventoryController from './InventoryController.jsx';
+import FoodSearchController from './FoodSearchController.jsx';
 
 import Food from '../Components/Food.jsx'
 import Meal from '../Components/Meal.jsx'
@@ -102,12 +103,12 @@ class AppController extends React.Component {
 
     getSearchQuery(searchQuery){
         this.setState({
-            food: searchQuery
+            searchQuery: searchQuery
         })
     }
 
     getFoodId(foodData){
-
+        console.log(foodData)
         this.setState({
             food: foodData
         })
@@ -119,7 +120,7 @@ class AppController extends React.Component {
             mealId: mealId
         })
     }
-
+    
     getFoodToAdd(foodAndMealInfo){
 
         this.setState({
@@ -198,6 +199,10 @@ class AppController extends React.Component {
                         <Route path='/shoppinglist'>
                             <Header setSignInStatus = { this.setSignInStatus }/>
                             <ShoppingListController userId={this.state.userId} getSearchQuery={this.getSearchQuery} getFoodId={this.getFoodId}/>
+                        </Route>
+                        <Route path='/search'>
+                            <Header setSignInStatus = { this.setSignInStatus }/>
+                            <FoodSearchController getFoodId={this.getFoodId} searchQuery={this.state.searchQuery}/>
                         </Route>
                         <Route path="/">
                             <Header setSignInStatus = { this.setSignInStatus }/>
