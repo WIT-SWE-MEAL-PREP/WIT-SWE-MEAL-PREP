@@ -177,6 +177,7 @@ class AppController extends React.Component {
                 <BrowserRouter>
                     <Switch>
                         <Route path="/configure">
+                            <Header setSignInStatus = { this.setSignInStatus }/>
                             <ConfigController userId={this.state.userId}/>
                         </Route>
                         <Route path="/food">
