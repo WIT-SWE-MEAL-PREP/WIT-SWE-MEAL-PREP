@@ -67,7 +67,7 @@ class SearchResults extends React.Component {
   render(){
     return(
         <div>
-            <div className="tableDiv">
+            <div className="searchTableDiv">
                 <MuiThemeProvider theme={theme}>
                     <MaterialTable
                         title="Search results: values are out of 100g"
