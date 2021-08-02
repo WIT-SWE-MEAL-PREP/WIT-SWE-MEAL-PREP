@@ -1,8 +1,12 @@
 .tableDiv {
-    padding: 15px;
+    overflow: hidden;
+    position: relative;
+    top: 50px;
+    min-width: 45vw;
+    margin-bottom: 50px;
 }
 
-.returnBtn{
+.returnBtn {
     font-family: 'Raleway', sans-serif;
     margin: auto;
     margin-top: 20px;
