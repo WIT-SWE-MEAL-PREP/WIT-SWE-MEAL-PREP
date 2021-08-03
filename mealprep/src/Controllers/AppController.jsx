@@ -103,7 +103,7 @@ class AppController extends React.Component {
 
     getSearchQuery(searchQuery){
         this.setState({
-            searchQuery: searchQuery
+            food: searchQuery
         })
     }
 
@@ -139,31 +139,24 @@ class AppController extends React.Component {
     }
 
     addToInventory = async e => {
+        console.log(e);
         var foodId = e.id;
         var serving = e.serving;
         var unit = e.unit;
+        var daysLeft = e.daysLeft;
 
         var url = "http://3.233.98.252:8080/updateUserInventory?userId='" + 
                                           String(this.state.userId) 
                                           + "'&foodId='" + String(foodId) 
                                           + "'&serving='" + String(serving)
                                           + "'&unit='" + String(unit)
+                                          + "'&daysLeft='" + String(daysLeft)
         var inventory = await updateUserInventory(url);
 
         console.log(inventory);
     }
 
-    /*addExpiration = async e => {
-        var exp = e.expiration;
-
-        var url = "http://localhost:8080/updateUserInventory?userId='" + 
-                                          String(this.state.userId) 
-                                          + "'&Expiration='" + String(exp) 
-        var inventory = await updateExpiration(url);
-
-        console.log(inventory);
-    }*/
-
+    
     render(){
 
         if(!this.state.signedIn){
@@ -202,7 +195,7 @@ class AppController extends React.Component {
                         </Route>
                         <Route path='/search'>
                             <Header setSignInStatus = { this.setSignInStatus }/>
-                            <FoodSearchController getFoodId={this.getFoodId} searchQuery={this.state.searchQuery}/>
+                            <FoodSearchController getFoodId={this.getFoodId} searchQuery={this.state.food}/>
                         </Route>
                         <Route path="/">
                             <Header setSignInStatus = { this.setSignInStatus }/>

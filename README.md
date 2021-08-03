@@ -48,4 +48,4 @@ https://youtu.be/FjHnPdnKBsg
 * Naishvi Patel pateln14@wit.edu, Database Engineer 
 * Elvis De Leone deleone2@wit.edu Front/Backend Development 
 * Colin Hennessey hennesseyc@wit.edu Full-Stack Developer
-* Andy Dicarlo dicarloa@wit.edu Full Stack Developer
+* Andy DiCarlo dicarloa@wit.edu Full Stack Developer
