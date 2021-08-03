@@ -68,8 +68,8 @@ class InventoryController extends React.Component {
                     foodId: inventory[i].Food_Id,
                     serving: inventory[i].Serving,
                     unit: inventory[i].Unit,
-                    ExpirationDate: expDate,
-                    Days_Left: daysLeft,
+                    ExpirationDate: moment().add(inventory[i].Days_Left, 'days').format('ll'),
+                    Days_Left: inventory[i].Days_Left,
                 };
             }
 

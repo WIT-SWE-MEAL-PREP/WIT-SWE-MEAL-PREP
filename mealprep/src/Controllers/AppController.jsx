@@ -142,12 +142,14 @@ class AppController extends React.Component {
         var foodId = e.id;
         var serving = e.serving;
         var unit = e.unit;
+        var daysLeft = e.daysLeft;
 
         var url = "http://3.233.98.252:8080/updateUserInventory?userId='" + 
                                           String(this.state.userId) 
                                           + "'&foodId='" + String(foodId) 
                                           + "'&serving='" + String(serving)
                                           + "'&unit='" + String(unit)
+                                          + "'&daysLeft='" + String(daysLeft)
         var inventory = await updateUserInventory(url);
 
         console.log(inventory);
