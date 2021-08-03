@@ -103,7 +103,7 @@ class AppController extends React.Component {
 
     getSearchQuery(searchQuery){
         this.setState({
-            searchQuery: searchQuery
+            food: searchQuery
         })
     }
 
@@ -202,7 +202,7 @@ class AppController extends React.Component {
                         </Route>
                         <Route path='/search'>
                             <Header setSignInStatus = { this.setSignInStatus }/>
-                            <FoodSearchController getFoodId={this.getFoodId} searchQuery={this.state.searchQuery}/>
+                            <FoodSearchController getFoodId={this.getFoodId} searchQuery={this.state.food}/>
                         </Route>
                         <Route path="/">
                             <Header setSignInStatus = { this.setSignInStatus }/>
