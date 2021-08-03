@@ -36,7 +36,10 @@ class Header extends React.Component{
                 </h1>
             {this.state.visible?
             (
-                <ul className="dropdown">
+                null
+            )
+            :(
+              <ul className="dropdown">
                     <li>
                         <Link to="/" className="menuItem">My Meals</Link>
                     </li>
@@ -57,9 +60,6 @@ class Header extends React.Component{
                         <Link className="menuItem" onClick={() => { this.setSignInStatus(false) }}>Sign Out  </Link> 
                     </li>  
               </ul>
-            )
-            :(
-              null
             )
         }
             </div>
