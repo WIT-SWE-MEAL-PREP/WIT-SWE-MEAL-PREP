@@ -57,7 +57,7 @@ class ShoppingListPage extends React.Component{
         renderSearchPage: false,
         searchQuery: "",
         userId: this.props.userId,
-        shoppingList: this.props.shoppingList
+        shoplist: this.props.shoplist
       }
   }
 
@@ -99,10 +99,10 @@ class ShoppingListPage extends React.Component{
                   icons={tableIcons}
                   columns={[
                       { title: 'Name', field: 'name' },
-                      { title: 'Quantity', field: 'serving' },
-                      { title: 'Unit', field: 'unit' },
+                      //{ title: 'Quantity', field: 'serving' },
+                      //{ title: 'Unit', field: 'unit' },
                       ]}
-                  data={this.state.shoppingList}
+                  data={this.state.shoplist}
                   
                   options={{
                     actionsColumnIndex: -1

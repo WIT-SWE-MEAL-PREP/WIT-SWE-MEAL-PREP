@@ -56,10 +56,6 @@ class InventoryController extends React.Component {
                   }
         
                 var foodData = await getNutrients(url, jsonBody);
-                var expiration = await getExpiration(url, jsonBody); //what will be used to store the days to expiration and calculate expiration date
-                var currentDate = moment();
-                var expDate = moment().add(5, 'days').format('ll');
-                var daysLeft = -1 * currentDate.diff(expDate, 'days') +1;
 
                 console.log(foodData)
                 console.log(inventory)

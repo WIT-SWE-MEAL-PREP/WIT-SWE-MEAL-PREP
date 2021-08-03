@@ -1,11 +1,6 @@
 import React from 'react';
 
-import getUserInventory from '../Models/GetUserInventory.js'
 import getNutrients from '../Models/GetFoodNutrients.js'
-import getExpiration from '../Models/UpdateExpiration.js'
-import deleteInventoryItem from '../Models/DeleteInventoryItem.js'
-import getMeals from '../Models/GetMeals.js';
-import getFoodsInMeal from '../Models/GetFoodsInMeal.js';
 
 import getShoppingList from '../Models/GetShoppingList.js';
 import ShoppingListPage from '../Views/ShoppingListPage';
@@ -24,63 +19,22 @@ class ShoppingListController extends React.Component {
         this.state = {
             userId: this.props.userId,
             dataReturned: false,
-            shoplist: {}
+            shoplist: [{}]
         }
     }
 
     componentDidMount(){
         this.getSL();
-        //this.getMealsandFoods();
 
         this.setState({
             dataReturned: true
         })
     }
 
-    /*getMealsandFoods = async e => {
-        var url = "http://3.233.98.252:8080/getMeals?userId='" + String(this.state.userId) + "'";
-        var returnedResults = await getMeals(url);
-
-        console.log(returnedResults.success)
-
-        var mealIds = returnedResults.success.map(mealId => {
-            mealId = mealId.Meal_Id;
-            return mealId;
-        });
-
-        console.log(mealIds)
-
-        var foodIds = [];
-
-        for(let i = 0; i < mealIds.length ; i++){
-
-            url = "http://3.233.98.252:8080/getFoodsInMeal?mealId='" + String(mealIds[i]) + "'";
-
-            var foodsInMeal = await getFoodsInMeal(url);
-
-            if(foodsInMeal.success !== false){
-
-            foodsInMeal = foodsInMeal.success.map(food => {
-                food = food;
-                return food
-            });
-            }
     
-            foodIds = foodIds.concat(foodsInMeal)
-        };
-
-        console.log(foodIds);
-
-        this.setState({
-            foodIds: foodIds,
-            mealIds: mealIds
-        })
-    }*/
-
     getSL = async e =>{
         var url = "http://3.233.98.252:8080/getShoppingList?userId='" + String(this.state.userId) + "'";
         var shoplist = await getShoppingList(url);
-
         if(shoplist.success.length > 0){
 
             shoplist = shoplist.success.map(food => {
@@ -104,20 +58,12 @@ class ShoppingListController extends React.Component {
                   }
         
                 var foodData = await getNutrients(url, jsonBody);
-                var expiration = await getExpiration(url, jsonBody); //what will be used to store the days to expiration and calculate expiration date
-                var currentDate = moment();
-                var expDate = moment().add(5, 'days').format('ll');
-                //var daysLeft = -1 * currentDate.diff(expDate, 'days') +1;
 
                 console.log(foodData)
                 console.log(shoplist)
                 shoplist[i]['foodInfo'] =  {
                     name: foodData.ingredients[0].parsed[0].food,
                     foodId: shoplist[i].Food_Id,
-                    //serving: shoplist[i].Serving,
-                    //unit: shoplist[i].Unit,
-                    //ExpirationDate: expDate,
-                    //Days_Left: daysLeft,
                 };
             }
 

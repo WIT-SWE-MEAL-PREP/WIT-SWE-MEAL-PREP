@@ -139,6 +139,7 @@ class AppController extends React.Component {
     }
 
     addToInventory = async e => {
+        console.log(e);
         var foodId = e.id;
         var serving = e.serving;
         var unit = e.unit;
@@ -155,17 +156,7 @@ class AppController extends React.Component {
         console.log(inventory);
     }
 
-    /*addExpiration = async e => {
-        var exp = e.expiration;
-
-        var url = "http://localhost:8080/updateUserInventory?userId='" + 
-                                          String(this.state.userId) 
-                                          + "'&Expiration='" + String(exp) 
-        var inventory = await updateExpiration(url);
-
-        console.log(inventory);
-    }*/
-
+    
     render(){
 
         if(!this.state.signedIn){

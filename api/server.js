@@ -590,14 +590,16 @@ app.post('/updateUserInventory', (req, res) => {
     var foodId = req.query.foodId
     var serving = req.query.serving
     var unit = req.query.unit
+    var daysLeft = req.query.daysLeft
 
 
     var getDBInfo = function(callback) {
-        let sql = "INSERT INTO gainsday.Inventory (User_Id, Food_Id, Serving, Unit) VALUES" +
+        let sql = "INSERT INTO gainsday.Inventory (User_Id, Food_Id, Serving, Unit, Days_Left) VALUES" +
             " (" + String(userId) +
             ", " + String(foodId) +
             ", " + String(serving) +
-            ", " + String(unit) + "');"
+            ", " + String(unit) + 
+            ", " + String(daysLeft) + "');"
 
         connection.query(sql, (err, resp) => {
             if (err) {
