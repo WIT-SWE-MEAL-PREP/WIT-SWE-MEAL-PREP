@@ -97,8 +97,8 @@ class ShoppingListPage extends React.Component{
                   icons={tableIcons}
                   columns={[
                       { title: 'Name', field: 'name', cellStyle: { whiteSpace: 'nowrap'}},
-                      { title: 'Quantity', field: 'serving' },
-                      { title: 'Unit', field: 'unit' },
+                      //{ title: 'Quantity', field: 'serving' },
+                      //{ title: 'Unit', field: 'unit' },
                   ]}
                   onRowClick={ (evt, rowData) => this.retrieveSearchSelections(rowData)}
                   data={this.state.shoplist}
