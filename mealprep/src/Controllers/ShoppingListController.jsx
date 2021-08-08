@@ -60,6 +60,8 @@ class ShoppingListController extends React.Component {
                 shoplist[i]['foodInfo'] =  {
                     name: foodData.ingredients[0].parsed[0].food,
                     foodId: shoplist[i].Food_Id,
+                    serving: shoplist[i].Serving,
+                    unit: shoplist[i].Unit,
                 };
             }
 
