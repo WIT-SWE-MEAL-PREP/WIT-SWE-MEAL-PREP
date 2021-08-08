@@ -9,7 +9,6 @@ import Loader from "react-loader-spinner";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 
 import '../Stylings/AppStylings.css'
-import moment from '../moment.js';
 
 class ShoppingListController extends React.Component {
 
@@ -25,16 +24,13 @@ class ShoppingListController extends React.Component {
 
     componentDidMount(){
         this.getSL();
-
-        this.setState({
-            dataReturned: true
-        })
     }
 
     
     getSL = async e =>{
         var url = "http://3.233.98.252:8080/getShoppingList?userId='" + String(this.state.userId) + "'";
         var shoplist = await getShoppingList(url);
+
         if(shoplist.success.length > 0){
 
             shoplist = shoplist.success.map(food => {
@@ -73,13 +69,14 @@ class ShoppingListController extends React.Component {
             });
 
         }else{
-            shoplist = [{}]
+            shoplist = []
         }
 
         console.log(shoplist)
 
         this.setState({
-            shoplist: shoplist
+            shoplist: shoplist,
+            dataReturned: true
         })
     }
 

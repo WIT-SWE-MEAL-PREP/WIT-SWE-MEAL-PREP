@@ -2,7 +2,6 @@ import React from 'react';
 
 import getUserInventory from '../Models/GetUserInventory.js'
 import getNutrients from '../Models/GetFoodNutrients.js'
-import getExpiration from '../Models/UpdateExpiration.js'
 import deleteInventoryItem from '../Models/DeleteInventoryItem.js'
 
 import InventoryPage from '../Views/InventoryPage.jsx';
