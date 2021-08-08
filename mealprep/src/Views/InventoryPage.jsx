@@ -69,11 +69,10 @@ class InventoryPage extends React.Component{
   }
 
   handleSearchSubmit = (search) => {
+    console.log(search);
     
-    this.setState({
-      renderSearchPage: true,
-      searchQuery: search
-    })
+    this.props.getSearchQuery(search);
+    this.props.history.push("/search")
   }
 
   retrieveSearchSelections = (selection) => {
@@ -84,7 +83,6 @@ class InventoryPage extends React.Component{
   }
 
   render(){
-    if(!this.state.renderSearchPage){
       return(
         <div className="pageWrapper">
 
@@ -127,15 +125,6 @@ class InventoryPage extends React.Component{
             </div>
         </div>
       )
-    }else{
-      return(
-        <FoodSearchController
-        searchQuery={this.state.searchQuery}
-        retrieveSearchSelections={this.retrieveSearchSelections}
-        />
-      )
-    }
-
   }
 }
 

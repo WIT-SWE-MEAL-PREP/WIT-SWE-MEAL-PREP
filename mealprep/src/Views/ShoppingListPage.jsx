@@ -70,10 +70,8 @@ class ShoppingListPage extends React.Component{
 
   handleSearchSubmit = (search) => {
     
-    this.setState({
-      renderSearchPage: true,
-      searchQuery: search
-    })
+    this.props.getSearchQuery(search);
+    this.props.history.push("/search")
   }
 
   retrieveSearchSelections = (selection) => {
@@ -84,7 +82,6 @@ class ShoppingListPage extends React.Component{
   }
 
   render(){
-    if(!this.state.renderSearchPage){
       return(
         <div className="pageWrapper">
 
@@ -119,16 +116,7 @@ class ShoppingListPage extends React.Component{
             </div>
         </div>
       )
-    }else{
-      return(
-        <FoodSearchController
-        searchQuery={this.state.searchQuery}
-        retrieveSearchSelections={this.retrieveSearchSelections}
-        />
-      )
     }
-
-  }
 }
 
 export default withRouter(ShoppingListPage); 
