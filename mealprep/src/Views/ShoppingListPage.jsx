@@ -45,7 +45,7 @@ const tableIcons = {
   Search: forwardRef((props, ref) => <Search {...props} ref={ref} />),
   SortArrow: forwardRef((props, ref) => <ArrowDownward {...props} ref={ref} />),
   ThirdStateCheck: forwardRef((props, ref) => <Remove {...props} ref={ref} />),
-  ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />)
+  ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
 };
 
 class ShoppingListPage extends React.Component{
@@ -57,7 +57,7 @@ class ShoppingListPage extends React.Component{
         renderSearchPage: false,
         searchQuery: "",
         userId: this.props.userId,
-        shoppingList: this.props.shoppingList
+        shoplist: this.props.shoplist
       }
   }
 
@@ -70,20 +70,18 @@ class ShoppingListPage extends React.Component{
 
   handleSearchSubmit = (search) => {
     
-    this.setState({
-      renderSearchPage: true,
-      searchQuery: search
-    })
+    this.props.getSearchQuery(search);
+    this.props.history.push("/search")
   }
 
   retrieveSearchSelections = (selection) => {
 
     this.props.getFoodId(selection)
+    console.log(this.props.getFoodId(selection))
     this.props.history.push("/food")
   }
 
   render(){
-    if(!this.state.renderSearchPage){
       return(
         <div className="pageWrapper">
 
@@ -98,33 +96,27 @@ class ShoppingListPage extends React.Component{
                   title="Shopping List"
                   icons={tableIcons}
                   columns={[
-                      { title: 'Name', field: 'name' },
+                      { title: 'Name', field: 'name', cellStyle: { whiteSpace: 'nowrap'}},
                       { title: 'Quantity', field: 'serving' },
                       { title: 'Unit', field: 'unit' },
-                      ]}
-                  data={this.state.shoppingList}
+                  ]}
+                  onRowClick={ (evt, rowData) => this.retrieveSearchSelections(rowData)}
+                  data={this.state.shoplist}
                   
                   options={{
-                    actionsColumnIndex: -1
+                    actionsColumnIndex: -1,
+
                   }}
                   style={{
                     opacity:1,
                     zIndex:1
                   }}
+                  
               />
             </div>
         </div>
       )
-    }else{
-      return(
-        <FoodSearchController
-        searchQuery={this.state.searchQuery}
-        retrieveSearchSelections={this.retrieveSearchSelections}
-        />
-      )
     }
-
-  }
 }
 
 export default withRouter(ShoppingListPage); 
