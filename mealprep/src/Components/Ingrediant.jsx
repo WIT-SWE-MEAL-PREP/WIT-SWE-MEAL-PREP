@@ -12,6 +12,7 @@ class Ingrediant extends React.Component{
 
     
     render() {
+        console.log(this.state.ingredientInfo)
         return(
             <div className="ingredientDiv" key={this.state.ingredientInfo.Food_Id}>
                 <h3 className="ingredientTitle" onClick={() => { this.props.routeToFood(this.state.ingredientInfo) }}>

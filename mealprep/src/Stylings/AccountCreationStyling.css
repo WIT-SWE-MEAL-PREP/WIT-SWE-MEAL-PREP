@@ -17,6 +17,15 @@
     display: inline-block;
 }
 
+.field {
+    justify-content: center;
+}
+
+.fieldLabel {
+    position: relative;
+    margin-left: 32%;
+}
+
 
 /* On mouse-over */
 

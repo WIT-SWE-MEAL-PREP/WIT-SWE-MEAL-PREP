@@ -29,6 +29,9 @@ class Food extends React.Component{
     }
 
     getData = async e => {
+
+        console.log(this.state.preliminaryInfo)
+
         var url = "https://api.edamam.com/api/food-database/v2/nutrients?app_id=36b7b45f&app_key=cb6dd0831871febd1d0ce5077a364182";
 
         var jsonBody = {

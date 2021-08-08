@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { forwardRef } from 'react';
 import { withRouter } from 'react-router-dom';
 
@@ -7,6 +7,7 @@ import FoodSearchController from '../Controllers/FoodSearchController.jsx'
 import MaterialTable from 'material-table'
 
 import SearchBar from '../Components/SearchBar.jsx'
+import AddMealPlanModal from '../Views/AddMealPlanModal.jsx'
 
 import getMeals from '../Models/GetMeal.js'
 import deleteMeal from '../Models/DeleteMeal.js'
@@ -72,7 +73,7 @@ class MainPage extends React.Component{
         selectedFoods: [{}]
       }
       
-      this.retrieveSearchSelections = this.retrieveSearchSelections.bind(this)
+      // this.retrieveSearchSelections = this.retrieveSearchSelections.bind(this)
       
   }
   
@@ -92,17 +93,10 @@ class MainPage extends React.Component{
 
   handleSearchSubmit = (search) => {
     
-    this.setState({
-      renderSearchPage: true,
-      searchQuery: search
-    })
+    this.props.getSearchQuery(search);
+    this.props.history.push("/search")
   }
 
-  retrieveSearchSelections = (selection) => {
-
-    this.props.getFoodId(selection)
-    this.props.history.push("/food")
-  }
 
   getMeals = async e => {
 
@@ -134,7 +128,6 @@ class MainPage extends React.Component{
     }
   }
   render(){
-    if(!this.state.renderSearchPage){
       return(
         <div className="pageWrapper">
 
@@ -221,15 +214,6 @@ class MainPage extends React.Component{
             </div>
         </div>
       )
-    }else{
-      return(
-        <FoodSearchController
-        searchQuery={this.state.searchQuery}
-        retrieveSearchSelections={this.retrieveSearchSelections}
-        />
-      )
-    }
-
   }
 }
 

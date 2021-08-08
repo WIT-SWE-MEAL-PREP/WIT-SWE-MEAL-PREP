@@ -57,3 +57,19 @@ Serving INT,
 Unit VARCHAR(1000),
 FOREIGN KEY (User_Id) REFERENCES User(User_Id)
 );
+
+
+Create Table MealPlans(
+MealPlan_Id INT NOT NULL, 
+User_Id INT NOT NULL,
+CONSTRAINT MealPlans_PK PRIMARY KEY (MealPlan_Id),
+FOREIGN KEY (User_Id) REFERENCES User(User_Id)
+);
+
+Create Table MealsInPlan(
+MealPlan_Id INT NOT NULL,
+Meal_Id INT NOT NULL, 
+FOREIGN KEY (MealPlan_Id) REFERENCES MealPlans(MealPlan_Id),
+FOREIGN KEY (Meal_Id) REFERENCES Meals(Meal_Id)
+);
+

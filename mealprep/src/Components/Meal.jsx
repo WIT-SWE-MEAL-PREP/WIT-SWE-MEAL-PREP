@@ -86,8 +86,11 @@ class Food extends React.Component{
     }
 
     routeToFood = async e => {
+        console.log(e)
         var url = "https://api.edamam.com/api/food-database/v2/parser?nutrition-type=logging&ingr=" + String(e.Food_Id) + "&app_id=36b7b45f&app_key=cb6dd0831871febd1d0ce5077a364182";
         var returnedResults = await getFood(url);
+
+        console.log(returnedResults)
 
         this.props.getSearchQuery(returnedResults.hints[0].food)
         this.props.history.push("/food")

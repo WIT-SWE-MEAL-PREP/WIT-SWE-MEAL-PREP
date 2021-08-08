@@ -1,9 +1,11 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, withRouter  } from 'react-router-dom';
 
 import AccountStatusController from './AccountStatusController.jsx';
 import MainController from './MainController.jsx'
 import ConfigController from './ConfigurationController.jsx'
+import InventoryController from './InventoryController.jsx';
+import FoodSearchController from './FoodSearchController.jsx';
 
 import Food from '../Components/Food.jsx'
 import Meal from '../Components/Meal.jsx'
@@ -102,13 +104,21 @@ class AppController extends React.Component {
         })
     }
 
+
+    getFoodId(foodData){
+        console.log(foodData)
+        this.setState({
+            food: foodData
+        })
+    }
+
     getMealId(mealId){
         this.setState({
             mealDataUpdated: true,
             mealId: mealId
         })
     }
-
+    
     getFoodToAdd(foodAndMealInfo){
 
         this.setState({
@@ -126,6 +136,25 @@ class AppController extends React.Component {
 
     }
 
+    addToInventory = async e => {
+        console.log(e);
+        var foodId = e.id;
+        var serving = e.serving;
+        var unit = e.unit;
+        var daysLeft = e.daysLeft;
+
+        var url = "http://3.233.98.252:8080/updateUserInventory?userId='" + 
+                                          String(this.state.userId) 
+                                          + "'&foodId='" + String(foodId) 
+                                          + "'&serving='" + String(serving)
+                                          + "'&unit='" + String(unit)
+                                          + "'&daysLeft='" + String(daysLeft)
+        var inventory = await updateUserInventory(url);
+
+        console.log(inventory);
+    }
+
+    
     render(){
 
         if(!this.state.signedIn){
@@ -156,6 +185,10 @@ class AppController extends React.Component {
                         <Route path='/shoppinglist'>
                             <Header setSignInStatus = { this.setSignInStatus }/>
                             <ShoppingListController userId={this.state.userId} getSearchQuery={this.getSearchQuery} getFoodId={this.getFoodId}/>
+                        </Route>
+                        <Route path='/search'>
+                            <Header setSignInStatus = { this.setSignInStatus }/>
+                            <FoodSearchController getFoodId={this.getFoodId} searchQuery={this.state.food}/>
                         </Route>
                         <Route path="/">
                             <Header setSignInStatus = { this.setSignInStatus }/>
