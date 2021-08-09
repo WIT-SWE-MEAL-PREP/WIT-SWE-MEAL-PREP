@@ -726,7 +726,7 @@ app.post('/updateMealsinMealPlan', (req, res) => {
 
     var postDBInfo = function(callback) {
 
-        let sql = "INSERT INTO gainsday.MealsInMealPlan (MealPlan_Id, Meal_Id) VALUES (" + String(req.query.mealPlanId) +
+        let sql = "INSERT INTO gainsday.MealsInPlan (MealPlan_Id, Meal_Id) VALUES (" + String(req.query.mealPlanId) +
             "," + String(req.query.MealId) + ")";
 
         connection.query(sql, (err, resp) => {
@@ -753,7 +753,7 @@ app.post('/deleteMealPlan', (req, res) => {
 
 
     var removeFromFoodsInMealMealTable = function(callback) {
-        let sql = "DELETE FROM gainsday.MealsInMealPlan WHERE MealPlan_Id LIKE " + mealPlanId;
+        let sql = "DELETE FROM gainsday.MealsInPlan WHERE MealPlan_Id LIKE " + mealPlanId;
 
         console.log("FoodsInMeal SQL")
         console.log(sql)
@@ -809,7 +809,7 @@ app.get('/getMealsInMealPlan', (req, res) => {
     var result = false;
     var mealPlanId = req.query.mealPlanId
     var getDBInfo = function(callback) {
-        let sql = "SELECT Meal_Id FROM gainsday.MealsInMealPlan WHERE MealPlan_Id LIKE " + mealPlanId;
+        let sql = "SELECT Meal_Id FROM gainsday.MealsInPlan WHERE MealPlan_Id LIKE " + mealPlanId;
         connection.query(sql, (err, resp) => {
             if (err) {
                 console.log("error: ", err);
