@@ -116,7 +116,7 @@ class MainPage extends React.Component{
   }
 
   getMealPlans = async e => {
-    var url = "http://localhost:8080/getMealPlan?userId='" + String(this.props.userId) + "'";
+    var url = "http://3.233.98.252:8080/getMealPlan?userId='" + String(this.props.userId) + "'";
     var returnedResults = await getMealPlan(url);
 
     if(returnedResults.success) {
@@ -125,7 +125,7 @@ class MainPage extends React.Component{
       this.setState({
         selectedMealPlan: returnedResults.success[0]["MealPlan_Id"]
       }, async e => {
-        var url = "http://localhost:8080/getMealsInMealPlan?mealPlanId='" + String(this.state.selectedMealPlan) + "'";
+        var url = "http://3.233.98.252:8080/getMealsInMealPlan?mealPlanId='" + String(this.state.selectedMealPlan) + "'";
         var mealIds = await getMealsInMealPlan(url);
 
         console.log(mealIds)
@@ -179,7 +179,7 @@ class MainPage extends React.Component{
 
       console.log(this.state.mealPlanId)
 
-      var url = "http://localhost:8080/deleteMealPlan?mealPlanId='" + String(this.state.mealPlanId) + "'";
+      var url = "http://3.233.98.252:8080/deleteMealPlan?mealPlanId='" + String(this.state.mealPlanId) + "'";
       var planDeleted = await deleteMealPlan(url);
 
     }
@@ -253,7 +253,7 @@ class MainPage extends React.Component{
       displayMealPlanTable: true
     })
 
-    var url = "http://localhost:8080/uploadNewMealPlan?userId='" + String(this.state.userId) + "'";
+    var url = "http://3.233.98.252:8080/uploadNewMealPlan?userId='" + String(this.state.userId) + "'";
     var mealPlanId = await uploadNewMealPlan(url);
 
     this.setState({
@@ -265,7 +265,7 @@ class MainPage extends React.Component{
     console.log(mealPlanToDisplay)
 
     for(let i = 0; i < mealPlanToDisplay.length; i++){
-      var url = "http://localhost:8080/updateMealsinMealPlan?mealPlanId='" + String(mealPlanId.success) + "'&mealId='" + String(mealPlanToDisplay[i].Meal_Id) 
+      var url = "http://3.233.98.252:8080/updateMealsinMealPlan?mealPlanId='" + String(mealPlanId.success) + "'&mealId='" + String(mealPlanToDisplay[i].Meal_Id) 
       var foodsInMealPlan = await updateFoodsInMealPlan(url);
     }
 
