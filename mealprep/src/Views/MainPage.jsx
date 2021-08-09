@@ -5,7 +5,8 @@ import { withRouter } from 'react-router-dom';
 import MaterialTable from 'material-table'
 
 import SearchBar from '../Components/SearchBar.jsx'
-import AddMealPlanModal from '../Views/AddMealPlanModal.jsx'
+
+import generateMealPlans from '../Services/GenerateMealPlan.jsx';
 
 import getMeals from '../Models/GetMeal.js'
 import deleteMeal from '../Models/DeleteMeal.js'
@@ -60,6 +61,9 @@ class MainPage extends React.Component{
         userId: this.props.userId,
         constraints: this.props.constraints,
         selectedFoods: [{}],
+        mealPlan: [{}],
+        meals: [{}],
+        validMealPlans: [{}]
       }      
   }
 
@@ -89,7 +93,7 @@ class MainPage extends React.Component{
     if(returnedResults.success) {
 
       this.setState({
-        data: returnedResults.success
+        meals: returnedResults.success
       })
 
     }
@@ -111,6 +115,7 @@ class MainPage extends React.Component{
     }
   }
 
+  
   render(){
       return(
         <div className="pageWrapper">
@@ -134,7 +139,7 @@ class MainPage extends React.Component{
                       { title: 'Fiber (g)', field: 'Fiber'},
                       { title: 'Sugar (g)', field: 'Sugar'},
                       ]}
-                  data={this.state.data}
+                  data={this.state.meals}
                   actions={[
                     {
                       icon: tableIcons.Edit,
@@ -156,19 +161,18 @@ class MainPage extends React.Component{
                   }}
               />
             </div>
-            <AddMealPlanModal onClose={() => this.setState({showModal: false})} show={this.state.showModal} initialModalRender={this.state.initialModalRender}/>
               <div className="tableDiv">
                 <MaterialTable
                 title="My Meal Plans"
                 icons={tableIcons}
                 columns={[{title: 'Meal Plan Name', field: 'name'}]}
-                data={[]}
+                data={this.state.MealPlan}
                 actions={[
                   {
                     icon: tableIcons.Add,
-                    tooltip: 'Add meal plan',
+                    tooltip: 'Generate Meal Plan',
                     isFreeAction: true,
-                    onClick: (event) => this.setState({showModal: true})
+                    onClick: (event) => generateMealPlans(formatMealsToIds(this.state.meals), this.props.userId)
                   }
                 ]}
               />
