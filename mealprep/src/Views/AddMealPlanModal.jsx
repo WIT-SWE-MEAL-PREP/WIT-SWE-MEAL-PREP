@@ -34,7 +34,7 @@ class AddMealPlanModal extends React.Component {
                     <label className="mealPlanNameInputLabel" >New Meal Plan Name:</label>
                     <input className="mealPlanNameInput" id="mealPlanNameInput" type="string" placeholder="Meal Plan Name: " required={true} />   
                     </div>
-                        <Link to="/mainpage" onClick={ () => this.props.getMealPlanToAdd({mealPlanId: this.state.mealPlanId, mealPlanName: (document.getElementById("mealPlanNameInput") != null) ? document.getElementById("mealPlanNameInput").value : ""})}>
+                        <Link to="/" onClick={ () => this.props.getMealPlanToAdd({mealPlanId: this.state.mealPlanId, mealPlanName: (document.getElementById("mealPlanNameInput") != null) ? document.getElementById("mealPlanNameInput").value : ""})}>
                           <button className="addMealPlanModalButton" >Add To Meal Plan</button> 
                         </Link> 
                       <div className="modal-footer">
