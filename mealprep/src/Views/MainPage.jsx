@@ -76,17 +76,10 @@ class MainPage extends React.Component{
 
   handleSearchSubmit = (search) => {
     
-    this.setState({
-      renderSearchPage: true,
-      searchQuery: search
-    })
+    this.props.getSearchQuery(search);
+    this.props.history.push("/search")
   }
 
-  retrieveSearchSelections = (selection) => {
-
-    this.props.getFoodId(selection)
-    this.props.history.push("/food")
-  }
 
   getMeals = async e => {
 

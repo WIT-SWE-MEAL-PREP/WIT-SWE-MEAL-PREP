@@ -1,10 +1,11 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, withRouter  } from 'react-router-dom';
 
 import AccountStatusController from './AccountStatusController.jsx';
 import MainController from './MainController.jsx'
 import ConfigController from './ConfigurationController.jsx'
 import InventoryController from './InventoryController.jsx';
+import FoodSearchController from './FoodSearchController.jsx';
 
 import Food from '../Components/Food.jsx'
 import Meal from '../Components/Meal.jsx'
@@ -110,7 +111,7 @@ class AppController extends React.Component {
     }
 
     getFoodId(foodData){
-
+        console.log(foodData)
         this.setState({
             food: foodData
         })
@@ -122,7 +123,7 @@ class AppController extends React.Component {
             mealId: mealId
         })
     }
-
+    
     getFoodToAdd(foodAndMealInfo){
 
         this.setState({
@@ -155,31 +156,24 @@ class AppController extends React.Component {
     }
 
     addToInventory = async e => {
+        console.log(e);
         var foodId = e.id;
         var serving = e.serving;
         var unit = e.unit;
+        var daysLeft = e.daysLeft;
 
         var url = "http://3.233.98.252:8080/updateUserInventory?userId='" + 
                                           String(this.state.userId) 
                                           + "'&foodId='" + String(foodId) 
                                           + "'&serving='" + String(serving)
                                           + "'&unit='" + String(unit)
+                                          + "'&daysLeft='" + String(daysLeft)
         var inventory = await updateUserInventory(url);
 
         console.log(inventory);
     }
 
-    /*addExpiration = async e => {
-        var exp = e.expiration;
-
-        var url = "http://localhost:8080/updateUserInventory?userId='" + 
-                                          String(this.state.userId) 
-                                          + "'&Expiration='" + String(exp) 
-        var inventory = await updateExpiration(url);
-
-        console.log(inventory);
-    }*/
-
+    
     render(){
 
         if(!this.state.signedIn){
@@ -194,6 +188,7 @@ class AppController extends React.Component {
                 <BrowserRouter>
                     <Switch>
                         <Route path="/configure">
+                            <Header setSignInStatus = { this.setSignInStatus }/>
                             <ConfigController userId={this.state.userId}/>
                         </Route>
                         <Route path="/food">
@@ -214,6 +209,10 @@ class AppController extends React.Component {
                         <Route path='/shoppinglist'>
                             <Header setSignInStatus = { this.setSignInStatus }/>
                             <ShoppingListController userId={this.state.userId} getSearchQuery={this.getSearchQuery} getFoodId={this.getFoodId}/>
+                        </Route>
+                        <Route path='/search'>
+                            <Header setSignInStatus = { this.setSignInStatus }/>
+                            <FoodSearchController getFoodId={this.getFoodId} searchQuery={this.state.food}/>
                         </Route>
                         <Route path="/">
                             <Header setSignInStatus = { this.setSignInStatus }/>

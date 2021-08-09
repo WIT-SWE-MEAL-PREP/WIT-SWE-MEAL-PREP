@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import getFood from '../Models/GetFood.js'
 
 import SearchResults from '../Views/SearchResults.jsx'
@@ -20,6 +21,16 @@ class FoodSearchController extends React.Component {
     componentDidMount = () =>{
         this.getData(this.state.searchQuery);
     }
+
+    retrieveSearchSelections = (foodInfo) => {
+
+        console.log(foodInfo)
+
+        this.props.getFoodId(foodInfo);
+        this.props.history.push('/food');
+        console.log("got here")
+    }
+    
 
     getData = async e => {
         var url = "https://api.edamam.com/api/food-database/v2/parser?nutrition-type=logging&ingr=" + String(this.state.searchQuery) + "&app_id=36b7b45f&app_key=cb6dd0831871febd1d0ce5077a364182";
@@ -52,7 +63,7 @@ class FoodSearchController extends React.Component {
            return(
             <SearchResults 
             results={this.state.results}
-            retrieveSearchSelections={this.props.retrieveSearchSelections}
+            retrieveSearchSelections={this.retrieveSearchSelections}
             />
             ) 
         }else{
@@ -81,4 +92,4 @@ class FoodSearchController extends React.Component {
 
 }
 
-export default FoodSearchController;
+export default withRouter(FoodSearchController);

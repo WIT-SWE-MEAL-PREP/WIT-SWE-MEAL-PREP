@@ -25,13 +25,13 @@ class LogInPage extends React.Component{
         <form onSubmit={this.handleSubmit}>
           <div className="field">
             <label>
-              <p>Username:</p>
+              <label className="fieldLabel">Username:<label className="required">*</label></label>
             </label>
             <input type="text" onChange={e => this.setUserName(e.target.value)} />
           </div>
           <div className="field">
             <label>
-              <p>Password:</p>
+              <label className="fieldLabel">Password:<label className="required">*</label></label>
             </label>
             <input type="password" onChange={e => this.setPassword(e.target.value)} />
           </div>
