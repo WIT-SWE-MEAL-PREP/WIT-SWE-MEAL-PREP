@@ -6,11 +6,11 @@ import MaterialTable from 'material-table'
 
 import SearchBar from '../Components/SearchBar.jsx'
 
-import generateMealPlans from '../Services/GenerateMealPlan.jsx';
 import formatMealsToIds from '../Services/FormatMealsToIds.jsx'
 
 import getMeals from '../Models/GetMeal.js'
 import deleteMeal from '../Models/DeleteMeal.js'
+import getConfig from '../Models/GetConfig.js';
 
 import '../Stylings/MainStylings.css'
 import '../Stylings/SearchBarStylings.css'
@@ -60,11 +60,11 @@ class MainPage extends React.Component{
         renderSearchPage: false,
         searchQuery: "",
         userId: this.props.userId,
-        constraints: this.props.constraints,
         selectedFoods: [{}],
         mealPlan: [{}],
         meals: [{}],
-        validMealPlans: [{}]
+        mealCombinations: [{}],
+        configuration: {}
       }      
   }
 
@@ -116,6 +116,54 @@ class MainPage extends React.Component{
     }
   }
 
+  generateMealPlans = async e => {
+    var url = "http://3.233.98.252:8080/getConfig?userId='" + String(this.state.userId) + "'";
+    var configData = await getConfig(url);
+
+    this.setState({
+      configuration: configData.configData[0]
+    })
+
+    let numMeals = configData.Num_Meals;
+
+    var constraintCal = configData.Calories;
+    var constraintProtein = configData.Protein;
+    var constraintCarbs = configData.Carbs;
+    var constraintFat = configData.Fat;
+    var constraintSugar = configData.Sugar;
+    var constraintFiber = configData.Fiber;
+
+    let dummyArray = [];
+
+    this.combinationUtil(this.state.meals, dummyArray, 0, this.state.meals.length-1, 0, numMeals)
+
+    console.log(this.state.mealCombinations)
+
+  }
+
+  // Based on code from https://www.geeksforgeeks.org/print-all-possible-combinations-of-r-elements-in-a-given-array-of-size-n/
+
+combinationUtil(meals, generatedMealPlan, start, end, index, numMeals){
+    // Current combination is ready to be printed, print it
+    if (index == numMeals)
+    {
+      // this.setState({
+      //   mealCombinations: this.state.mealCombinations.concat(generatedMealPlan)
+      // })
+      console.log(generatedMealPlan);
+    }
+     
+    // replace index with all possible elements. The condition
+    // "end-i+1 >= r-index" makes sure that including one element
+    // at index will make a combination with remaining elements
+    // at remaining positions
+    for (let i=start; i<=end && end-i+1 >= numMeals-index; i++)
+    {
+      generatedMealPlan[index] = meals[i];
+      this.combinationUtil(meals, generatedMealPlan, i+1, end, index+1, numMeals);
+    }
+}
+
   
   render(){
       return(
@@ -150,7 +198,7 @@ class MainPage extends React.Component{
                     rowData => ({
                       icon: tableIcons.Delete,
                       tooltip: 'Delete Meal',
-                      onClick: (event, rowData) => this.deleteMeal(rowData.Meal_Id),
+                      onClick: (event, rowData) => this.deleteMeal(rowData.Meal_Id)
                     })
                   ]}
                   options={{
@@ -173,7 +221,7 @@ class MainPage extends React.Component{
                     icon: tableIcons.Add,
                     tooltip: 'Generate Meal Plan',
                     isFreeAction: true,
-                    onClick: (event) => generateMealPlans(formatMealsToIds(this.state.meals), this.props.userId)
+                    onClick: (event) => this.generateMealPlans()
                   }
                 ]}
               />

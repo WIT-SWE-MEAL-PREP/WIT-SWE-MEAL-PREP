@@ -1,7 +1,9 @@
 function formatMealsToIds(meals){
 
+    console.log(meals)
+
     let idArray = meals.map(meal => {
-        return meal.mealId;
+        return meal.Meal_Id;
     })
 
     return idArray;
