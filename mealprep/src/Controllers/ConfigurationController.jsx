@@ -100,7 +100,8 @@ class ConfigController extends React.Component{
         var returnedResults = await uploadUserConfig(url);
 
         if(!returnedResults.success){
-            //TO-DO add error handling for datbase failure here 
+
+            alert("An error occurred in the upload. Please try again later.")
         }else{
             this.props.history.push("/")
         }

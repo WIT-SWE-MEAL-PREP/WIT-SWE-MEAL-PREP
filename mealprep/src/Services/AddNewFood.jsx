@@ -31,7 +31,8 @@ async function addNewFood(data, userId) {
         var mealUpdated = await updateMealData(url);
     
         if(!mealUpdated.success){
-            //TO-DO Add error handling here 
+
+            alert("An error occurred while updating the users meal. Please try again later.") 
         }
     
         url = "http://3.233.98.252:8080/updateFoodsInMeal?mealId='" + String(data.mealId) 
@@ -42,7 +43,8 @@ async function addNewFood(data, userId) {
         var foodInMealUpdated = await updateFoodsInMeal(url);
     
         if(!foodInMealUpdated.success){
-            //TO-DO Add error handling here 
+
+            alert("An error occurred while updating the foods in the users meal. Please try again later.") 
         }
     
         return data.mealId

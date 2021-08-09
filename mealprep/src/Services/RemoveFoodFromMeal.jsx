@@ -24,7 +24,8 @@ async function removeFoodFromMealService(foodInfoToRemove, mealToRemoveFrom) {
     var mealUpdated = await updateMealData(url);
 
     if(!mealUpdated.success){
-        //TO-DO Add error handling here 
+
+        alert("An error occurred while updating the users meal. Please try again later.") 
     }
 
     url = "http://3.233.98.252:8080/removeFoodFromMeal?mealId='" + String(mealToRemoveFrom.Meal_Id) 
@@ -33,7 +34,8 @@ async function removeFoodFromMealService(foodInfoToRemove, mealToRemoveFrom) {
     var foodInMealUpdated = await removeFoodFromMeal(url);
 
     if(!foodInMealUpdated.success){
-        //TO-DO Add error handling here 
+        
+        alert("An error occurred while removing an item from the users meal. Please try again later.") 
     }
 
     return foodInfoToRemove.mealId
