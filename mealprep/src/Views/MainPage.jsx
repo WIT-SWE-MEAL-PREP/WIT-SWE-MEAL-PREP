@@ -63,9 +63,13 @@ class MainPage extends React.Component{
         selectedFoods: [{}],
         mealPlan: [{}],
         meals: [{}],
-        mealCombinations: [{}],
-        configuration: {}
+        mealCombinations: [],
+        configuration: {},
+        validMealPlans: [],
+        selectedMealPlan: []
       }      
+
+      this.combinationUtil = this.combinationUtil.bind(this);
   }
 
 
@@ -124,47 +128,95 @@ class MainPage extends React.Component{
       configuration: configData.configData[0]
     })
 
-    let numMeals = configData.Num_Meals;
+    let numMeals = this.state.configuration.Num_Meals;
 
-    var constraintCal = configData.Calories;
-    var constraintProtein = configData.Protein;
-    var constraintCarbs = configData.Carbs;
-    var constraintFat = configData.Fat;
-    var constraintSugar = configData.Sugar;
-    var constraintFiber = configData.Fiber;
+    var constraintCal = this.state.configuration.Calories;
+    var constraintProtein = this.state.configuration.Protein;
+    var constraintCarbs = this.state.configuration.Carbs;
+    var constraintFat = this.state.configuration.Fat;
+    var constraintSugar = this.state.configuration.Sugar;
+    var constraintFiber = this.state.configuration.Fiber;
 
     let dummyArray = [];
 
-    this.combinationUtil(this.state.meals, dummyArray, 0, this.state.meals.length-1, 0, numMeals)
+    this.combinationUtil(formatMealsToIds(this.state.meals), dummyArray, 0, this.state.meals.length-1, 0, numMeals);
 
-    console.log(this.state.mealCombinations)
+    let unfilteredMealPlans = this.state.mealCombinations;
+
+    let meals = {}
+
+    for(let i = 0; i < this.state.meals.length; i++ ){
+      meals[this.state.meals[i]["Meal_Id"]] = this.state.meals[i]
+    }
+
+    for(let i = 0; i < unfilteredMealPlans.length; i++){
+      let calories = 0;
+      let protein = 0;
+      let carbs = 0;
+      let fat = 0;
+      let sugar = 0;
+      let fiber = 0;
+
+      for(let j = 0; j < numMeals; j ++){
+        calories += meals[unfilteredMealPlans[i][j]]["Calories"];
+        protein += meals[unfilteredMealPlans[i][j]]["Protein"];
+        carbs += meals[unfilteredMealPlans[i][j]]["Carbs"];
+        fat += meals[unfilteredMealPlans[i][j]]["Total_Fat"];
+        sugar += meals[unfilteredMealPlans[i][j]]["Sugar"];
+        fiber += meals[unfilteredMealPlans[i][j]]["Fibar"];
+      }
+
+      if(calories <= constraintCal && protein <= constraintProtein && carbs <= constraintCarbs && fat <= constraintFat){
+        
+        this.setState({
+          validMealPlans: this.state.validMealPlans.concat([unfilteredMealPlans[i]])
+        })
+      }
+
+    }
+
+    let selectedPlan = this.state.validMealPlans[Math.floor(Math.random() * (this.state.validMealPlans.length - 0) + 0)];
+
+    console.log(selectedPlan)
+    console.log(meals)
+    console.log(this.state.meals);
+
+    let mealPlanToDisplay = [];
+
+    for(let i = 0; i < numMeals; i++){
+      mealPlanToDisplay[i] = meals[selectedPlan[i]]
+    }
+
+    console.log(mealPlanToDisplay)
+
+    this.setState({
+      selectedMealPlan: mealPlanToDisplay
+    })
 
   }
 
   // Based on code from https://www.geeksforgeeks.org/print-all-possible-combinations-of-r-elements-in-a-given-array-of-size-n/
 
-combinationUtil(meals, generatedMealPlan, start, end, index, numMeals){
-    // Current combination is ready to be printed, print it
-    if (index == numMeals)
-    {
-      // this.setState({
-      //   mealCombinations: this.state.mealCombinations.concat(generatedMealPlan)
-      // })
-      console.log(generatedMealPlan);
-    }
-     
-    // replace index with all possible elements. The condition
-    // "end-i+1 >= r-index" makes sure that including one element
-    // at index will make a combination with remaining elements
-    // at remaining positions
-    for (let i=start; i<=end && end-i+1 >= numMeals-index; i++)
-    {
-      generatedMealPlan[index] = meals[i];
-      this.combinationUtil(meals, generatedMealPlan, i+1, end, index+1, numMeals);
-    }
-}
+  combinationUtil(meals, generatedMealPlan, start, end, index, numMeals){
 
-  
+      // Current combination is ready to be printed, print it
+      if (index == numMeals)
+      {
+          this.setState({
+            mealCombinations: this.state.mealCombinations.concat([generatedMealPlan.slice(0,numMeals)])
+          })
+      }
+       
+      // replace index with all possible elements. The condition
+      // "end-i+1 >= r-index" makes sure that including one element
+      // at index will make a combination with remaining elements
+      // at remaining positions
+      for (let i=start; i<=end && end-i+1 >= numMeals-index; i++)
+      {
+        generatedMealPlan[index] = meals[i];
+        this.combinationUtil(meals, generatedMealPlan, i+1, end, index+1, numMeals);
+      }
+}  
   render(){
       return(
         <div className="pageWrapper">
@@ -214,8 +266,16 @@ combinationUtil(meals, generatedMealPlan, start, end, index, numMeals){
                 <MaterialTable
                 title="My Meal Plans"
                 icons={tableIcons}
-                columns={[{title: 'Meal Plan Name', field: 'name'}]}
-                data={this.state.MealPlan}
+                columns={[
+                  { title: 'Name', field: 'Name' },
+                  { title: 'Calories', field: 'Calories' },
+                  { title: 'Protein (g)', field: 'Protein' },
+                  { title: 'Carbs (g)', field: 'Carbs' },
+                  { title: 'Total Fat (g)', field: 'Total_Fat'},
+                  { title: 'Fiber (g)', field: 'Fiber'},
+                  { title: 'Sugar (g)', field: 'Sugar'},
+                  ]}
+                data={this.state.selectedMealPlan}
                 actions={[
                   {
                     icon: tableIcons.Add,

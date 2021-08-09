@@ -7,14 +7,10 @@ async function generateMealPlans(meals, userId) {
 
     configData = configData.configData[0];
 
+    console.log(configData)
+
     let numMeals = configData.Num_Meals;
 
-    var constraintCal = configData.Calories;
-    var constraintProtein = configData.Protein;
-    var constraintCarbs = configData.Carbs;
-    var constraintFat = configData.Fat;
-    var constraintSugar = configData.Sugar;
-    var constraintFiber = configData.Fiber;
 
     if(configData.Calories === null){
       //Some error message 
@@ -37,6 +33,14 @@ async function generateMealPlans(meals, userId) {
   // Based on code from https://www.geeksforgeeks.org/print-all-possible-combinations-of-r-elements-in-a-given-array-of-size-n/
 
   function combinationUtil(meals, generatedMealPlan, start, end, index, numMeals){
+
+    console.log(generatedMealPlan)
+    console.log(start)
+    console.log(end);
+    console.log(index);
+    console.log(numMeals);
+
+
       // Current combination is ready to be printed, print it
       if (index == numMeals)
       {
