@@ -1,9 +1,7 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { forwardRef } from 'react';
 import { withRouter } from 'react-router-dom';
 
-
-import FoodSearchController from '../Controllers/FoodSearchController.jsx'
 import MaterialTable from 'material-table'
 
 import SearchBar from '../Components/SearchBar.jsx'
@@ -55,18 +53,16 @@ class MainPage extends React.Component{
   constructor(props){
       super(props)
       this.wrapper = React.createRef();
-
+    
       this.state = {
         renderSearchPage: false,
         searchQuery: "",
         userId: this.props.userId,
         constraints: this.props.constraints,
-        selectedFoods: [{}]
-      }
-      
-      // this.retrieveSearchSelections = this.retrieveSearchSelections.bind(this)
-      
+        selectedFoods: [{}],
+      }      
   }
+
 
   componentDidMount(){
     this.getMeals()
@@ -114,6 +110,7 @@ class MainPage extends React.Component{
       this.getMeals();
     }
   }
+
   render(){
       return(
         <div className="pageWrapper">
@@ -160,39 +157,22 @@ class MainPage extends React.Component{
               />
             </div>
             <AddMealPlanModal onClose={() => this.setState({showModal: false})} show={this.state.showModal} initialModalRender={this.state.initialModalRender}/>
-            <div className="tableDiv">
-            <MaterialTable
-            title="My Meal Plans"
-            icons={tableIcons}
-            columns={[
-              { title: 'Name', field: 'name' }
-            ]}
-            data={[
-              { name: 'Vegetarian' },
-              { name: 'Atkins' },
-              { name: 'Keto' }
-            ]}    
-            actions={[
-              {
-                icon: tableIcons.Edit,
-                tooltip: 'Edit Meal Plan',
-                onClick: (event, rowData) => this.setState({showModal: true})
-              },
-              {
-                icon: tableIcons.Add,
-                tooltip: 'Generate Meal Plan',
-                isFreeAction: true
-              }
-            ]}
-            options={{
-              actionsColumnIndex: -1
-            }}
-            style={{
-              opacity:1,
-              zIndex:1
-            }}
-          />
-            </div>
+              <div className="tableDiv">
+                <MaterialTable
+                title="My Meal Plans"
+                icons={tableIcons}
+                columns={[{title: 'Meal Plan Name', field: 'name'}]}
+                data={[]}
+                actions={[
+                  {
+                    icon: tableIcons.Add,
+                    tooltip: 'Add meal plan',
+                    isFreeAction: true,
+                    onClick: (event) => this.setState({showModal: true})
+                  }
+                ]}
+              />
+              </div>
         </div>
       )
   }
