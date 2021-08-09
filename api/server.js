@@ -75,7 +75,7 @@ app.post('/uploadNewUser', (req, res) => {
     var postDBInfo = function(callback) {
 
         let sql = "INSERT INTO gainsday.User (User_id, Username, Password, Email) VALUES (" + maxUserID + "," + String(req.query.username) + ", " + String(req.query.password) + ", " + String(req.query.email) + ");";
-    
+
         connection.query(sql, (err, resp) => {
             if (err) {
                 console.log("error: ", err);
@@ -145,6 +145,13 @@ app.post('/uploadUserConfig', (req, res) => {
             ", Age = " + String(req.query.age) +
             ", Weight = " + String(req.query.weight) +
             ", Height = " + String(req.query.height) +
+            ", Calories = " + String(req.query.calories) +
+            ", Protein = " + String(req.query.protein) +
+            ", Carbs = " + String(req.query.carbs) +
+            ", Fat = " + String(req.query.fat) +
+            ", Sugar = " + String(req.query.sugar) +
+            ", Fiber = " + String(req.query.fiber) +
+            ", Num_Meals = " + String(req.query.numMeals) +
             "' WHERE User_Id = " + String(req.query.userId);
 
         connection.query(sql, (err, resp) => {
@@ -152,6 +159,8 @@ app.post('/uploadUserConfig', (req, res) => {
                 console.log("error: ", err);
                 return callback(err);
             }
+
+            console.log(resp)
 
             result = true
 
@@ -644,6 +653,182 @@ app.post('/deleteInventoryItem', (req, res) => {
     }
 
     postDBInfo(function(err, result) {
+        res.send({ success: result });
+    });
+});
+
+app.post('/uploadNewMealPlan', (req, res) => {
+
+    var result = false;
+
+    var getDBInfo = function(callback) {
+
+        let sql = 'SELECT MAX(MealPlan_Id) FROM gainsday.MealPlans';
+        connection.query(sql, (err, resp) => {
+            if (err) {
+                console.log("error: ", err);
+                return callback(err);
+            }
+
+            console.log(sql)
+
+            if (resp.length) {
+                console.log("Previous highest meal id: ", resp);
+                result = resp;
+            }
+
+            callback(null, result);
+        });
+    }
+
+    var postDBInfo = function(callback) {
+        let sql = "INSERT INTO gainsday.MealPlans (MealPlan_Id, User_Id) VALUES" +
+            " (" + String(maxMealPlanId) +
+            ", " + String(req.query.userId) + ");"
+
+        connection.query(sql, (err, resp) => {
+            if (err) {
+                console.log("error: ", err);
+                return callback(err);
+            }
+
+            console.log(sql)
+
+            if (resp.length) {
+                result = resp;
+            }
+
+            callback(null, result);
+        });
+    }
+
+
+    getDBInfo(function(err, result) {
+
+        console.log("Result search here: ")
+        console.log(result[0]["MAX(Meal_Id)"])
+
+        maxMealPlanId = result[0]["MAX(Meal_Id)"] + 1;
+
+        console.log("Meal Id" + maxMealPlanId)
+
+        postDBInfo(function(err, result) {
+            console.log(result)
+        });
+
+        res.send({ success: maxMealPlanId });
+        // res.send({ success: result });
+    });
+});
+
+app.post('/updateMealsinMealPlan', (req, res) => {
+    var result = false;
+
+    var postDBInfo = function(callback) {
+
+        let sql = "INSERT INTO gainsday.MealsInMealPlan (MealPlan_Id, Meal_Id) VALUES (" + String(req.query.mealPlanId) +
+            "," + String(req.query.MealId) + ")";
+
+        connection.query(sql, (err, resp) => {
+            if (err) {
+                console.log("error: ", err);
+                return callback(err);
+            }
+
+            result = true
+
+            callback(null, result);
+        });
+    }
+
+    postDBInfo(function(err, result) {
+        res.send({ success: result });
+    });
+});
+
+app.post('/deleteMealPlan', (req, res) => {
+
+    var result = false;
+    var mealPlanId = req.query.mealPlanId
+
+
+    var removeFromFoodsInMealMealTable = function(callback) {
+        let sql = "DELETE FROM gainsday.MealsInMealPlan WHERE MealPlan_Id LIKE " + mealPlanId;
+
+        console.log("FoodsInMeal SQL")
+        console.log(sql)
+        connection.query(sql, (err, resp) => {
+            if (err) {
+                console.log("error: ", err);
+                return callback(err);
+            }
+
+            console.log(sql)
+
+            if (resp.length) {
+                result = true;
+            }
+
+            callback(null, result);
+        });
+    }
+
+    var removeFromMealTable = function(callback) {
+        let sql = "DELETE FROM gainsday.MealPlans WHERE MealPlan_Id LIKE " + mealPlanId;
+        console.log("Meals SQL")
+        console.log(sql)
+        connection.query(sql, (err, resp) => {
+            if (err) {
+                console.log("error: ", err);
+                return callback(err);
+            }
+
+            console.log(sql)
+
+            if (resp.length) {
+                result = true;
+            }
+
+            callback(null, result);
+        });
+    }
+
+
+    removeFromFoodsInMealMealTable(function(err, result) {
+        console.log({ success: result })
+
+        removeFromMealTable(function(err, result) {
+            console.log({ success: result })
+            res.send({ success: true });
+        });
+    });
+});
+
+app.get('/getMealsInMealPlan', (req, res) => {
+
+    var result = false;
+    var mealPlanId = req.query.mealPlanId
+    var getDBInfo = function(callback) {
+        let sql = "SELECT Meal_Id FROM gainsday.MealsInMealPlan WHERE MealPlan_Id LIKE " + mealPlanId;
+        connection.query(sql, (err, resp) => {
+            if (err) {
+                console.log("error: ", err);
+                return callback(err);
+            }
+
+            console.log(sql)
+
+            if (resp.length) {
+                console.log("found meals: ", resp);
+                result = resp;
+            }
+
+            callback(null, result);
+        });
+    }
+
+    getDBInfo(function(err, result) {
+        console.log({ success: result })
         res.send({ success: result });
     });
 });
