@@ -1,13 +1,13 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { forwardRef } from 'react';
 import { withRouter } from 'react-router-dom';
 
-
-import FoodSearchController from '../Controllers/FoodSearchController.jsx'
 import MaterialTable from 'material-table'
 
 import SearchBar from '../Components/SearchBar.jsx'
-import AddMealPlanModal from '../Views/AddMealPlanModal.jsx'
+
+import generateMealPlans from '../Services/GenerateMealPlan.jsx';
+import formatMealsToIds from '../Services/FormatMealsToIds.jsx'
 
 import getMeals from '../Models/GetMeal.js'
 import deleteMeal from '../Models/DeleteMeal.js'
@@ -55,18 +55,19 @@ class MainPage extends React.Component{
   constructor(props){
       super(props)
       this.wrapper = React.createRef();
-
+    
       this.state = {
         renderSearchPage: false,
         searchQuery: "",
         userId: this.props.userId,
         constraints: this.props.constraints,
-        selectedFoods: [{}]
-      }
-      
-      // this.retrieveSearchSelections = this.retrieveSearchSelections.bind(this)
-      
+        selectedFoods: [{}],
+        mealPlan: [{}],
+        meals: [{}],
+        validMealPlans: [{}]
+      }      
   }
+
 
   componentDidMount(){
     this.getMeals()
@@ -93,7 +94,7 @@ class MainPage extends React.Component{
     if(returnedResults.success) {
 
       this.setState({
-        data: returnedResults.success
+        meals: returnedResults.success
       })
 
     }
@@ -114,6 +115,8 @@ class MainPage extends React.Component{
       this.getMeals();
     }
   }
+
+  
   render(){
       return(
         <div className="pageWrapper">
@@ -137,7 +140,7 @@ class MainPage extends React.Component{
                       { title: 'Fiber (g)', field: 'Fiber'},
                       { title: 'Sugar (g)', field: 'Sugar'},
                       ]}
-                  data={this.state.data}
+                  data={this.state.meals}
                   actions={[
                     {
                       icon: tableIcons.Edit,
@@ -159,40 +162,22 @@ class MainPage extends React.Component{
                   }}
               />
             </div>
-            <AddMealPlanModal onClose={() => this.setState({showModal: false})} show={this.state.showModal} initialModalRender={this.state.initialModalRender}/>
-            <div className="tableDiv">
-            <MaterialTable
-            title="My Meal Plans"
-            icons={tableIcons}
-            columns={[
-              { title: 'Name', field: 'name' }
-            ]}
-            data={[
-              { name: 'Vegetarian' },
-              { name: 'Atkins' },
-              { name: 'Keto' }
-            ]}    
-            actions={[
-              {
-                icon: tableIcons.Edit,
-                tooltip: 'Edit Meal Plan',
-                onClick: (event, rowData) => this.setState({showModal: true})
-              },
-              {
-                icon: tableIcons.Add,
-                tooltip: 'Generate Meal Plan',
-                isFreeAction: true
-              }
-            ]}
-            options={{
-              actionsColumnIndex: -1
-            }}
-            style={{
-              opacity:1,
-              zIndex:1
-            }}
-          />
-            </div>
+              <div className="tableDiv">
+                <MaterialTable
+                title="My Meal Plans"
+                icons={tableIcons}
+                columns={[{title: 'Meal Plan Name', field: 'name'}]}
+                data={this.state.MealPlan}
+                actions={[
+                  {
+                    icon: tableIcons.Add,
+                    tooltip: 'Generate Meal Plan',
+                    isFreeAction: true,
+                    onClick: (event) => generateMealPlans(formatMealsToIds(this.state.meals), this.props.userId)
+                  }
+                ]}
+              />
+              </div>
         </div>
       )
   }
