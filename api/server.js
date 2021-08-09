@@ -706,9 +706,9 @@ app.post('/uploadNewMealPlan', (req, res) => {
     getDBInfo(function(err, result) {
 
         console.log("Result search here: ")
-        console.log(result[0]["MAX(Meal_Id)"])
+        console.log(result[0]["MAX(MealPlan_Id)"])
 
-        maxMealPlanId = result[0]["MAX(Meal_Id)"] + 1;
+        maxMealPlanId = result[0]["MAX(MealPlan_Id)"] + 1;
 
         console.log("Meal Id" + maxMealPlanId)
 
@@ -726,8 +726,8 @@ app.post('/updateMealsinMealPlan', (req, res) => {
 
     var postDBInfo = function(callback) {
 
-        let sql = "INSERT INTO gainsday.MealsInPlan (MealPlan_Id, Meal_Id) VALUES (" + String(req.query.mealPlanId) +
-            "," + String(req.query.MealId) + ")";
+        let sql = "INSERT INTO gainsday.MealsInPlan (MealPlan_Id, Meal_Id) VALUES (" + req.query.mealPlanId + "," + req.query.mealId + "');";
+
 
         connection.query(sql, (err, resp) => {
             if (err) {
@@ -762,6 +762,8 @@ app.post('/deleteMealPlan', (req, res) => {
                 console.log("error: ", err);
                 return callback(err);
             }
+
+            console.log("Meal Plan Deleted", resp)
 
             console.log(sql)
 
@@ -820,6 +822,35 @@ app.get('/getMealsInMealPlan', (req, res) => {
 
             if (resp.length) {
                 console.log("found meals: ", resp);
+                result = resp;
+            }
+
+            callback(null, result);
+        });
+    }
+
+    getDBInfo(function(err, result) {
+        console.log({ success: result })
+        res.send({ success: result });
+    });
+});
+
+app.get('/getMealPlan', (req, res) => {
+
+    var result = false;
+    var userId = req.query.userId
+    var getDBInfo = function(callback) {
+        let sql = "SELECT MealPlan_Id FROM gainsday.MealPlans WHERE User_Id LIKE " + userId;
+        connection.query(sql, (err, resp) => {
+            if (err) {
+                console.log("error: ", err);
+                return callback(err);
+            }
+
+            console.log(sql)
+
+            if (resp.length) {
+                console.log("found mealPlan: ", resp);
                 result = resp;
             }
 

@@ -81,7 +81,7 @@ class ConfigController extends React.Component{
     }
 
     uploadUserConfig = async e => {
-        var url = "http://localhost:8080/uploadUserConfig?userId='" + 
+        var url = "http://3.233.98.252:8080/uploadUserConfig?userId='" + 
                                           String(this.state.userId) 
                                           + "'&firstname='" + String(this.state.firstName) 
                                           + "'&lastname='" + String(this.state.lastName)
