@@ -809,7 +809,7 @@ app.get('/getMealsInMealPlan', (req, res) => {
     var result = false;
     var mealPlanId = req.query.mealPlanId
     var getDBInfo = function(callback) {
-        let sql = "SELECT MealPlan_Id FROM gainsday.MealsInPlan WHERE MealPlan_Id LIKE " + mealPlanId;
+        let sql = "SELECT * FROM gainsday.MealsInPlan WHERE MealPlan_Id LIKE " + mealPlanId;
         connection.query(sql, (err, resp) => {
             if (err) {
                 console.log("error: ", err);

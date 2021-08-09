@@ -7,6 +7,8 @@ async function generateMealPlans(meals, userId) {
 
     configData = configData.configData[0];
 
+    let numMeals = configData.Num_Meals;
+
     var constraintCal = configData.Calories;
     var constraintProtein = configData.Protein;
     var constraintCarbs = configData.Carbs;
@@ -23,33 +25,35 @@ async function generateMealPlans(meals, userId) {
           // Add Error
       }
 
-      let maxCombos = getNumCombo(meals.length, 2)
+      let dummyArray = [];
 
-      let i = 0; //Used to keep track of index in Meals
+      let blah = combinationUtil(meals, dummyArray, 0, meals.length-1, 0, numMeals)
 
-      do{
-
-        let mealPlan = [];
-
-        mealPlan[0] = meals[i];
-
-        console.log(mealPlan)
-
-        let plans = [await generateMealPlan(meals, i+1, mealPlan, 1, configData.Num_Meals)];
-
-        // console.log(plans)
-
-        mealPlans = mealPlans.concat(plans)
-
-        // console.log(mealPlans.length)
-
-        i++;
-
-      }while(i < 1);
-
-      console.log(mealPlans)
+      console.log(blah)
       
     }
+  }
+
+  // Based on code from https://www.geeksforgeeks.org/print-all-possible-combinations-of-r-elements-in-a-given-array-of-size-n/
+
+  function combinationUtil(meals, generatedMealPlan, start, end, index, numMeals){
+      // Current combination is ready to be printed, print it
+      if (index == numMeals)
+      {
+        console.log(generatedMealPlan)
+
+          return generatedMealPlan;
+      }
+       
+      // replace index with all possible elements. The condition
+      // "end-i+1 >= r-index" makes sure that including one element
+      // at index will make a combination with remaining elements
+      // at remaining positions
+      for (let i=start; i<=end && end-i+1 >= numMeals-index; i++)
+      {
+        generatedMealPlan[index] = meals[i];
+        combinationUtil(meals, generatedMealPlan, i+1, end, index+1, numMeals);
+      }
   }
 
 async function generateMealPlan(meals, index, generatedMealPlan, mealPlanIndex, numMeals){
@@ -60,7 +64,7 @@ async function generateMealPlan(meals, index, generatedMealPlan, mealPlanIndex, 
 
     if(index < meals.length && mealPlanIndex < numMeals){
 
-        
+
         console.log(generatedMealPlan)
 
         // returnArray = returnArray.concat(generatedMealPlan)
