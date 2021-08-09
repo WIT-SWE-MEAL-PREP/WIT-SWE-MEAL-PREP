@@ -4,6 +4,8 @@ function formatMealsToIds(meals){
         return meal.mealId;
     })
 
+    return idArray;
+
 }
 
 export default formatMealsToIds;

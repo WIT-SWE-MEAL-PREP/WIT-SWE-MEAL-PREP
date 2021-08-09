@@ -7,6 +7,7 @@ import MaterialTable from 'material-table'
 import SearchBar from '../Components/SearchBar.jsx'
 
 import generateMealPlans from '../Services/GenerateMealPlan.jsx';
+import formatMealsToIds from '../Services/FormatMealsToIds.jsx'
 
 import getMeals from '../Models/GetMeal.js'
 import deleteMeal from '../Models/DeleteMeal.js'
