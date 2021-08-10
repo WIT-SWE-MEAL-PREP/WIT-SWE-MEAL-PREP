@@ -30,11 +30,11 @@ class Food extends React.Component{
     }
 
     getData = async e => {
-        var url = "http://localhost:8080/getMeal?mealId='" + String(this.props.mealId) + "'";
+        var url = "http://3.233.98.252:8080/getMeal?mealId='" + String(this.props.mealId) + "'";
 
         var mealInfo = await getMeal(url);
 
-        var url = "http://localhost:8080/getFoodsInMeal?mealId='" + String(this.props.mealId) + "'";
+        var url = "http://3.233.98.252:8080/getFoodsInMeal?mealId='" + String(this.props.mealId) + "'";
 
         var foodsInMeal = await getFoodsInMeal(url);
 

@@ -607,7 +607,7 @@ app.post('/updateUserInventory', (req, res) => {
             " (" + String(userId) +
             ", " + String(foodId) +
             ", " + String(serving) +
-            ", " + String(unit) + 
+            ", " + String(unit) +
             ", " + String(daysLeft) + "');"
 
         connection.query(sql, (err, resp) => {
