@@ -108,10 +108,10 @@ class AddFoodModal extends React.Component {
             </div>
             
             <div className="addFoodModalCentered">
-              <label className="label" for="daysLeft">Days until Expiration:</label>
+              <label className="label" for="daysLeftLabel">Days until Expiration:</label>
               <input className="input" type="number" id="daysLeft" name="daysLeft"
-                min="1" defaultValue="1" onChange={ () => this.props.addExpiration(this.props.expiration)}/>
-            <Link to="/inventory" onClick={ () => this.props.addToInventory(this.props.nutrients)}>
+                min="1" defaultValue="1" />
+            <Link to="/inventory" onClick={ () => this.props.addToInventory({daysLeft: (document.getElementById("daysLeft") != null) ? document.getElementById("daysLeft").value : "" , ...this.props.nutrients})}>
               <button className="addFoodModalButton" >Add To Inventory</button>
             </Link>
             </div>

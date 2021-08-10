@@ -45,6 +45,8 @@ User_Id INT NOT NULL,
 Food_Id VARCHAR(10000) NOT NULL,
 Serving INT,
 Unit VARCHAR(1000),
+Exp_Date VARCHAR(30),
+Days_Left INT,
 FOREIGN KEY (User_Id) REFERENCES User(User_Id)
 );
 

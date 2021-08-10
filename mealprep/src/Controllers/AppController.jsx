@@ -111,7 +111,6 @@ class AppController extends React.Component {
     }
 
     getFoodId(foodData){
-        console.log(foodData)
         this.setState({
             food: foodData
         })
@@ -208,7 +207,7 @@ class AppController extends React.Component {
                         </Route>
                         <Route path='/shoppinglist'>
                             <Header setSignInStatus = { this.setSignInStatus }/>
-                            <ShoppingListController userId={this.state.userId} getSearchQuery={this.getSearchQuery} getFoodId={this.getFoodId}/>
+                            <ShoppingListController userId={this.state.userId} getSearchQuery={this.getSearchQuery} getFoodId={this.getFoodId} getFoodId={this.getFoodId}/>
                         </Route>
                         <Route path='/search'>
                             <Header setSignInStatus = { this.setSignInStatus }/>

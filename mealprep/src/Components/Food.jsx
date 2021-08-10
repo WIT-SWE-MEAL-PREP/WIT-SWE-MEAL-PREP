@@ -46,7 +46,9 @@ class Food extends React.Component{
 
         var returnedResults = await getNutrients(url, jsonBody);
 
-        if(returnedResults.totalNutrients.SUGAR != undefined){
+        console.log(returnedResults)
+
+        if(returnedResults.totalNutrients.SUGAR){
             this.setState({
                 foodInfo: returnedResults,
                 dataReturned: true,
