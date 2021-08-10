@@ -568,7 +568,7 @@ app.get('/getShoppingList', (req, res) => {
     var result = false;
     var userId = req.query.userId
     var getDBInfo = function(callback) {
-        let sql = "Select * From gainsday.FoodsInMeal Where FoodsInMeal.Meal_Id IN (  Select MealsInPlan.Meal_Id From gainsday.MealsInPlan Where MealsInPlan.MealPlan_Id = (SELECT MealPlans.MealPlan_Id FROM gainsday.MealPlans WHERE User_Id LIKE " + userId + ") ) AND Food_Id Not in (SELECT Food_Id From gainsday.Inventory Where User_Id LIKE " + userId + ")";
+        let sql = "Select * From gainsday.FoodsInMeal Where FoodsInMeal.Meal_Id IN (  Select MealsInPlan.Meal_Id From gainsday.MealsInPlan Where MealsInPlan.MealPlan_Id IN (SELECT MealPlans.MealPlan_Id FROM gainsday.MealPlans WHERE User_Id LIKE " + userId + ") ) AND Food_Id Not in (SELECT Food_Id From gainsday.Inventory Where User_Id LIKE " + userId + ")";
         connection.query(sql, (err, resp) => {
             if (err) {
                 console.log("error: ", err);
