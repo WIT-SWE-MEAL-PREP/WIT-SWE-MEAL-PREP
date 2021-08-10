@@ -14,6 +14,7 @@ import Meal from '../Components/Meal.jsx'
 import Header from '../Components/Header.jsx'
 
 import addNewFood from '../Services/AddNewFood.jsx'
+import addNewMealPlan from '../Services/AddNewMealPlan.jsx'
 import updateUserInventory from '../Models/UpdateUserInventory.js'
 import UpdateExpiration from '../Models/UpdateExpiration.js'
 
@@ -48,6 +49,7 @@ class AppController extends React.Component {
             foodAndMealInfo:{
                 mealId: ''
             },
+            mealPlanId: '',
             mealDataUpdated: false
         }
 
@@ -55,6 +57,7 @@ class AppController extends React.Component {
         this.getUserId = this.getUserId.bind(this);
         this.getSearchQuery = this.getSearchQuery.bind(this);
         this.getFoodToAdd = this.getFoodToAdd.bind(this);
+        this.getMealPlanToAdd = this.getMealPlanToAdd.bind(this);
         this.getMealId = this.getMealId.bind(this);
         this.getFoodId = this.getFoodId.bind(this);
     }
@@ -135,6 +138,20 @@ class AppController extends React.Component {
             })
         })
 
+    }
+
+    getMealPlanToAdd(mealPlanData){
+
+        this.setState({
+            mealPlanId : mealPlanData.mealPlanId
+        }, async () => {
+
+            var newId = await addNewMealPlan(mealPlanData, this.state.userId);
+            
+            this.setState({
+                mealPlanId: newId
+            })
+        })
     }
 
     addToInventory = async e => {

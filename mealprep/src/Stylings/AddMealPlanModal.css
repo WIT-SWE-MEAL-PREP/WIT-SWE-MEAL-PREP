@@ -1,36 +1,29 @@
-.Modal {
-    justify-content: center;
-    align-items: center;
-    justify-items: center;
-    text-align: center;
-    padding: 10x;
-}
-
-.addMealPlanModal-content {
+.addMealPlanModal {
+    position: fixed;
     left: 0;
     top: 0;
     right: 0;
     bottom: 0;
-    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
     align-items: center;
-    justify-items: center;
-    text-align: center;
-    padding: 10x;
+    justify-content: center;
+    border-radius: 25px;
+    box-shadow: 4px 10px 4px #3d3d3d;
+}
+
+.addMealPlanModal-content {
+    width: 500px;
+    background-color: #fff;
 }
 
 .modal-header, .modal-footer {
-    justify-content: center;
-    align-items: center;
-    justify-items: center;
-    text-align: center;
     padding: 10x;
 }
 
 .modal-title {
-    justify-content: center;
-    align-items: center;
-    justify-items: center;
-    text-align: center;
+    justify-self: center;
+    margin-top: 5px;
 }
 
 .modal-body {
