@@ -38,7 +38,7 @@ An online application to help you plan meals for the week
 
 ## Demo video
 
-https://youtu.be/FjHnPdnKBsg
+youtube.com/watch?v=wg8yniFhkMU
 
 ## Contributors
 
