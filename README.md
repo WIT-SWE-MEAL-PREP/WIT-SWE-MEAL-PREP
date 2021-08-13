@@ -7,11 +7,25 @@
 An online application to help you plan meals for the week
 
 ## Functions
-1. Manager User Accounts
+1. Manage user accounts
 	* Create a new account
 	* Log in with existing account credentials
-2. Query for data
-	* Search for foods stored in the database 
+	* Input nutritional preferences or constraints
+	
+2. Search for foods and view their nutritional information
+	* Search for food using the search bar or by scanning a foods barcode
+	* The foods nutritional values will be displayed and can be converted into various units
+	
+3. Build meals consisting of foods selected by the user
+	* Create, edit, and delete custom meals.
+	* Meals will store foods selected by the user and keep track of the total nutritional value of all foods in a meal
+	
+4. Track user food inventory 
+	* Users can add foods to their inventory and add expiration dates for any food in their inventory
+
+5. Generate meal plans using the users preferences 
+	* Generated meals will always be based on what the user can creat with their current inventory  
+	* Generated meals will fit within the user's nutritional constraints 
 
 ## Getting Started
 ### Installation and Setup
